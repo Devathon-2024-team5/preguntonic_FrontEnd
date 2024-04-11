@@ -18,7 +18,7 @@
   --game-clr-dark-purple: #360E4A;
   --game-clr-pink: #FF7AFF;
   --game-clr-green: #00E670;
-  --game-clr-yellow: #ff0000;
+  --game-clr-yellow: rgb(255,255,0);
   --game-clr-orange: #FFB200;
   --game-clr-red: #FF5746;
 }
