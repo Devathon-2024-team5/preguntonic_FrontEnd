@@ -1,0 +1,10 @@
+@import 'shared/variables.css';
+
+:where(h1,h2,h3,h4,h5,h6) {
+  font-family: var(--font-headings, system-ui, sans-serif);
+  font-weight: 400;
+}
+
+:where(:not(h1,h2,h3,h4,h5,h6)) {
+  font-family: var(--font-base, serif);
+}
