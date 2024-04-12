@@ -1,0 +1,6 @@
+.h-vh-100{
+      height: 100vh;
+}
+.bg-purpel{
+      background-color: var(--game-clr-purple);
+} 
