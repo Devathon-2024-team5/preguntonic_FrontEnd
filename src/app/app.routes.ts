@@ -2,16 +2,16 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
-  },
-  {
-    path: 'home',
-    component: HomeComponent,
-    title: 'Preguntonic | Home',
-  },
+  // {
+  //   path: '',
+  //   redirectTo: 'home',
+  //   pathMatch: 'full',
+  // },
+  // {
+  //   path: 'home',
+  //   component: HomeComponent,
+  //   title: 'Preguntonic | Home',
+  // },
   // {
   //   path: 'waiting-room',
   //   loadComponent: () =>
@@ -28,14 +28,14 @@ export const routes: Routes = [
   //     ),
   //   title: 'Preguntonic | Game room',
   // },
-  // {
-  //   path: 'results-room',
-  //   loadComponent: () =>
-  //     import('./Pages/results-room/results-room.component').then(
-  //       m => m.ResultsRoomComponent
-  //     ),
-  //   title: 'Preguntonic | Results room',
-  // },
+  {
+    path: 'results-room',
+    loadChildren: () =>
+      import('./Pages/results-room/results-room.routes').then(
+        m => m.RESULTS_ROUTES
+      ),
+    title: 'Preguntonic | Results room',
+  },
   // {
   //   path: '**',
   //   loadComponent: () =>

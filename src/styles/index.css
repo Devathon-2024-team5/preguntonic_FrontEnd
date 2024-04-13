@@ -1,4 +1,5 @@
 @import 'shared/variables.css';
+@import 'shared/normalize.css';
 
 :where(h1,h2,h3,h4,h5,h6) {
   font-family: var(--font-headings, system-ui, sans-serif);

@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.img-wrapper {
+  left: 2rem;
+  top: 0;
+  transform: translateY(-50%);
+}
+
+.shadow-answer {
+  box-shadow: rgba(0, 0, 0, 0.6) 1.95px 1.95px 2.6px;
+}
+
