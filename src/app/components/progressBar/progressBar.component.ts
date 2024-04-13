@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -14,7 +13,7 @@ import { CapitalizePipe } from '../../shared/pipes/capitalize.pipe';
 @Component({
   selector: 'app-progress-bar',
   standalone: true,
-  imports: [CommonModule, CapitalizePipe],
+  imports: [CapitalizePipe],
   templateUrl: './progressBar.component.html',
   styleUrl: './progressBar.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,7 +22,7 @@ export class ProgressBarComponent implements OnDestroy {
   labelBar = input<string>();
   progress = signal<number>(0);
   private _loaderTimer?: NodeJS.Timeout;
-  private _speedLoader = 150;
+  private _speedLoader = 5000 / 100;
   private readonly _cdRef = inject(ChangeDetectorRef);
 
   constructor() {
@@ -35,10 +34,10 @@ export class ProgressBarComponent implements OnDestroy {
     });
   }
 
-  public initLoader(): void {
+  private initLoader(): void {
     this.progress.set(this.progress() + 1);
 
-    if (this.progress() === 50) this.stopLoader();
+    if (this.progress() === 80) this.stopLoader();
 
     this._cdRef.detectChanges();
   }
