@@ -44,7 +44,7 @@ export class ProgressBarComponent implements OnDestroy {
 
   private stopLoader(): void {
     clearInterval(this?._loaderTimer);
-    this.progress.set(100);
+    // this.progress.set(100);
   }
 
   ngOnDestroy(): void {

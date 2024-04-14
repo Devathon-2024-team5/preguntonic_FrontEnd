@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { IImageData } from '../../../core/models/IImageData.interface';
 
 @Component({
-  selector: 'app-image',
+  selector: 'app-image-basic',
   standalone: true,
   imports: [NgOptimizedImage],
   templateUrl: './ImageBasic.component.html',

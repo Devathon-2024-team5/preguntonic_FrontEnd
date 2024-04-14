@@ -1,2 +1,19 @@
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et repudiandae, quia deleniti amet suscipit sapiente ipsam voluptate at odio fugit labore minima reprehenderit deserunt blanditiis autem beatae eveniet earum vitae!
-</p>
+<div class="container-md h-100">
+  <app-logo-title
+    [dimensions]="{
+      width: 200,
+      height: 90
+    }" />
+  <div class="h-100 d-flex flex-column py-5 justify-content-between">
+    <app-podium />
+    <div class="pb-4 d-grid gap-4">
+      @for (btn of controlBtns; track btn) {
+        <app-btn-basic
+          [btnData]="{
+            text: btn,
+            buttonFn: fnTest
+          }" />
+      }
+    </div>
+  </div>
+</div>

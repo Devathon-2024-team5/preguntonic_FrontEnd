@@ -1,11 +1,13 @@
-<div class="bg-primary text-white fs-3 position-relative p-3 text-center border-2 border-black text-capitalize border shadow-answer">
+<!-- //TODO data pendiente: ImageParameters  -->
+<div
+  class="bg-primary text-white fs-3 position-relative p-3 text-center border-2 border-black text-capitalize border shadow-md">
   <div class="position-absolute img-wrapper border-1 border-black border">
-    <app-image
+    <app-image-basic
       [size]="2.5"
       [imageParameters]="{
-        src: 'https://th.bing.com/th?q=Baby+Cat&w=138&h=138&c=7&o=5&pid=1.7&mkt=es-XL&cc=PE&setlang=es&adlt=moderate',
-        alt: ''
+        src: 'assets/avatar-1.webp',
+        alt: 'answer image reference'
       }" />
   </div>
-  {{answer() ?? 'empty'}}
+  {{ answer() ?? 'empty' }}
 </div>

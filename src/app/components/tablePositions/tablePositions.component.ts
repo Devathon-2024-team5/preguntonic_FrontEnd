@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PlayerResultsComponent } from '../playerResults/playerResults.component';
 
+// TODO consume and implements table information
 @Component({
   selector: 'app-table-positions',
   standalone: true,

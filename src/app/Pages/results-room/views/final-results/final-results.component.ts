@@ -1,14 +1,25 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { LogoTitleComponent } from '../../../../shared/UI/logoTitle/logoTitle.component';
+import { PodiumComponent } from '../../../../components/podium/podium.component';
+import { BtnBasicComponent } from '../../../../shared/UI/btnBasic/btnBasic.component';
 
+//  TODO implements Presentational container for consume and share data
 @Component({
   selector: 'app-final-results',
   standalone: true,
   imports: [
-    CommonModule
+    LogoTitleComponent,
+    PodiumComponent,
+    BtnBasicComponent,
   ],
   templateUrl: './final-results.component.html',
   styleUrl: './final-results.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FinalResultsComponent { }
+export class FinalResultsComponent {
+  readonly controlBtns = ['volver a jugar', 'salir'];
+
+  public fnTest (): void {
+    console.log('Successful shipped function');
+  }
+}
