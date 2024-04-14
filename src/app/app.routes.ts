@@ -31,7 +31,7 @@ export const routes: Routes = [
   {
     path: 'results-room',
     loadChildren: () =>
-      import('./Pages/results-room/results-room.routes').then(
+      import('./pages/results-room/results-room.routes').then(
         m => m.RESULTS_ROUTES
       ),
     title: 'Preguntonic | Results room',

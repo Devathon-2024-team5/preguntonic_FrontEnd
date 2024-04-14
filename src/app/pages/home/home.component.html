@@ -1,28 +1,26 @@
-<main
-  class="container-fluid bg-purpel d-flex flex-column justify-content-center p-4 align-items-center .h-vh-100">
-  <img
-    src="../../../assets/logotipo-Yellow.webp"
-    alt="preguntonic-logo"
-    width="200" />
-  <div class="d-flex flex-row gap-4 p-4">
-    <app-custom-button>Iniciar partida</app-custom-button>
-    <app-custom-button>Unirse a sala</app-custom-button>
-  </div>
-  <div class="card">
-    <div class="card-head p-4">
-      <h1 class="text-center">¿Cómo juegar?</h1>
+<section class="layout pt-4 bg-purpel">
+  <div
+    class="container-md d-flex flex-column gap-3 justify-content-between bg-purpel">
+    <app-logo-title />
+    <div class="card bg-purpel-dark p-4">
+      <div class="card-head p-4">
+        <h1 class="text-center title-y">Elegí un avatar y escribí tu nombre</h1>
+      </div>
+      <div class="card-body p-4">
+        <div class="container">
+          <img src="../../../assets/avatar-1.webp" alt="avatar-1" />
+        </div>
+      </div>
+      <form class="card-footer flex-fill">
+        <input type="text" class="bg-purpel" placeholder="Escribí tu nombre" />
+      </form>
     </div>
-    <div class="card-body">
-      <iframe
-        width="100%"
-        height="280"
-        src="https://www.youtube.com/embed/HRGOSNYk9iQ"
-        title="Bring your story to life with Epidemic Sound"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-        ></iframe>
+    <div class="d-flex flex-row justify-content-center gap-4 p-4">
+      <app-custom-button>Iniciar partida</app-custom-button>
+      <app-custom-button>Unirse a sala</app-custom-button>
+    </div>
+    <div class="d-flex justify-content-end pb-4">
+      <app-custom-button >!</app-custom-button>
     </div>
   </div>
-</main>
+</section>
