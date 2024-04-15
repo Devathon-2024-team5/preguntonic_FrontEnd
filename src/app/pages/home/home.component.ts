@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { CustomButtonComponent } from '../../components/custom-button/custom-button.component';
 import { LogoTitleComponent } from "../../shared/UI/logoTitle/logoTitle.component";
 import { AvatarImageComponent } from '../../components/avatar-image/avatar-image.component';
+import { CustomButtonComponent } from '../../components/customButton/custom-button.component';
 
 @Component({
     selector: 'app-home',
