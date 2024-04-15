@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { ResultsRoomComponent } from './results-room.component';
+import { ResultsRoomComponent } from './resultsRoom.component';
 
 export const RESULTS_ROUTES: Routes = [
   {
@@ -14,14 +14,14 @@ export const RESULTS_ROUTES: Routes = [
       {
         path: 'previous-result',
         loadComponent: () =>
-          import('./views/previous-result/previous-result.component').then(
+          import('./views/previousResult/previousResult.component').then(
             m => m.PreviousResultComponent
           ),
       },
       {
         path: 'final-results',
         loadComponent: () =>
-          import('./views/final-results/final-results.component').then(
+          import('./views/finalResults/finalResults.component').then(
             m => m.FinalResultsComponent
           ),
       },

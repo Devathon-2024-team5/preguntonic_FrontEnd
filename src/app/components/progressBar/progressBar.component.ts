@@ -4,11 +4,14 @@ import {
   Component,
   OnDestroy,
   afterNextRender,
+  effect,
   inject,
   input,
   signal,
 } from '@angular/core';
 import { CapitalizePipe } from '../../shared/pipes/capitalize.pipe';
+import { Router } from '@angular/router';
+import { IProgressBarConfig } from '../../core/models/IConfigProgressBar.interface';
 
 @Component({
   selector: 'app-progress-bar',
@@ -19,10 +22,11 @@ import { CapitalizePipe } from '../../shared/pipes/capitalize.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProgressBarComponent implements OnDestroy {
-  labelBar = input<string>();
   progress = signal<number>(0);
+  configBar = input.required<IProgressBarConfig>();
   private _loaderTimer?: NodeJS.Timeout;
   private _speedLoader = 5000 / 100;
+  private readonly _router = inject(Router);
   private readonly _cdRef = inject(ChangeDetectorRef);
 
   constructor() {
@@ -32,6 +36,8 @@ export class ProgressBarComponent implements OnDestroy {
         this._speedLoader
       );
     });
+
+    effect(() => this.progress() === 100 && this.navigateTo());
   }
 
   private initLoader(): void {
@@ -44,7 +50,18 @@ export class ProgressBarComponent implements OnDestroy {
 
   private stopLoader(): void {
     clearInterval(this?._loaderTimer);
-    // this.progress.set(100);
+    this.progress.set(100);
+  }
+
+  private navigateTo(): void {
+    setTimeout(() => {
+      try {
+        this._router.navigate([this.configBar().redirectTo]);
+      } catch (error) {
+        //TODO implement Error or Modal Component to Show the Error
+        console.log(error);
+      }
+    }, this.configBar().delay);
   }
 
   ngOnDestroy(): void {

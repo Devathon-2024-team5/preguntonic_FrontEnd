@@ -12,8 +12,8 @@ import { BtnBasicComponent } from '../../../../shared/components/btnBasic/btnBas
     PodiumComponent,
     BtnBasicComponent,
   ],
-  templateUrl: './final-results.component.html',
-  styleUrl: './final-results.component.css',
+  templateUrl: './finalResults.component.html',
+  styleUrl: './finalResults.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FinalResultsComponent {

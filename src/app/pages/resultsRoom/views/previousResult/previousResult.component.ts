@@ -15,8 +15,8 @@ import { LogoTitleComponent } from '../../../../shared/components/logoTitle/logo
     AnswerLabelComponent,
     LogoTitleComponent
   ],
-  templateUrl: './previous-result.component.html',
-  styleUrl: './previous-result.component.css',
+  templateUrl: './previousResult.component.html',
+  styleUrl: './previousResult.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PreviousResultComponent {

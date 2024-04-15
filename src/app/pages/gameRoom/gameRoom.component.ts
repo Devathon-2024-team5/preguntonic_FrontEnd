@@ -13,8 +13,8 @@ import { LogoTitleComponent } from '../../shared/components/logoTitle/logoTitle.
     ResponseGroupComponent,
     LogoTitleComponent
   ],
-  templateUrl: './game-room.component.html',
-  styleUrl: './game-room.component.css',
+  templateUrl: './gameRoom.component.html',
+  styleUrl: './gameRoom.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameRoomComponent {}

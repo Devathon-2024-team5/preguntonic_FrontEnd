@@ -1,5 +1,5 @@
 <div>
-  <p class="text-sm-center ">{{ labelBar() ?? 'loading...' | capitalize }}</p>
+  <p class="text-sm-center ">{{ configBar().label || 'loading...' | capitalize }}</p>
   <div
     class="progress"
     role="progressbar"

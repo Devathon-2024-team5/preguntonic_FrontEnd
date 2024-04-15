@@ -22,7 +22,7 @@ export const routes: Routes = [
   {
     path: 'game-room',
     loadComponent: () =>
-      import('./pages/game-room/game-room.component').then(
+      import('./pages/gameRoom/gameRoom.component').then(
         m => m.GameRoomComponent
       ),
     title: 'Preguntonic | Game room',
@@ -30,7 +30,7 @@ export const routes: Routes = [
   {
     path: 'results-room',
     loadChildren: () =>
-      import('./pages/results-room/results-room.routes').then(
+      import('./pages/resultsRoom/results-room.routes').then(
         m => m.RESULTS_ROUTES
       ),
     title: 'Preguntonic | Results room',
