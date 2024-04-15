@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { LogoTitleComponent } from '../../../../shared/UI/logoTitle/logoTitle.component';
+import { LogoTitleComponent } from '../../../../shared/components/logoTitle/logoTitle.component';
 import { PodiumComponent } from '../../../../components/podium/podium.component';
-import { BtnBasicComponent } from '../../../../shared/UI/btnBasic/btnBasic.component';
+import { BtnBasicComponent } from '../../../../shared/components/btnBasic/btnBasic.component';
 
 //  TODO implements Presentational container for consume and share data
 @Component({

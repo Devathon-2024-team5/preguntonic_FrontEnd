@@ -3,7 +3,7 @@ import { InGameLayoutComponent } from '../../../../layout/inGameLayout/inGameLay
 import { AnswerLabelComponent } from '../../../../components/answerLabel/answerLabel.component';
 import { ProgressBarComponent } from '../../../../components/progressBar/progressBar.component';
 import { TablePositionsComponent } from '../../../../components/tablePositions/tablePositions.component';
-import { LogoTitleComponent } from '../../../../shared/UI/logoTitle/logoTitle.component';
+import { LogoTitleComponent } from '../../../../shared/components/logoTitle/logoTitle.component';
 
 @Component({
   selector: 'app-previous-result',

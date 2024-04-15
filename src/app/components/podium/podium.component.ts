@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ImageBasicComponent } from '../../shared/UI/imageBasic/ImageBasic.component';
+import { ImageBasicComponent } from '../../shared/components/imageBasic/ImageBasic.component';
 
 //TODO add canvas-confetti library and implements winners' information
 @Component({

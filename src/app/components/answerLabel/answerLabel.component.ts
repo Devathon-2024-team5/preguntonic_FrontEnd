@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { ImageBasicComponent } from '../../shared/UI/imageBasic/ImageBasic.component';
+import { ImageBasicComponent } from '../../shared/components/imageBasic/ImageBasic.component';
 
 @Component({
   selector: 'app-answer-label',
