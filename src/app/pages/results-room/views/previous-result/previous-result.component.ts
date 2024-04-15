@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { InGameLayoutComponent } from '../../../../Layout/inGameLayout/inGameLayout.component';
+import { InGameLayoutComponent } from '../../../../layout/inGameLayout/inGameLayout.component';
 import { AnswerLabelComponent } from '../../../../components/answerLabel/answerLabel.component';
 import { ProgressBarComponent } from '../../../../components/progressBar/progressBar.component';
 import { TablePositionsComponent } from '../../../../components/tablePositions/tablePositions.component';

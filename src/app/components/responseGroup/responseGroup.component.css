@@ -1,0 +1,10 @@
+:host {
+  display: block;
+}
+
+.answer {
+  cursor: pointer;
+  &:has(input[type='radio']:checked) {
+
+  }
+}

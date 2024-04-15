@@ -10,5 +10,5 @@ import { ImageBasicComponent } from '../../shared/UI/imageBasic/ImageBasic.compo
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnswerLabelComponent {
-  answer = input<string>();
+  answer = input.required<string>();
 }

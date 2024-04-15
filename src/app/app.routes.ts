@@ -19,18 +19,18 @@ export const routes: Routes = [
   //     ),
   //   title: 'Preguntonic | Waiting room',
   // },
-  // {
-  //   path: 'game-room',
-  //   loadComponent: () =>
-  //     import('./Pages/game-room/game-room.component').then(
-  //       m => m.GameRoomComponent
-  //     ),
-  //   title: 'Preguntonic | Game room',
-  // },
+  {
+    path: 'game-room',
+    loadComponent: () =>
+      import('./pages/game-room/game-room.component').then(
+        m => m.GameRoomComponent
+      ),
+    title: 'Preguntonic | Game room',
+  },
   {
     path: 'results-room',
     loadChildren: () =>
-      import('./Pages/results-room/results-room.routes').then(
+      import('./pages/results-room/results-room.routes').then(
         m => m.RESULTS_ROUTES
       ),
     title: 'Preguntonic | Results room',

@@ -6,3 +6,16 @@ ul {
   margin: 0;
   padding: 0;
 }
+
+li {
+  border-radius: 1.5rem;
+  border: solid .3rem var(--bg-color-2);
+}
+
+li:nth-child(even) {
+  background-color: var(--bg-color);
+}
+
+li:nth-child(odd) {
+  background-color: var(--bg-color-2);
+}

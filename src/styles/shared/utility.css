@@ -1,3 +1,15 @@
 .shadow-md {
   box-shadow: rgba(0, 0, 0, 0.6) 1.95px 1.95px 2.6px;
 }
+
+.u-text-pretty {
+  text-wrap: pretty;
+}
+
+.u-max-w {
+  max-width: 40rem;
+}
+
+.u-green-light {
+  color: var(--highlight-color);
+}

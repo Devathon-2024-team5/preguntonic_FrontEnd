@@ -2,8 +2,13 @@
   display: block;
 }
 
-.img-wrapper {
-  left: 2rem;
-  top: 0;
-  transform: translateY(-50%);
+.answer {
+  font-size: 28px;
+  background-color: var(--bg-color-2);
+  border: solid 4px var(--highlight-color);
+  border-radius: var(--radius-btn);
+  height: 5rem;
+  min-width: 20.4375 rem;
+  display: grid;
+  place-content: center;
 }

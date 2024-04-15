@@ -1,13 +1,5 @@
 <!-- //TODO data pendiente: ImageParameters  -->
 <div
-  class="bg-primary text-white fs-3 position-relative p-3 text-center border-2 border-black text-capitalize border shadow-md">
-  <div class="position-absolute img-wrapper border-1 border-black border">
-    <app-image-basic
-      [size]="2.5"
-      [imageParameters]="{
-        src: 'assets/avatar-1.webp',
-        alt: 'answer image reference'
-      }" />
-  </div>
-  {{ answer() ?? 'empty' }}
+  class="answer text-center text-capitalize shadow-md">
+  {{ answer() || 'empty' }}
 </div>

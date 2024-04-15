@@ -14,11 +14,13 @@
   --font-size-3xl: clamp(3.05rem, 3.54vw + 2.17rem, 5rem);
 
   /* colors */
-  --game-clr-purple: #9514ED;
-  --game-clr-dark-purple: #360E4A;
-  --game-clr-pink: #FF7AFF;
-  --game-clr-green: #00E670;
-  --game-clr-yellow: rgb(255,255,0);
-  --game-clr-orange: #FFB200;
-  --game-clr-red: #FF5746;
+  --bg-color: #252C3C;
+  --bg-color-2: #3D4863;
+  --highlight-color: #00E670;
+  --highlight-color-2: #A7F6CE;
+  --accent-clr: #F93751;
+  --text-color: #FFFFFF;
+
+  /* radius */
+  --radius-btn: 1rem;
 }
