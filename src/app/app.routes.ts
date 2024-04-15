@@ -28,14 +28,14 @@ export const routes: Routes = [
   //     ),
   //   title: 'Preguntonic | Game room',
   // },
-  {
-    path: 'results-room',
-    loadChildren: () =>
-      import('./pages/resultsRoom/results-room.routes').then(
-        m => m.RESULTS_ROUTES
-      ),
-    title: 'Preguntonic | Results room',
-  },
+//  {
+  //  path: 'results-room',
+  //  loadChildren: () =>
+ //     import('./pages/resultsRoom/results-room.routes').then(
+ //       m => m.RESULTS_ROUTES
+  //    ),
+  //  title: 'Preguntonic | Results room',
+  //},
   // {
   //   path: '**',
   //   loadComponent: () =>
