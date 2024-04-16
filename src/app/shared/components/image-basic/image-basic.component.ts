@@ -6,8 +6,8 @@ import { IImageData } from '../../../core/models/IImageData.interface';
   selector: 'app-image',
   standalone: true,
   imports: [NgOptimizedImage],
-  templateUrl: './ImageBasic.component.html',
-  styleUrl: './ImageBasic.component.css',
+  templateUrl: './image-basic.component.html',
+  styleUrl: './image-basic.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImageBasicComponent {

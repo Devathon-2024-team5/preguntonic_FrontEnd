@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LogoTitleComponent } from "../../shared/UI/logoTitle/logoTitle.component";
+import { LogoTitleComponent } from "../../shared/components/logo-title/logo-title.component";
 import { AvatarImageComponent } from '../../components/avatarImage/avatar-image.component';
 import { CustomButtonComponent } from '../../components/customButton/custom-button.component';
 

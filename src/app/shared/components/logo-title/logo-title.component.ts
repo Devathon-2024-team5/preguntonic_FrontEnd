@@ -5,8 +5,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'app-logo-title',
   standalone: true,
   imports: [NgOptimizedImage],
-  templateUrl: './logoTitle.component.html',
-  styleUrl: './logoTitle.component.css',
+  templateUrl: './logo-title.component.html',
+  styleUrl: './logo-title.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogoTitleComponent {}
