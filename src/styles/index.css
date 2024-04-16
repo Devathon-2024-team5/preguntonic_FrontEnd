@@ -13,7 +13,7 @@
 }
 
 body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background-color: var(--primary-color);
+  color: var(--secondary-color-light);
 }
 
