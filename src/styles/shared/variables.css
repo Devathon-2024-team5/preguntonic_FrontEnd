@@ -26,9 +26,9 @@
   --primary-color: #252c3c;
   --secondary-color-dark: #3d4863;
   --accent-color: #00e670;
-  --secondary-color-light: #a7f6ce;
+  --secondary-green-color: #a7f6ce;
   --alert-red-color: #f93751;
-  --text-color: #ffffff;
+  --secondary-color-light: #ffffff;
 
   /* radius */
   --radius-btn: 1rem;
