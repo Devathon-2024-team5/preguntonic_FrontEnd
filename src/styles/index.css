@@ -17,9 +17,3 @@ body {
   color: var(--text-color);
 }
 
-button {
-  background-color: var(--highlight-color);
-  color: var(--bg-color);
-  font-weight: bold;
-  font-size: 2rem;
-}
