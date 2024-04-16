@@ -1,0 +1,14 @@
+.avatar{
+  width: 150px;
+}
+
+.btn-avatar-change{
+  background-color: var(--game-clr-green) !important;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.btn-avatar-change:hover{
+  background-color: var(--game-clr-yellow) !important;
+}
