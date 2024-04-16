@@ -23,11 +23,11 @@
   --game-clr-red: #ff5746;
 
   /* colors */
-  --bg-color: #252c3c;
-  --bg-color-2: #3d4863;
-  --highlight-color: #00e670;
-  --highlight-color-2: #a7f6ce;
-  --accent-clr: #f93751;
+  --primary-color: #252c3c;
+  --secondary-color-dark: #3d4863;
+  --accent-color: #00e670;
+  --secondary-color-light: #a7f6ce;
+  --alert-red-color: #f93751;
   --text-color: #ffffff;
 
   /* radius */
