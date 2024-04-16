@@ -1,0 +1,15 @@
+<div class="container-sm d-flex flex-column justify-content-between align-items-center gap-2">
+  <span class="number-question">{{question().numberQuestion}}/10</span>
+  <div class="u-max-w d-grid gap-2">
+    <p class="question text-center u-text-pretty">
+      {{question().question}}
+    </p>
+    <div class=" timer d-flex justify-content-between">
+      <app-timer />
+      <span class="d-flex  align-items-center gap-2">
+        <img src="assets/group.svg" alt="group icon">
+        3/5
+      </span>
+    </div>
+  </div>
+</div>

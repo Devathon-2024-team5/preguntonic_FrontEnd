@@ -1,0 +1,17 @@
+<form [formGroup]="answersForm" class="d-flex flex-column gap-4 pt-2">
+  @for (answer of answerData().answers; track answer; let i = $index) {
+    <label
+      tabindex="1"
+      class="answer text-center text-capitalize"
+      [for]="'answer' + i">
+      <input
+        (change)="checkAnswer()"
+        type="radio"
+        name="answer"
+        formControlName="answer"
+        [value]="answer"
+        [id]="'answer' + i" />
+      {{ answer }}
+    </label>
+  }
+</form>

@@ -1,0 +1,24 @@
+:host {
+  display: block;
+}
+
+.answer {
+  font-size: 1.75rem;
+  background-color: var(--bg-color-2);
+  border-radius: var(--radius-btn);
+  border: solid 4px currentColor;
+  font-weight: bold;
+  height: 5rem;
+  min-width: 20.4375 rem;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+
+  &:hover {
+    border-color: var(--highlight-color);
+  }
+
+  &:has(input:checked) {
+    border-color: var(--highlight-color);
+  }
+}
