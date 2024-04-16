@@ -13,12 +13,12 @@
 }
 
 body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background-color: var(--primary-color);
+  color: var(--secondary-color-light);
 }
-button {
+/* button {
   background-color: var(--highlight-color);
   color: var(--bg-color);
   font-weight: bold;
   font-size: 2rem;
-}
+} */

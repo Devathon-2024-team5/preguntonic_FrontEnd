@@ -9,13 +9,13 @@ ul {
 
 li {
   border-radius: 1.5rem;
-  border: solid .3rem var(--bg-color-2);
+  border: solid .3rem var(--secondary-color-dark);
 }
 
 li:nth-child(even) {
-  background-color: var(--bg-color);
+  background-color: var(--primary-color);
 }
 
 li:nth-child(odd) {
-  background-color: var(--bg-color-2);
+  background-color: var(--secondary-color-dark);
 }

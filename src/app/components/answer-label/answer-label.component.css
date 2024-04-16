@@ -4,7 +4,7 @@
 
 .answer {
   font-size: 1.75rem;
-  background-color: var(--bg-color-2);
+  background-color: var(--secondary-color-dark);
   border-radius: var(--radius-btn);
   border: solid 4px currentColor;
   font-weight: bold;
@@ -14,10 +14,10 @@
   place-content: center;
 
   &:hover {
-    border-color: var(--highlight-color);
+    border-color: var(--accent-color);
   }
 }
 
 .active-answer {
-  border-color: var(--highlight-color);
+  border-color: var(--accent-color);
 }

@@ -14,12 +14,12 @@
   --font-size-3xl: clamp(3.05rem, 3.54vw + 2.17rem, 5rem);
 
   /* colors */
-  --bg-color: #252C3C;
-  --bg-color-2: #3D4863;
-  --highlight-color: #00E670;
-  --highlight-color-2: #A7F6CE;
-  --accent-clr: #F93751;
-  --text-color: #FFFFFF;
+  --primary-color: #252c3c;
+  --secondary-color-dark: #3d4863;
+  --accent-color: #00e670;
+  --secondary-green-color: #a7f6ce;
+  --alert-red-color: #f93751;
+  --secondary-color-light: #ffffff;
 
   /* radius */
   --radius-btn: 1rem;
