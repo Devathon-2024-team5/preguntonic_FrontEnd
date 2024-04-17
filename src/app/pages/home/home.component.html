@@ -4,7 +4,7 @@
     <app-logo-title />
     <div class="card bg-purpel-dark p-4">
       <div class="card-head p-4">
-        <h1 class="text-center title-y">Elegí un avatar y escribí tu nombre</h1>
+        <h1 class="text-center title-y">Seleccionar un Avatar</h1>
       </div>
       <div class="card-body p-4 justify-content-center">
         <app-avatar-image [images]="avatarImages" (avatarSelected)="selectAvatar($event)"></app-avatar-image>
@@ -12,13 +12,13 @@
           <input
             type="text"
             class="bg-purpel"
-            placeholder="Escribí tu nombre" 
+            placeholder="Nombre" 
             (input)="onNameInputChange($event)"/>
         </form>
       </div>
     </div>
     <div class="d-flex flex-row justify-content-center gap-4">
-      <app-custom-button (click)="iniciarPartida()">Iniciar partida</app-custom-button>
+      <app-custom-button (click)="iniciarPartida()">Crear sala</app-custom-button>
       <app-custom-button>Unirse a sala</app-custom-button>
     </div>
     <div class="d-flex justify-content-end pb-4">
