@@ -3,6 +3,7 @@ import { LogoTitleComponent } from "../../shared/components/logo-title/logo-titl
 import { AvatarImageComponent } from '../../components/avatar-img/avatar-image.component';
 import { CustomButtonComponent } from '../../components/custom-btn/custom-button.component';
 
+
 @Component({
     selector: 'app-home',
     standalone: true,
