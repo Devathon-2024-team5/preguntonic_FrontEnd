@@ -1,10 +1,10 @@
 :root {
   /* typography */
-  --font-headings :"Unbounded", sans-serif;
-  --font-base: "Itim", cursive;
+  --font-headings: 'Unbounded', sans-serif;
+  --font-base: 'Itim', cursive;
 
   /* font-size */
-  --font-size-xs: clamp(0.3rem, 0.10vw + 0.3rem, 0.4rem);
+  --font-size-xs: clamp(0.3rem, 0.1vw + 0.3rem, 0.4rem);
   --font-size-sm: clamp(0.8rem, 0.17vw + 0.76rem, 0.89rem);
   --font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
   --font-size-md: clamp(1.25rem, 0.61vw + 1.1rem, 1.58rem);
@@ -12,6 +12,15 @@
   --font-size-xl: clamp(1.95rem, 1.56vw + 1.56rem, 2.81rem);
   --font-size-2xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
   --font-size-3xl: clamp(3.05rem, 3.54vw + 2.17rem, 5rem);
+
+  /* colors */
+  --game-clr-purple: #9514ed;
+  --game-clr-dark-purple: #360e4a;
+  --game-clr-pink: #ff7aff;
+  --game-clr-green: #00e670;
+  --game-clr-yellow: rgb(255, 255, 0);
+  --game-clr-orange: #ffb200;
+  --game-clr-red: #ff5746;
 
   /* colors */
   --primary-color: #252c3c;

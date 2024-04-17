@@ -16,9 +16,3 @@ body {
   background-color: var(--primary-color);
   color: var(--secondary-color-light);
 }
-/* button {
-  background-color: var(--highlight-color);
-  color: var(--bg-color);
-  font-weight: bold;
-  font-size: 2rem;
-} */

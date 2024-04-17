@@ -1,0 +1,39 @@
+:host {
+  display: block;
+}
+.bg-purpel {
+  background-color: var(--game-clr-purple);
+}
+.bg-purpel-dark {
+  background-color: var(--game-clr-dark-purple);
+}
+
+.layout{
+  height: 100dvh;
+}
+
+.title-y {
+  color: var(--game-clr-yellow);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+img {
+  width: 200px;
+}
+
+input{
+  font-size: 1.8rem;
+  color: var(--game-clr-yellow);
+  border-radius: 1rem;
+  text-align: center;
+}
+
+input::placeholder {
+  color:var(--game-clr-dark-purple);
+  padding: 1rem;
+}
