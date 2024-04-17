@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { LogoTitleComponent } from "../../shared/components/logo-title/logo-title.component";
-import { AvatarImageComponent } from '../../components/avatar-image/avatar-image.component';
-import { CustomButtonComponent } from '../../components/custom-button/custom-button.component';
+import { AvatarImageComponent } from '../../components/avatar-img/avatar-image.component';
+import { CustomButtonComponent } from '../../components/custom-btn/custom-button.component';
 
 @Component({
     selector: 'app-home',

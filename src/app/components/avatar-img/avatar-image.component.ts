@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CustomButtonComponent } from '../custom-button/custom-button.component';
+import { CustomButtonComponent } from '../custom-btn/custom-button.component';
 
 @Component({
   selector: 'app-avatar-image',
