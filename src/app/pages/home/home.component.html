@@ -1,0 +1,27 @@
+<section class="layout pt-4 bg-purpel">
+  <div
+    class="container-md d-flex flex-column gap-3 justify-content-between bg-purpel">
+    <app-logo-title />
+    <div class="card bg-purpel-dark p-4">
+      <div class="card-head p-4">
+        <h1 class="text-center title-y">Elegí un avatar y escribí tu nombre</h1>
+      </div>
+      <div class="card-body p-4">
+        <form class="card-footer flex-fill">
+            <app-avatar-image [images]="avatarImages"></app-avatar-image>
+          <input
+            type="text"
+            class="bg-purpel"
+            placeholder="Escribí tu nombre" />
+        </form>
+      </div>
+    </div>
+    <div class="d-flex flex-row justify-content-center gap-4 p-4">
+      <app-custom-button>Iniciar partida</app-custom-button>
+      <app-custom-button>Unirse a sala</app-custom-button>
+    </div>
+    <div class="d-flex justify-content-end pb-4">
+      <app-custom-button>!</app-custom-button>
+    </div>
+  </div>
+</section>

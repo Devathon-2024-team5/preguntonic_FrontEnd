@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { HomeComponent } from './pages/home/home.component';
 
 export const routes: Routes = [
   {
@@ -6,11 +7,11 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
-  // {
-  //   path: 'home',
-  //   component: HomeComponent,
-  //   title: 'Preguntonic | Home',
-  // },
+  {
+    path: 'home',
+    component: HomeComponent,
+    title: 'Preguntonic | Home',
+  },
   // {
   //   path: 'waiting-room',
   //   loadComponent: () =>
