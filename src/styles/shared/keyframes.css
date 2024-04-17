@@ -16,3 +16,9 @@
     opacity: 1;
   }
 }
+
+@keyframes applyBorder {
+  to {
+    border-color: #000;
+  }
+}

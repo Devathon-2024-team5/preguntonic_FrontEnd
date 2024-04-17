@@ -2,6 +2,7 @@
   /* typography */
   --font-headings :"Unbounded", sans-serif;
   --font-base: "Itim", cursive;
+  --font-main: "Kalam", cursive;
 
   /* font-size */
   --font-size-xs: clamp(0.3rem, 0.10vw + 0.3rem, 0.4rem);
