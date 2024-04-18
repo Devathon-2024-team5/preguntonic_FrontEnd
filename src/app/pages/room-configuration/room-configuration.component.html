@@ -4,7 +4,7 @@
     <form>
       <div class="container-fields">
         <div class="field">
-          <select name="numberPlayer" class="field-select">
+          <select [(ngModel)]="numberOfPlayersInTheRoom"  name="numberPlayer" class="field-select">
             @for (value of valuesNumberOfPlayers; track value) {
               <option value="{{value}}">{{value}}</option>
             }
@@ -12,7 +12,7 @@
           <label id="numberPlayer" class="field-label"># Jugadores</label>
         </div>
         <div class="field">
-          <select name="numberQuestion" class="field-select">
+          <select [(ngModel)]="numberOfGameQuestions" name="numberQuestion" class="field-select">
             @for (value of valuesNumberOfQuestions; track value) {
               <option value="{{value}}">{{value}}</option>
             }
