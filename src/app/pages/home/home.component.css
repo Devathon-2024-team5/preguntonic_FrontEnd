@@ -1,6 +1,3 @@
-:host {
-  display: block;
-}
 .bg-purpel {
   background-color: var(--game-clr-purple);
 }
@@ -9,7 +6,14 @@
 }
 
 .layout{
-  height: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin: 0 auto;
+  height: 100dvh;
+}
+
+.column {
+  grid-column: 1;
 }
 
 .title-y {
@@ -20,6 +24,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 400px;
+}
+
+.max-w-200{
+  max-width: 400px;
 }
 
 input{
