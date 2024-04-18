@@ -1,1 +1,25 @@
-<p>room-configuration works!</p>
+<section>
+  <div>
+    <h2>Configuración de sala</h2>
+    <form>
+      <div>
+        <div>
+          <select name="numberPlayer">
+            @for (value of valuesNumberOfPlayers; track value) {
+              <option value="{{value}}">{{value}}</option>
+            }
+          </select>
+          <label id="numberPlayer"># Preguntas</label>
+        </div>
+        <div>
+          <select name="numberQuestion">
+            @for (value of valuesNumberOfQuestions; track value) {
+              <option value="{{value}}">{{value}}</option>
+            }
+          </select>
+          <label id="numberQuestion"># Preguntas</label>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
