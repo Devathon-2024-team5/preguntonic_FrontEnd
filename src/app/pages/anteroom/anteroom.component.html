@@ -1,0 +1,22 @@
+<section class="layout">
+    <div class="column">
+      <app-header-anteroom class="header" />
+      <app-code-container></app-code-container>
+      <p class="text-center">Código de la sala</p>
+      <app-section-player></app-section-player>
+      <div class="section-players d-flex justify-content-between pt-2">
+        <p>Jugadores 4/5</p>
+        <p>Preparados 4/5</p>
+      </div>
+      <div class="icons d-flex gap-2 mb-2">
+        @for (item of players; track item.id) {
+          <div class="players d-flex flex-column justify-content-center align-items-center">
+            <img class="avatar" [src]="item.avatar" [alt]="item.name">
+            {{item.name}}
+            <div>{{item.estado}}</div>
+          </div>
+        }
+      </div>
+      <app-custom-button>Preparado</app-custom-button>
+    </div>
+</section>
