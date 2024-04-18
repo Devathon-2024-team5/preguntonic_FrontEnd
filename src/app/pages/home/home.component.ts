@@ -1,13 +1,21 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { LogoTitleComponent } from '../../shared/components/logo-title/logo-title.component';
 import { AvatarImageComponent } from '../../components/avatar-img/avatar-image.component';
 import { CustomButtonComponent } from '../../components/custom-btn/custom-button.component';
+import { HttpService } from '../../shared/services/http.service';
 
-export interface Player{
-        id?: number,
-        avatar: string,
-        name: string,
-        estado?: boolean,
+export interface Player {
+  id?: number;
+  avatar: string;
+  name: string;
+  estado?: boolean;
+}
+
+export interface RoomPlayer {
+  max_players: number;
+  num_of_question: number;
+  player_name: string;
+  avatar_id: string;
 }
 
 @Component({
@@ -18,10 +26,9 @@ export interface Player{
   styleUrl: './home.component.css',
   imports: [CustomButtonComponent, LogoTitleComponent, AvatarImageComponent],
 })
-
-
 export class HomeComponent {
   player: Player[] = [];
+  httpService = inject(HttpService);
 
   avatarImages: string[] = [
     '../../../assets/avatar-1.webp',
@@ -55,6 +62,16 @@ export class HomeComponent {
       this.player.push(playerData);
       // Imprimir el objeto JSON en consola
       console.log(playerData);
+
+      const RoomPlayer: RoomPlayer = {
+        max_players: 4,
+        num_of_question: 5,
+        player_name: this.playerName,
+        avatar_id: this.selectedAvatar,
+      };
+      this.httpService
+        .connect('http://localhost:8080/v1/rooms', RoomPlayer)
+        .subscribe(res => console.log(res));
     } else {
       // Mostrar una alerta si no se ha ingresado un nombre
       alert('Por favor, ingresa un nombre.');
