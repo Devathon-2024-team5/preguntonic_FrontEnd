@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-room-configuration',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './room-configuration.component.html',
   styleUrl: './room-configuration.component.css'
 })
