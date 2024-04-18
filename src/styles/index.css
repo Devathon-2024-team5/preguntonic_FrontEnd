@@ -1,5 +1,7 @@
-@import 'shared/variables.css';
 @import 'shared/normalize.css';
+@import 'shared/variables.css';
+@import 'shared/keyframes.css';
+@import 'shared/utility.css';
 
 :where(h1,h2,h3,h4,h5,h6) {
   font-family: var(--font-headings, system-ui, sans-serif);
@@ -9,3 +11,9 @@
 :where(:not(h1,h2,h3,h4,h5,h6)) {
   font-family: var(--font-base, serif);
 }
+
+body {
+  background-color: var(--primary-color);
+  color: var(--secondary-color-light);
+}
+

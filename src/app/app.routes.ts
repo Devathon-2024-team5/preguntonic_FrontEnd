@@ -12,14 +12,14 @@ export const routes: Routes = [
     component: HomeComponent,
     title: 'Preguntonic | Home',
   },
-  // {
-  //   path: 'waiting-room',
-  //   loadComponent: () =>
-  //     import('./Pages/waiting-room/waiting-room.component').then(
-  //       m => m.WaitingRoomComponent
-  //     ),
-  //   title: 'Preguntonic | Waiting room',
-  // },
+   {
+     path: 'anteroom',
+     loadComponent: () =>
+       import('./pages/anteroom/anteroom.component').then(
+         m => m.AnteroomComponent
+       ),
+     title: 'Preguntonic | anteroom',
+   },
   // {
   //   path: 'game-room',
   //   loadComponent: () =>
