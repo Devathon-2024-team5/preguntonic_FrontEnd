@@ -1,23 +1,23 @@
-<section>
-  <div>
-    <h2>Configuración de sala</h2>
+<section class="layout">
+  <div class="room-configuration">
+    <h2 class="subtitle">Configuración de sala</h2>
     <form>
-      <div>
-        <div>
-          <select name="numberPlayer">
+      <div class="container-fields">
+        <div class="field">
+          <select name="numberPlayer" class="field-select">
             @for (value of valuesNumberOfPlayers; track value) {
               <option value="{{value}}">{{value}}</option>
             }
           </select>
-          <label id="numberPlayer"># Preguntas</label>
+          <label id="numberPlayer" class="field-label"># Preguntas</label>
         </div>
-        <div>
-          <select name="numberQuestion">
+        <div class="field">
+          <select name="numberQuestion" class="field-select">
             @for (value of valuesNumberOfQuestions; track value) {
               <option value="{{value}}">{{value}}</option>
             }
           </select>
-          <label id="numberQuestion"># Preguntas</label>
+          <label id="numberQuestion" class="field-label"># Preguntas</label>
         </div>
       </div>
     </form>
