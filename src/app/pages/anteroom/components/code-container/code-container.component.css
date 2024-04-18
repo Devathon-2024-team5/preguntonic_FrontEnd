@@ -1,0 +1,29 @@
+.code {
+  background-color: var(--secondary-color-dark);
+  border-radius: 1rem;
+  max-height: min-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.number {
+  font-size: 4em;
+}
+
+.custom-button{
+  background-color: var(--primary-color);
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.custom-button:hover {
+  background-color: var(--secondary-color-dark);
+}
+
+.custom-button:active, .custom-button:focus  {
+  background-color: var(--game-clr-yellow);
+  color: black;
+}
