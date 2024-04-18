@@ -12,6 +12,22 @@ export const routes: Routes = [
     component: HomeComponent,
     title: 'Preguntonic | Home',
   },
+  {
+    path: 'game-room',
+    loadComponent: () =>
+      import('./pages/game-room/game-room.component').then(
+        m => m.GameRoomComponent
+      ),
+    title: 'Preguntonic | Game room',
+  },
+  {
+    path: 'results-room',
+    loadChildren: () =>
+      import('./pages/results-room/results-room.routes').then(
+        m => m.RESULTS_ROUTES
+      ),
+    title: 'Preguntonic | Results room',
+  },
    {
      path: 'anteroom',
      loadComponent: () =>
@@ -20,22 +36,6 @@ export const routes: Routes = [
        ),
      title: 'Preguntonic | anteroom',
    },
-  // {
-  //   path: 'game-room',
-  //   loadComponent: () =>
-  //     import('./Pages/game-room/game-room.component').then(
-  //       m => m.GameRoomComponent
-  //     ),
-  //   title: 'Preguntonic | Game room',
-  // },
-//  {
-  //  path: 'results-room',
-  //  loadChildren: () =>
- //     import('./pages/resultsRoom/results-room.routes').then(
- //       m => m.RESULTS_ROUTES
-  //    ),
-  //  title: 'Preguntonic | Results room',
-  //},
   // {
   //   path: '**',
   //   loadComponent: () =>

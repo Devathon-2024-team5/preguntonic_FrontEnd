@@ -1,0 +1,25 @@
+<!-- //TODO data pendiente: ImageParameters  -->
+<div class="podium">
+  @for (step of podiumSteps; track $index) {
+    <div class="podium-bar" [style]="{ height: step + '%' }">
+      <div class="shadow-md podium-imgWrapper" style="border-radius: 50%">
+        <app-image-basic
+          [size]="3"
+          [customStyles]="{ borderRadius: '50%' }"
+          [imageParameters]="{
+            src: 'assets/avatar-1.webp',
+            alt: 'avatar player'
+          }" />
+      </div>
+      <div class="podium-data">
+        <div class="d-flex flex-column gap-1">
+          <strong> Player 1 </strong>
+          <span> 900 pts </span>
+        </div>
+      </div>
+      <span class="podium-index fs-1 fw-bold">
+        {{ $index + 1 }}
+      </span>
+    </div>
+  }
+</div>

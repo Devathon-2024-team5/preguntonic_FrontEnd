@@ -1,0 +1,7 @@
+<button
+  [style]="customStyles()"
+  type="button"
+  class="bg-primary fs-4 position-relative py-3 px-5 text-center border-2 border-black border shadow-md w-100 d-block"
+  (click)="btnHandler()">
+  {{ btnData().text || 'empty' | capitalize }}
+</button>

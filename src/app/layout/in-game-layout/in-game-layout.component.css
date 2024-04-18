@@ -1,0 +1,15 @@
+:host {
+  display: block;
+}
+
+.layout {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100dvh;
+  gap: 3rem;
+}
+
+.layout-footer {
+  grid-row: 2/3;
+  background-color: var(--secondary-color-dark);
+}
