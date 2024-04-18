@@ -69,3 +69,26 @@ select{
 .field-label {
   font-size: 1.25rem;
 }
+
+.button {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  justify-content: center;
+  gap: 1rem;
+
+  padding-block: 1.13rem 1.5rem;
+  margin-top: 1.5rem;
+  width: 100%;
+
+  background-color: var(--accent-color);
+  box-shadow: 4px 4px 4px var(--primary-color);
+  border-radius: .5rem;
+
+  color: var(--primary-color);
+  font-size: 2rem;
+}
+
+.button span {
+  display: block;
+}
