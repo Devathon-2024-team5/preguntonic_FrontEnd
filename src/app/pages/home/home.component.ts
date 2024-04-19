@@ -75,7 +75,7 @@ export class HomeComponent {
         .connect('http://localhost:8080/v1/rooms', RoomPlayer)
         .subscribe(res => {
           console.log(res);
-          this.router.navigate(['/anteroom']);
+          this.router.navigate(['/anteroom'], { queryParams: { room_code: res['room_code'] } });
         });
     } else {
       // Mostrar una alerta si no se ha ingresado un nombre
