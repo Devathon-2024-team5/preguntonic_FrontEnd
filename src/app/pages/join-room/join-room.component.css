@@ -10,6 +10,7 @@ select{
   flex-direction: column;
   gap: 2rem;
   justify-content: center;
+  align-items: center;
 
   min-height: 100vh;
   padding: 1.5rem;
