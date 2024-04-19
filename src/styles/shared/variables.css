@@ -1,7 +1,8 @@
 :root {
   /* typography */
-  --font-headings: 'Unbounded', sans-serif;
-  --font-base: 'Itim', cursive;
+  --font-headings :"Unbounded", sans-serif;
+  --font-base: "Itim", cursive;
+  --font-main: "Kalam", cursive;
 
   /* font-size */
   --font-size-xs: clamp(0.3rem, 0.1vw + 0.3rem, 0.4rem);
@@ -22,7 +23,6 @@
   --game-clr-orange: #ffb200;
   --game-clr-red: #ff5746;
 
-  /* colors */
   --primary-color: #252c3c;
   --secondary-color-dark: #3d4863;
   --accent-color: #00e670;

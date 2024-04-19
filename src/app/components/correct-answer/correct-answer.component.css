@@ -2,7 +2,12 @@
   display: block;
 }
 
-.answer {
+.answer-title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.answer-content {
   font-size: 1.75rem;
   background-color: var(--secondary-color-dark);
   border-radius: var(--radius-btn);
@@ -10,17 +15,8 @@
   font-weight: bold;
   height: 5rem;
   min-width: 20.4375 rem;
-  cursor: pointer;
   display: grid;
   place-content: center;
-
-  &:hover {
-    border-color: var(--accent-color);
-  }
-
-  &:has(input:checked) {
-    border-color: var(--accent-color);
-    background-color: var(--accent-color);
-    color: var(--primary-color);
-  }
+  border-color: var(--accent-color);
 }
+
