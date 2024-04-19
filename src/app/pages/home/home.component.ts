@@ -7,7 +7,7 @@ import {
 import { LogoTitleComponent } from '../../shared/components/logo-title/logo-title.component';
 import { AvatarImageComponent } from '../../components/avatar-img/avatar-image.component';
 import { CustomButtonComponent } from '../../components/custom-btn/custom-button.component';
-import { HttpService } from '../../shared/services/http.service';
+import { HttpRoomService } from '../../shared/services/http.room.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
@@ -35,7 +35,7 @@ export interface RoomPlayer {
 })
 export class HomeComponent implements OnInit {
   player: Player[] = [];
-  httpService = inject(HttpService);
+  httpService = inject(HttpRoomService);
   router = inject(Router);
 
   avatarImages: string[] = [
@@ -78,13 +78,13 @@ export class HomeComponent implements OnInit {
       console.log(playerData);
 
       const RoomPlayer: RoomPlayer = {
-        max_players: 4,
+        max_players: 10,
         num_of_question: 5,
         player_name: this.playerName,
         avatar_id: this.selectedAvatar,
       };
       this.httpService
-        .connect('http://localhost:8080/v1/rooms', RoomPlayer)
+        .createRoom(RoomPlayer)
         .subscribe(res => {
           console.log(res);
 
@@ -96,5 +96,9 @@ export class HomeComponent implements OnInit {
       // Mostrar una alerta si no se ha ingresado un nombre
       alert('Por favor, ingresa un nombre.');
     }
+  }
+
+  joinRoom() {
+    
   }
 }

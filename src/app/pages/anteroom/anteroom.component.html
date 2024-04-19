@@ -5,8 +5,8 @@
       <p class="text-center">Código de la sala</p>
       <app-section-player></app-section-player>
       <div class="section-players d-flex justify-content-between pt-2">
-        <p>Jugadores 4/5</p>
-        <p>Preparados 4/5</p>
+        <p>Jugadores 4/{{maxPlayers}}</p>
+        <p>Preparados 4/{{maxPlayers}}</p>
       </div>
       <div class="icons d-flex gap-2 mb-2">
         @for (item of players; track item.id) {
