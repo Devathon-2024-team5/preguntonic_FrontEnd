@@ -6,6 +6,9 @@ select{
 }
 
 .layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
   padding: 1.5rem;
   margin: 0;
@@ -22,7 +25,6 @@ select{
   gap: 1.5rem;
   
   max-width: 328px;
-  margin-top: 9.25rem;
   padding: 1.5rem;
   border-radius: 1rem;
   
