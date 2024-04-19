@@ -12,16 +12,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CodeContainerComponent implements OnInit{
     public coderoom: string = '123456';
-    ngOnInit(): void {
-        console.log(this.route.params);
-        this.route.params.subscribe((params) => {
-          console.log(params);
-          this.coderoom = params['room_code'];
-        }
-      );
-
-    }
     route: ActivatedRoute = inject(ActivatedRoute);
+    ngOnInit(): void {
+        this.route.paramMap.subscribe(p => {
+            const id = p.get('roomCode')
+            console.log(id);
+            if (!id) return;
+            this.coderoom = id
+        });
+    }
 
     copyToClipboard() {
         const element = document.getElementById('coderoom'); // Get the element containing the room code
