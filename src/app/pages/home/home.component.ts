@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { LogoTitleComponent } from '../../shared/components/logo-title/logo-title.component';
 import { AvatarImageComponent } from '../../components/avatar-img/avatar-image.component';
 import { CustomButtonComponent } from '../../components/custom-btn/custom-button.component';
 import { HttpService } from '../../shared/services/http.service';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 export interface Player {
   id?: number;
@@ -27,7 +28,7 @@ export interface RoomPlayer {
   styleUrl: './home.component.css',
   imports: [CustomButtonComponent, LogoTitleComponent, AvatarImageComponent],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   player: Player[] = [];
   httpService = inject(HttpService);
   router = inject(Router);
@@ -40,7 +41,16 @@ export class HomeComponent {
   ];
   selectedAvatar: string = '';
   playerName: string = '';
+  route: ActivatedRoute = inject(ActivatedRoute);
 
+  ngOnInit(): void {
+    console.log('s');
+
+    console.log(
+      this.route.paramMap
+    );
+
+  }
   constructor() {}
 
   selectAvatar(avatar: string) {
