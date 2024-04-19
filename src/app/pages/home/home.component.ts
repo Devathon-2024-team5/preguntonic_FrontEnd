@@ -3,6 +3,7 @@ import { LogoTitleComponent } from '../../shared/components/logo-title/logo-titl
 import { AvatarImageComponent } from '../../components/avatar-img/avatar-image.component';
 import { CustomButtonComponent } from '../../components/custom-btn/custom-button.component';
 import { HttpService } from '../../shared/services/http.service';
+import { Router } from '@angular/router';
 
 export interface Player {
   id?: number;
@@ -29,6 +30,7 @@ export interface RoomPlayer {
 export class HomeComponent {
   player: Player[] = [];
   httpService = inject(HttpService);
+  router = inject(Router);
 
   avatarImages: string[] = [
     '../../../assets/avatar-1.webp',
@@ -71,10 +73,15 @@ export class HomeComponent {
       };
       this.httpService
         .connect('http://localhost:8080/v1/rooms', RoomPlayer)
-        .subscribe(res => console.log(res));
+        .subscribe(res => {
+          console.log(res);
+          this.router.navigate(['/anteroom']);
+        });
     } else {
       // Mostrar una alerta si no se ha ingresado un nombre
       alert('Por favor, ingresa un nombre.');
     }
   }
+
+
 }

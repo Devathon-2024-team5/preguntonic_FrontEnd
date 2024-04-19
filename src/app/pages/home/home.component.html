@@ -11,14 +11,13 @@
           <input
             type="text"
             class="bg-purpel"
-            placeholder="Nombre" 
+            placeholder="Nombre"
             (input)="onNameInputChange($event)"/>
         </form>
       </div>
     </div>
     <div class="d-flex flex-row justify-content-center gap-4">
-      <app-custom-button (click)="createRoom()" routerLink="/anteroom"
-      routerLinkActive="activebutton"
+      <app-custom-button (click)="createRoom()"
       ariaCurrentWhenActive="page">Crear sala</app-custom-button>
       <app-custom-button>Unirse a sala</app-custom-button>
     </div>
