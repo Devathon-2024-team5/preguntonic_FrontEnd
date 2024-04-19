@@ -1,0 +1,24 @@
+@keyframes revealBar {
+  to {
+    grid-template-rows: min-content 1fr;
+  }
+}
+
+@keyframes fade {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes applyBorder {
+  to {
+    border-color: #000;
+  }
+}

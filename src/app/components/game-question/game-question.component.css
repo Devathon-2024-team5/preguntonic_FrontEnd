@@ -1,0 +1,19 @@
+:host {
+  display: block;
+}
+
+.question {
+  font-size: 1.75rem;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.timer {
+  font-size: 24px;
+  font-weight: lighter;
+}
+
+.number-question {
+  font-size: 18px;
+  font-weight: lighter;
+}
