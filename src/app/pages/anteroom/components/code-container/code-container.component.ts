@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CustomButtonComponent } from "../../../../components/custom-btn/custom-button.component";
+import { CustomButtonComponent } from "../../../../shared/components/custom-btn/custom-button.component";
 
 @Component({
     selector: 'app-code-container',

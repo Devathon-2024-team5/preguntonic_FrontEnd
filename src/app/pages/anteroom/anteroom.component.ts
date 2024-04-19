@@ -3,7 +3,7 @@ import { HeaderAnteroomComponent } from './components/header-anteroom/header-ant
 import { CodeContainerComponent } from './components/code-container/code-container.component';
 import { SectionPlayerComponent } from './components/section-player/section-player.component';
 import { HomeComponent, Player } from '../home/home.component';
-import { CustomButtonComponent } from "../../components/custom-btn/custom-button.component";
+import { CustomButtonComponent } from "../../shared/components/custom-btn/custom-button.component";
 
 @Component({
     selector: 'app-anteroom',
@@ -22,7 +22,7 @@ import { CustomButtonComponent } from "../../components/custom-btn/custom-button
 export class AnteroomComponent {
   @Output() avatar: string = '../../../assets/avatar-1.webp';
   @Output() playerName: string = 'Pedro';
-  players: Player[] = 
+  players: Player[] =
   [
       {
         id: 1,

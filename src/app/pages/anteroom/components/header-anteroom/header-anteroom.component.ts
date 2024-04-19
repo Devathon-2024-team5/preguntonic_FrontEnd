@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LogoTitleComponent } from '../../../../shared/components/logo-title/logo-title.component';
-import { CustomButtonComponent } from '../../../../components/custom-btn/custom-button.component';
+import { CustomButtonComponent } from '../../../../shared/components/custom-btn/custom-button.component';
 
 @Component({
   selector: 'app-header-anteroom',
