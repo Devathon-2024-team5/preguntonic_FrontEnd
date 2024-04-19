@@ -32,6 +32,7 @@
     "rxjs": "~7.8.0",
     "sockjs": "^0.3.24",
     "sockjs-client": "^1.6.1",
+    "stomp-websocket": "^2.3.4-next",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },
