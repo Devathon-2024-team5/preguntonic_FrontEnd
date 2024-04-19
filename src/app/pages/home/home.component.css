@@ -1,8 +1,8 @@
 .bg-purpel {
-  background-color: var(--game-clr-purple);
+  background-color: var(--primary-color);
 }
 .bg-purpel-dark {
-  background-color: var(--game-clr-dark-purple);
+  background-color: var(--secondary-color-dark);
 }
 
 .layout{
@@ -17,7 +17,8 @@
 }
 
 .title-y {
-  color: var(--game-clr-yellow);
+  color: var(--secondary-color-light);
+  font-size: 2rem;
 }
 
 .card {
@@ -33,12 +34,12 @@
 
 input{
   font-size: 1.8rem;
-  color: var(--game-clr-yellow);
+  color: var(--secondary-color-light);
   border-radius: 1rem;
   text-align: center;
 }
 
 input::placeholder {
-  color:var(--game-clr-dark-purple);
+  color:var(--secondary-color-light);
   padding: 1rem;
 }
