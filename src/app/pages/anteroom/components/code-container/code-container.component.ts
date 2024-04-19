@@ -14,12 +14,11 @@ export class CodeContainerComponent implements OnInit{
     public coderoom: string = '123456';
     route: ActivatedRoute = inject(ActivatedRoute);
     ngOnInit(): void {
-        this.route.paramMap.subscribe(p => {
-            const id = p.get('roomCode')
-            console.log(id);
-            if (!id) return;
-            this.coderoom = id
-        });
+        this.route.queryParamMap.subscribe(params => {
+          const code = params.get('room_code')
+            if (!code) return;
+            this.coderoom = code
+        })
     }
 
     copyToClipboard() {

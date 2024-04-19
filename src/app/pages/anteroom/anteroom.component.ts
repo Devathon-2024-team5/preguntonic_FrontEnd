@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit, Output, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Output } from '@angular/core';
 import { HeaderAnteroomComponent } from './components/header-anteroom/header-anteroom.component';
 import { CodeContainerComponent } from './components/code-container/code-container.component';
 import { SectionPlayerComponent } from './components/section-player/section-player.component';
 import { HomeComponent, Player } from '../home/home.component';
 import { CustomButtonComponent } from "../../components/custom-btn/custom-button.component";
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-anteroom',
@@ -20,7 +19,7 @@ import { ActivatedRoute } from '@angular/router';
         CustomButtonComponent
     ]
 })
-export class AnteroomComponent implements OnInit {
+export class AnteroomComponent {
   @Output() avatar: string = '../../../assets/avatar-1.webp';
   @Output() playerName: string = 'Pedro';
   players: Player[] =
@@ -44,15 +43,4 @@ export class AnteroomComponent implements OnInit {
         estado: true,
       },
     ];
-
-    route: ActivatedRoute = inject(ActivatedRoute);
-
-    ngOnInit(): void {
-        this.route.paramMap.subscribe(params => {
-          const roomId = params.get('roomCode');
-          console.log(roomId);
-        })
-
-    }
-
 }

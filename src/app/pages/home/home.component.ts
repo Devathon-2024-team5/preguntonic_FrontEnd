@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { LogoTitleComponent } from '../../shared/components/logo-title/logo-title.component';
 import { AvatarImageComponent } from '../../components/avatar-img/avatar-image.component';
 import { CustomButtonComponent } from '../../components/custom-btn/custom-button.component';
@@ -46,10 +51,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     console.log('s');
 
-    console.log(
-      this.route.paramMap
-    );
-
+    console.log(this.route.paramMap);
   }
   constructor() {}
 
@@ -85,13 +87,14 @@ export class HomeComponent implements OnInit {
         .connect('http://localhost:8080/v1/rooms', RoomPlayer)
         .subscribe(res => {
           console.log(res);
-          this.router.navigate(['/anteroom'], { queryParams: { room_code: res['room_code'] } });
+
+          this.router.navigate(['/anteroom'], {
+            queryParams: { room_code: res['room_code'] },
+          });
         });
     } else {
       // Mostrar una alerta si no se ha ingresado un nombre
       alert('Por favor, ingresa un nombre.');
     }
   }
-
-
 }

@@ -29,7 +29,7 @@ export const routes: Routes = [
     title: 'Preguntonic | Results room',
   },
    {
-     path: 'anteroom/:roomCode',
+     path: 'anteroom',
      loadComponent: () =>
        import('./pages/anteroom/anteroom.component').then(
          m => m.AnteroomComponent
