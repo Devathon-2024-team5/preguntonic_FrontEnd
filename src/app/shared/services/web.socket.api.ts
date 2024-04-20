@@ -24,6 +24,11 @@ export class WebSocketAPI {
             _this.stompClient.subscribe(_this.topic + roomId, function (wsResponse: any) {
                 _this.onMessageReceived(wsResponse);
             });
+
+            _this.stompClient.subscribe(_this.topic + roomId, function (wsResponse: any) {
+                _this.onMessageReceived(wsResponse);
+            });
+
             //_this.stompClient.reconnect_delay = 2000;
             let response = _this.stompClient.send(`/app/rooms.join/${roomId}`, {}, JSON.stringify({'player_name': player_name, 'avatar_id': avatar_id}));
             console.log("response stomp send: ", response);
@@ -60,5 +65,7 @@ export class WebSocketAPI {
 
     onMessageReceived(message: any) {
         console.log("Message Recieved from Server :: " + message);
+        console.log("Body: ", message.body)
+        return JSON.parse(message.body);
     }
 }

@@ -74,6 +74,7 @@ export class HomeComponent implements OnInit {
       };
       // Agregar el objeto JSON a la matriz player
       this.player.push(playerData);
+      localStorage.setItem('player', JSON.stringify(playerData));
       // Imprimir el objeto JSON en consola
       console.log(playerData);
 
@@ -87,7 +88,8 @@ export class HomeComponent implements OnInit {
         .createRoom(RoomPlayer)
         .subscribe(res => {
           console.log(res);
-
+          localStorage.setItem('room_code', res['room_code']);
+          localStorage.setItem('player_id', res['player_id']);
           this.router.navigate(['/anteroom'], {
             queryParams: { room_code: res['room_code'] },
           });
@@ -99,6 +101,25 @@ export class HomeComponent implements OnInit {
   }
 
   joinRoom() {
+    if (this.playerName.trim() === '') {
+      // Mostrar una alerta si no se ha ingresado un nombre
+      alert('Por favor, ingresa un nombre.');
+      return;
+    }
+
+    // Crear el objeto JSON con la información capturada
+    const playerData: Player = {
+      avatar: this.selectedAvatar,
+      name: this.playerName,
+    };
     
+    // Agregar el objeto JSON a la matriz player
+    this.player.push(playerData);
+    localStorage.setItem('player', JSON.stringify(playerData));
+    
+    console.log(playerData);
+
+    this.router.navigate(['/join-room']);
+
   }
 }

@@ -75,12 +75,17 @@ export class AnteroomComponent implements OnInit{
   private coderoom: string = '';
 
   ngOnInit(): void {
-
+    const room_code = localStorage.getItem('room_code');
+    const playerStr = localStorage.getItem('player');
+    const player = playerStr ? JSON.parse(playerStr) : null;
+    console.log('Room code:', room_code, "Player: ", player, player.avatar);
     this.route.queryParamMap.subscribe(params => {
       const code = params.get('room_code')
         if (!code) return;
         this.coderoom = code;
-        console.log(this.coderoom);
+        this.playerName = player.name;
+        this.avatar = player.avatar;
+        console.log("Room data", this.coderoom, this.playerName, this.avatar);
 
         this.httpService
         .getRoom(this.coderoom)
