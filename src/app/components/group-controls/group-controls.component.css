@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+button {
+  display: grid;
+  place-content: center;
+  border-radius: var(--radius-btn);
+  font-weight: bold;
+}
+
+.btn-redirectTable {
+  background-color: var(--secondary-color-dark);
+  height: 65px;
+  color: var(--accent-color);
+  font-size: 24px;
+}
+
+.btn-playAgain {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  font-size: 28px;
+  height: 69px;
+  border: solid 1px #000;
+}
+
+.btn-exit {
+  background-color: var(--alert-red-color);
+  color: var(--secondary-color-light);
+  height: 69px;
+  border: solid 1px #000;
+  /* padding: 0; */
+}

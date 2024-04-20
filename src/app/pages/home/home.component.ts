@@ -5,8 +5,8 @@ import {
   inject,
 } from '@angular/core';
 import { LogoTitleComponent } from '../../shared/components/logo-title/logo-title.component';
-import { AvatarImageComponent } from '../../components/avatar-img/avatar-image.component';
-import { CustomButtonComponent } from '../../components/custom-btn/custom-button.component';
+import { AvatarImageComponent } from '../../shared/components/avatar-img/avatar-image.component';
+import { CustomButtonComponent } from '../../shared/components/custom-btn/custom-button.component';
 import { HttpRoomService } from '../../shared/services/http.room.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';

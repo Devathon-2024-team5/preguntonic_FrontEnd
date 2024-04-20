@@ -1,0 +1,33 @@
+<section class="layout">
+  <div class="room-configuration">
+    <h2 class="subtitle">Configuración de sala</h2>
+    <form>
+      <div class="container-fields">
+        <div class="field">
+          <select [(ngModel)]="numberOfPlayersInTheRoom"  name="numberPlayer" class="field-select">
+            @for (value of valuesNumberOfPlayers; track value) {
+              <option value="{{value}}">{{value}}</option>
+            }
+          </select>
+          <label id="numberPlayer" class="field-label"># Jugadores</label>
+        </div>
+        <div class="field">
+          <select [(ngModel)]="numberOfGameQuestions" name="numberQuestion" class="field-select">
+            @for (value of valuesNumberOfQuestions; track value) {
+              <option value="{{value}}">{{value}}</option>
+            }
+          </select>
+          <label id="numberQuestion" class="field-label"># Preguntas</label>
+        </div>
+      </div>
+      <button class="button">
+        <span>Crear</span>
+        <div>
+          <svg width="27" height="20" viewBox="0 0 27 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.4496 0.708307C17.5846 -0.236102 16.1822 -0.236102 15.3172 0.708306C14.4521 1.65272 14.4521 3.1839 15.3172 4.12831L18.4403 7.53809H2.4544C1.09887 7.53809 0 8.63696 0 9.99249C0 11.3082 1.06655 12.3747 2.38221 12.3747H18.6217L15.4187 15.8718C14.5536 16.8162 14.5536 18.3474 15.4187 19.2918C16.2837 20.2362 17.6861 20.2362 18.5511 19.2918L27 10.0674L26.9092 9.96824L26.9201 9.95627L18.4496 0.708307Z" fill="#252C3C"/>
+          </svg>
+        </div>
+      </button>
+    </form>
+  </div>
+</section>

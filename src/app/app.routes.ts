@@ -1,5 +1,8 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
+import { RoomConfigurationComponent } from './pages/room-configuration/room-configuration.component';
+import { JoinRoomComponent } from './pages/join-room/join-room.component';
+
 
 export const routes: Routes = [
   {
@@ -11,6 +14,16 @@ export const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     title: 'Preguntonic | Home',
+  },
+  {
+    path: 'join-room',
+    component: JoinRoomComponent,
+    title: 'Preguntonic | join',
+  },
+  {
+    path: 'room-configuration',
+    component: RoomConfigurationComponent,
+    title: 'Room Configuration',
   },
   {
     path: 'game-room',

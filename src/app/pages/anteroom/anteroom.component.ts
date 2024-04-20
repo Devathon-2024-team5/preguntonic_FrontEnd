@@ -4,7 +4,7 @@ import { CodeContainerComponent } from './components/code-container/code-contain
 import { SectionPlayerComponent } from './components/section-player/section-player.component';
 import { HomeComponent, Player } from '../home/home.component';
 import { HttpRoomService } from '../../shared/services/http.room.service';
-import { CustomButtonComponent } from "../../components/custom-btn/custom-button.component";
+import { CustomButtonComponent } from "../../shared/components/custom-btn/custom-button.component";
 import { ActivatedRoute } from '@angular/router';
 import { WebSocketAPI } from '../../shared/services/web.socket.api';
 

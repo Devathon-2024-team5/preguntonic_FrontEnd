@@ -1,0 +1,56 @@
+:host {
+  display: block;
+}
+.navDaily {
+  cursor: pointer;
+
+  &:has(input[type='checkbox']:checked) ul {
+    background-color: antiquewhite;
+    transform: translateY(-50%) translateX(0%);
+  }
+}
+
+
+ul {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) translateX(100%);
+  transition: transform linear .2s;
+}
+
+li:hover a {
+  background-color: rgb(166, 166, 250);
+  color: white;
+}
+
+.active-link {
+  background-color: rgb(166, 166, 250);
+  color: white;
+}
+
+span {
+  position: fixed;
+  right: 2rem;
+  top: 20%;
+  transform: translateY(-50%);
+  user-select: none;
+  background-color: rgb(245, 62, 108);
+  border-radius: 50%;
+  font-size: 1.5rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  display: grid;
+  place-items: center;
+  border: solid .1rem black;
+  cursor: pointer;
+  transition: transform .2s linear;
+
+  &:hover {
+    transform: translateY(-50%) scale(.9);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(1.15);
+  }
+}

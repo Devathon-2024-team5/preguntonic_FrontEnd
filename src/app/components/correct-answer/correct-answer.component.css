@@ -1,8 +1,13 @@
 :host {
-  display: contents;
+  display: block;
 }
 
-.answer {
+.answer-title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.answer-content {
   font-size: 1.75rem;
   background-color: var(--secondary-color-dark);
   border-radius: var(--radius-btn);
@@ -12,12 +17,6 @@
   min-width: 20.4375 rem;
   display: grid;
   place-content: center;
-
-  &:hover {
-    border-color: var(--accent-color);
-  }
-}
-
-.active-answer {
   border-color: var(--accent-color);
 }
+
