@@ -2,6 +2,8 @@
   background-color: var(--primary-color);
   background-image: url(../../../assets/trama-gris-preguntonic.png);
   background-position: center center;
+  background-size: cover;
+
 }
 .bg-purpel-dark {
   background-color: var(--secondary-color-dark);
