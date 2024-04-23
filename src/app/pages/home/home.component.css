@@ -1,8 +1,16 @@
 .bg-purpel {
   background-color: var(--primary-color);
+  background-image: url(../../../assets/trama-gris-preguntonic.png);
+  background-position: center center;
+  background-size: cover;
+
 }
 .bg-purpel-dark {
   background-color: var(--secondary-color-dark);
+}
+
+.bg-gray-dark {
+  background-color: var(--primary-color);
 }
 
 .layout{
@@ -18,7 +26,8 @@
 
 .title-y {
   color: var(--secondary-color-light);
-  font-size: 2rem;
+  font-family: var(--font-headings);
+  font-size: var(--font-size-lg);
 }
 
 .card {
@@ -40,6 +49,6 @@ input{
 }
 
 input::placeholder {
-  color:var(--secondary-color-light);
+  color:var(--secondary-color-dark);
   padding: 1rem;
 }
