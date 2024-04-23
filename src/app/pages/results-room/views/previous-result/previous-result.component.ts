@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { InGameLayoutComponent } from '../../../../layout/in-game-layout/in-game-layout.component';
-import { AnswerLabelComponent } from '../../../../components/answer-label/answer-label.component';
 import { ProgressBarComponent } from '../../../../components/progress-bar/progress-bar.component';
 import { TablePositionsComponent } from '../../../../components/table-positions/table-positions.component';
 import { LogoTitleComponent } from '../../../../shared/components/logo-title/logo-title.component';
+import { CorrectAnswerComponent } from '../../../../components/correct-answer/correct-answer.component';
 
 @Component({
   selector: 'app-previous-result',
@@ -12,8 +12,8 @@ import { LogoTitleComponent } from '../../../../shared/components/logo-title/log
     InGameLayoutComponent,
     ProgressBarComponent,
     TablePositionsComponent,
-    AnswerLabelComponent,
-    LogoTitleComponent
+    LogoTitleComponent,
+    CorrectAnswerComponent
   ],
   templateUrl: './previous-result.component.html',
   styleUrl: './previous-result.component.css',

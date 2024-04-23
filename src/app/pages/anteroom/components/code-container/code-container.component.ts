@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CustomButtonComponent } from "../../../../components/custom-btn/custom-button.component";
+import { CustomButtonComponent } from "../../../../shared/components/custom-btn/custom-button.component";
 import { ActivatedRoute } from '@angular/router';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
