@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { RoomPlayer } from '../../pages/home/home.component';
+import { RoomPlayer } from '../../pages/room-configuration/room-configuration.component';
 import { Observable } from 'rxjs';
 
 @Injectable({
