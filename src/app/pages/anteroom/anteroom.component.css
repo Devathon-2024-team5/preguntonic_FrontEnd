@@ -18,3 +18,17 @@
 .avatar{
       width: 50px;
 }
+
+.onBar{
+      width: 100%;
+      height: 4px;
+      background-color: var(--accent-color);
+      border-radius: 2rem;
+}
+
+.offBar{
+      width: 100%;
+      height: 4px;
+      background-color: var(--alert-red-color);
+      border-radius: 2rem;
+}
