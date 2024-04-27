@@ -1,8 +1,16 @@
 .bg-purpel {
-  background-color: var(--game-clr-purple);
+  background-color: var(--primary-color);
+  background-image: url(../../../assets/trama-gris-preguntonic.png);
+  background-position: center center;
+  background-size: cover;
+
 }
 .bg-purpel-dark {
-  background-color: var(--game-clr-dark-purple);
+  background-color: var(--secondary-color-dark);
+}
+
+.bg-gray-dark {
+  background-color: var(--primary-color);
 }
 
 .layout{
@@ -17,7 +25,9 @@
 }
 
 .title-y {
-  color: var(--game-clr-yellow);
+  color: var(--secondary-color-light);
+  font-family: var(--font-headings);
+  font-size: var(--font-size-lg);
 }
 
 .card {
@@ -33,12 +43,12 @@
 
 input{
   font-size: 1.8rem;
-  color: var(--game-clr-yellow);
+  color: var(--secondary-color-light);
   border-radius: 1rem;
   text-align: center;
 }
 
 input::placeholder {
-  color:var(--game-clr-dark-purple);
+  color:var(--secondary-color-dark);
   padding: 1rem;
 }
