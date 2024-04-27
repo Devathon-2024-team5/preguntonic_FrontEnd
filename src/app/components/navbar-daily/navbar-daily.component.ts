@@ -26,6 +26,5 @@ export class NavbarDailyComponent implements OnInit  {
     const routes2 = RESULTS_ROUTES[0].children?.map(route => route.path) ?? [];
 
     this.viewPages = [...routes1, ...routes2].filter(r => (r !== 'results-room' && r !== ''));
-    console.log(this.viewPages);
   }
 }
