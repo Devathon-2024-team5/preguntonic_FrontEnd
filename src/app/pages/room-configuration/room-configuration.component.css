@@ -11,9 +11,6 @@ select{
   align-items: center;
   min-height: 100vh;
   padding: 1.5rem;
-  margin: 0;
-  
-  background: hsl(222, 24%, 19%);
 
   text-align: center;
   color: var(--secondary-color-light);
