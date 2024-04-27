@@ -31,9 +31,10 @@ import { RoomPlayer } from '../room-configuration/room-configuration.component';
 })
 export class AnteroomComponent implements OnInit{
   
-  changeEstado(){
+  changeStatus(){ //this is a test
     const element = this.elementRef.nativeElement.querySelector('.offBar');
-    if (element) {
+    
+    if (element ) {
       element.classList.remove('offBar');
       element.classList.add('onBar');
     }
@@ -71,7 +72,7 @@ export class AnteroomComponent implements OnInit{
   constructor(
     private httpService: HttpRoomService,
     private route: ActivatedRoute,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
   ) {}
 
   ngOnInit(): void {

@@ -13,10 +13,11 @@
           <div class="players d-flex flex-column justify-content-center align-items-center">
             <img class="avatar" [src]="item.avatar" [alt]="item.name">
             {{item.name}}
-            <div class="onBar offBar"></div>
+            <div class="offBar"></div>
           </div>
         }
       </div>
-      <app-custom-button (click)="changeEstado()">Preparado</app-custom-button>
+      <app-custom-button (click)="changeStatus()">Preparado</app-custom-button>
     </div>
 </section>
+
