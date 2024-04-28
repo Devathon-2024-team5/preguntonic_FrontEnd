@@ -28,9 +28,8 @@ export interface RoomPlayer {
 export class RoomConfigurationComponent implements OnInit {
   valuesNumberOfPlayers = [2, 3, 4, 5, 6, 7, 8];
   valuesNumberOfQuestions = [5, 10, 15, 20, 25, 30];
-
-  numberOfPlayersInTheRoom = this.valuesNumberOfPlayers[0];
-  numberOfGameQuestions = this.valuesNumberOfQuestions[0];
+  numberOfPlayersInTheRoom: number = this.valuesNumberOfPlayers[0];
+  numberOfGameQuestions: number = this.valuesNumberOfQuestions[0];
 
   playerName: string = '';
   playerAvatar: string = '';
@@ -40,10 +39,7 @@ export class RoomConfigurationComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) {}
   ngOnInit(): void {
-    console.log('s');
-
     console.log(this.route.paramMap);
-
     // Leer los parámetros de la URL
     this.route.queryParams.subscribe(params => {
       this.playerName = params['playerName'];
@@ -54,8 +50,8 @@ export class RoomConfigurationComponent implements OnInit {
   createRoom() {
     // Crear el objeto JSON con la información capturada
     const RoomPlayer: RoomPlayer = {
-      max_players: 10,
-      num_of_question: 5,
+      max_players: this.numberOfPlayersInTheRoom,
+      num_of_question: this.numberOfGameQuestions,
       player_name: this.playerName,
       avatar_id: this.playerAvatar,
     };
@@ -65,7 +61,10 @@ export class RoomConfigurationComponent implements OnInit {
       console.log(res);
 
       this.router.navigate(['/anteroom'], {
-        queryParams: { room_code: res['room_code'] },
+        queryParams: { 
+          roomPlayer: JSON.stringify(RoomPlayer),
+          room_code: res['room_code']
+         },
       });
     });
   }

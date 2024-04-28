@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AnteroomComponent } from '../../anteroom.component';
 
 @Component({
@@ -9,11 +9,9 @@ import { AnteroomComponent } from '../../anteroom.component';
   styleUrl: './section-player.component.css'
 })
 export class SectionPlayerComponent {
-  avatar: string = "";
-  playerName: string = "";
-  constructor(private anteRoom : AnteroomComponent){
-    this.avatar = anteRoom.avatar
-    this.playerName = anteRoom.playerName
+  @Input() avatar: string = "";
+  @Input() playerName: string = "";
+  constructor(){
 
   }
 }
