@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { PlayersActions } from './players.actions';
+import { PLAYERS_ACTIONS } from './players.actions';
 import { IPlayersState } from '../models/IPlayers.state';
 
 const initialState: IPlayersState = {
@@ -12,15 +12,23 @@ const initialState: IPlayersState = {
 export const playersReducers = createReducer(
   initialState,
   on(
-    PlayersActions.loadPlayers,
+    PLAYERS_ACTIONS.loadPlayers,
     (state): IPlayersState => ({ ...state, isLoading: true })
   ),
   on(
-    PlayersActions.updatePlayers,
-    (state, { players }): IPlayersState => ({ ...state, players })
+    PLAYERS_ACTIONS.updatePlayers,
+    (state, { players }): IPlayersState => ({
+      ...state,
+      isLoading: false,
+      players,
+    })
   ),
-  on(PlayersActions.loadPlayersFailure, (state, { error }): IPlayersState => ({
-    ...state,
-    error,
-  }))
+  on(
+    PLAYERS_ACTIONS.loadPlayersFailure,
+    (state, { error }): IPlayersState => ({
+      ...state,
+      isLoading: false,
+      error,
+    })
+  )
 );

@@ -5,7 +5,7 @@ const loadPlayers = createAction("[Players] Load Players");
 const loadPlayersFailure = createAction("[Players] Load Players Failure", props<{ error: string }>());
 const updatePlayers = createAction("[Players] Update Players", props<{ players: IPlayer[] }>());
 
-export const PlayersActions = {
+export const PLAYERS_ACTIONS = {
   loadPlayers,
   updatePlayers,
   loadPlayersFailure

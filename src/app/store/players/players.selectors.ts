@@ -24,7 +24,7 @@ const selectPlayersCurrent = createSelector(
   (state: IPlayersState) => state.currentPlayer
 );
 
-export const PlayersSelects = {
+export const PLAYERS_SELECTS = {
   selectPlayers,
   selectPlayersIsLoading,
   selectPlayersError,
