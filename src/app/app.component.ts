@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarDailyComponent } from './components/navbar-daily/navbar-daily.component';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
