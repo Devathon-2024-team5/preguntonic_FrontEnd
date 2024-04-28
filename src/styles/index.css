@@ -1,15 +1,11 @@
+@import 'shared/bootstrap.custom.scss';
 @import 'shared/normalize.css';
 @import 'shared/variables.css';
 @import 'shared/keyframes.css';
 @import 'shared/utility.css';
 
 :where(h1,h2,h3,h4,h5,h6) {
-  /* font-family: var(--font-headings, system-ui, sans-serif); */
   font-weight: 400;
-}
-
-:where(:not(h1,h2,h3,h4,h5,h6)) {
-  /* font-family: var(--font-base, serif); */
 }
 
 body {

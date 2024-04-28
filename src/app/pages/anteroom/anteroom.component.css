@@ -1,14 +1,14 @@
 .layout{
       display: grid;
       grid-template-columns: minmax(0, 1fr);
-      max-width: 600px;
+      /* max-width: 600px; */
       margin: 0 auto;
-      height: 100dvh;
+      min-height: 100dvh;
 }
 
 .column{
       grid-column: 1;
-      padding: 1rem;
+      padding-block: 1rem;
 }
 
 .header{
