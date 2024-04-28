@@ -20,13 +20,13 @@
 }
 
 .custom-button:hover {
-  background-color: var(--secondary-green-color);
+  background-color: var(--primary-color);
+  color: var(--secondary-light-color);  
 }
 
 .custom-button:active {
   background-color: var(--primary-color);
   border-color: var(--secondary-light-color);
-  color: var(--secondary-light-color);  
 }
 
 .custom-button--secondary {
