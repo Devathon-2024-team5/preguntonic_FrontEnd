@@ -13,6 +13,7 @@ export class NgrxTestService {
       avatar: 'as',
       name: 'Jhon Doe',
       score: 3000,
+      isReady: false,
     }
     return of([player]);
   }
