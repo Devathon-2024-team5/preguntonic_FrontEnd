@@ -1,13 +1,2 @@
 <router-outlet />
 <app-navbar-daily />
-@if (isLoading$ | async) {
-  <p>loading...</p>
-} @else {
-  <pre>
-    <code>
-      {{questions$ | async | json}}
-    </code>
-  </pre>
-}
-
-<button type="button" (click)="callApi()">CallApi</button>

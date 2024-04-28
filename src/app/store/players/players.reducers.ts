@@ -30,5 +30,15 @@ export const playersReducers = createReducer(
       isLoading: false,
       error,
     })
+  ),
+  on(
+    PLAYERS_ACTIONS.changeReadyStatus,
+    (state, { isReady, playerId }): IPlayersState => {
+      const newData = state.players.map(player =>
+        player.id !== playerId ? player : { ...player, isReady }
+      );
+
+      return { ...state, players: newData };
+    }
   )
 );
