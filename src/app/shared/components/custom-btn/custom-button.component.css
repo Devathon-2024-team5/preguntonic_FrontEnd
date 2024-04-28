@@ -30,9 +30,9 @@
 }
 
 .custom-button--secondary {
-  background-color: var(--secondary-color-dark);
+  background-color: var(--secondary-color-light);
   border: 4px solid var(--secondary-color-light);
-  color: var(--secondary-light-color);  
+  color: var(--primary-color);
 }
 
 .custom-button--secondary:hover {
