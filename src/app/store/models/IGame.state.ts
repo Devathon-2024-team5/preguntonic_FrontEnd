@@ -1,4 +1,4 @@
-interface IQuestion {
+export interface IQuestion {
   question: string;
   answers: string[];
   correctAnswer: number | null;
@@ -6,4 +6,7 @@ interface IQuestion {
 
 export interface IGameState {
   questions: IQuestion[];
+  currentQuestion: number;
+  isLoading: boolean;
+  error: string | null;
 }
