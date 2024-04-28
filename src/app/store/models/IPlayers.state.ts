@@ -3,9 +3,10 @@ export interface IPlayer {
     name: string;
     score: number;
     avatar: string;
-}
+    isReady: boolean;
+  }
 
-export interface IPlayersState {
+  export interface IPlayersState {
     players: IPlayer[];
     currentPlayer: IPlayer | null;
     isLoading: boolean;
