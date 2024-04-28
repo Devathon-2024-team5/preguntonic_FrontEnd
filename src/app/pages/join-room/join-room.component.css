@@ -8,16 +8,12 @@ select{
 .layout {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
   justify-content: center;
   align-items: center;
 
   min-height: 100vh;
   padding: 1.5rem;
-  margin: 0;
   
-  background: hsl(222, 24%, 19%);
-
   text-align: center;
   color: var(--secondary-color-light);
 }
@@ -29,6 +25,7 @@ select{
   
   max-width: 328px;
   padding: 1.5rem;
+  margin-block: 2rem;
   border-radius: 1rem;
   
   background-color: var(--secondary-color-dark);
