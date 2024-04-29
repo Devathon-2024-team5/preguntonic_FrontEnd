@@ -1,3 +1,9 @@
-<button class="">
+<button 
+  class="custom-button" 
+  [ngClass]="{ 
+    'custom-button--secondary': variant === 'secondary',
+    'custom-button--red': variant === 'red'
+  }"
+>
   <ng-content/>
 </button>
