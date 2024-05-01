@@ -2,7 +2,7 @@
   class="container-md d-flex flex-column align-items-center"
   [attr.aria-hidden]="true"
   (click)="selectAvatar(avatar)">
-  <img [src]="avatar" class="avatar" alt="Avatar" />
+  <img [ngSrc]="avatar" width="150" height="150" class="avatar" alt="Avatar" />
   <div class="container-md d-flex flex-column align-items-end">
     <button class="btn-avatar-change" (click)="handlerClick()">></button>
   </div>

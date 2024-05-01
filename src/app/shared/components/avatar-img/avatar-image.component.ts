@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CustomButtonComponent } from '../custom-btn/custom-button.component';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-avatar-image',
   standalone: true,
-  imports: [CustomButtonComponent],
+  imports: [CustomButtonComponent, NgOptimizedImage],
   changeDetection:ChangeDetectionStrategy.OnPush,
   templateUrl: './avatar-image.component.html',
   styleUrl: './avatar-image.component.css'
