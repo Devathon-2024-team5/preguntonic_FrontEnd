@@ -10,7 +10,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   margin: 0 auto;
-  height: 100dvh;
+  min-height: 100dvh;
 }
 
 .column {
@@ -39,6 +39,7 @@ input{
   color: var(--secondary-color-light);
   border-radius: 1rem;
   text-align: center;
+  width: 100%;
 }
 
 input::placeholder {
