@@ -21,12 +21,13 @@
 
 .custom-button:hover {
   background-color: var(--primary-color);
-  color: var(--secondary-light-color);  
+  color: var(--secondary-color-light);  
 }
 
 .custom-button:active {
   background-color: var(--primary-color);
-  border-color: var(--secondary-light-color);
+  border-color: var(--secondary-color-light);
+  color: var(--secondary-color-light);
 }
 
 .custom-button--secondary {
@@ -42,8 +43,8 @@
 
 .custom-button--secondary:active {
   background-color: var(--primary-color);
-  border-color: var(--secondary-light-color);
-  color: var(--secondary-light-color);    
+  border-color: var(--secondary-color-light);
+  color: var(--secondary-color-light);    
 }
 
 .custom-button--red {
