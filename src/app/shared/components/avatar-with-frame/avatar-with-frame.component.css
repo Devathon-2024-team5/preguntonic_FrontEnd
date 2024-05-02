@@ -7,14 +7,48 @@ picture, img {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 10.25rem;
-  height: 10.25rem;
   background-color: var(--primary-color);
   border-radius: 50%;
+}
+
+.bg--secondary-color-dark {
+  background-color: var(--secondary-color-dark);
+}
+
+.frame--small {
+  width: 3rem;
+  height: 3rem;
+}
+
+.frame--normal {
+  width: 4.25rem;
+  height: 4.25rem;
+}
+
+.frame--medium {
+  width: 6.125rem;
+  height: 6.125rem;
+  
+}
+
+.frame--large {
+  width: 10.25rem;
+  height: 10.25rem;
+}
+
+.l-shadow {
   box-shadow: 
     inset 0 4px 1rem rgba(77, 73, 73, 0.25),
     inset 0 -4px 1rem rgba(104, 100, 100, 0.25),
     0 0 5px 2rem var(--secondary-color-dark);
+}
+
+.s-shadow-white {
+  box-shadow: 0 0 0 2px var(--secondary-color-light);
+}
+
+.s-shadow-green {
+  box-shadow: 0 0 10px 2px var(--accent-color);
 }
 
 .container-image {
@@ -33,3 +67,4 @@ picture, img {
   height: 105%;
   max-width: none;
 }
+
