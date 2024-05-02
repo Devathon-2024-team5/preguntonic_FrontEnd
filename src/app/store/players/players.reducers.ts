@@ -4,7 +4,10 @@ import { IPlayersState } from '../models/IPlayers.state';
 
 const initialState: IPlayersState = {
   players: [],
-  currentPlayer: null,
+  currentPlayer: {
+    avatar: 'assets/avatar-1.webp',
+    name: 'unknow'
+  },
   isLoading: false,
   error: null,
 };
@@ -37,8 +40,13 @@ export const playersReducers = createReducer(
       const newData = state.players.map(player =>
         player.id !== playerId ? player : { ...player, isReady }
       );
-
       return { ...state, players: newData };
+    }
+  ),
+  on(
+    PLAYERS_ACTIONS.savePlayers,
+    (state, {avatar, name}): IPlayersState  => {
+      return {...state, currentPlayer: {avatar, name}}
     }
   )
 );

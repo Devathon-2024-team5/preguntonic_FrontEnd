@@ -2,18 +2,19 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
-  ElementRef
+  ElementRef,
+  inject,
 } from '@angular/core';
 import { HeaderAnteroomComponent } from './components/header-anteroom/header-anteroom.component';
 import { CodeContainerComponent } from './components/code-container/code-container.component';
 import { SectionPlayerComponent } from './components/section-player/section-player.component';
-import { HomeComponent, Player } from '../home/home.component';
-import { HttpRoomService } from '../../shared/services/http.room.service';
+import { HomeComponent } from '../home/home.component';
+import { HttpService } from '../../core/services/http.service';
 import { CustomButtonComponent } from '../../shared/components/custom-btn/custom-button.component';
 import { ActivatedRoute } from '@angular/router';
-import { WebSocketAPI } from '../../shared/services/web.socket.api';
+import { WebSocketApiService } from '../../core/services/web-socket-api.service';
 import { RoomPlayer } from '../room-configuration/room-configuration.component';
-
+import { IPlayer } from '../../store/models/IPlayers.state';
 
 @Component({
   selector: 'app-anteroom',
@@ -26,57 +27,52 @@ import { RoomPlayer } from '../room-configuration/room-configuration.component';
     CodeContainerComponent,
     SectionPlayerComponent,
     HomeComponent,
-    CustomButtonComponent
+    CustomButtonComponent,
   ],
 })
-export class AnteroomComponent implements OnInit{
+export class AnteroomComponent implements OnInit {
   
-  changeStatus(){ //this is a test
-    const element = this.elementRef.nativeElement.querySelector('.offBar');
-    
-    if (element ) {
-      element.classList.remove('offBar');
-      element.classList.add('onBar');
-    }
-  }
   roomInfo: RoomPlayer = {
     num_of_question: 0,
     max_players: 0,
-    player_name:'' ,
-    avatar_id:''
-  }
+    player_name: '',
+    avatar_id: '',
+  };
 
   maxPlayers: number = 0;
 
-  players: Player[] = [
+  players: IPlayer[] = [
     {
-      id: 1,
+      id: '1',
       avatar: '../../../assets/avatar-1.webp',
       name: 'Jugador 1',
-      estado: true,
+      score: 0,
+      isReady: true,
     },
     {
-      id: 2,
-      avatar: '../../../assets/avatar-2.webp',
-      name: 'Jugador 2',
-      estado: true,
+      id: '1',
+      avatar: '../../../assets/avatar-1.webp',
+      name: 'Jugador 1',
+      score: 0,
+      isReady: true,
     },
     {
-      id: 3,
-      avatar: '../../../assets/avatar-3.webp',
-      name: 'Jugador 3',
-      estado: true,
+      id: '1',
+      avatar: '../../../assets/avatar-1.webp',
+      name: 'Jugador 1',
+      score: 0,
+      isReady: true,
     },
   ];
+  webSocketApi = inject(WebSocketApiService);
 
   constructor(
-    private httpService: HttpRoomService,
+    private httpService: HttpService,
     private route: ActivatedRoute,
-    private elementRef: ElementRef,
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit(): void {
-
     this.route.queryParamMap.subscribe(params => {
       const code = params.get('room_code');
       const playerDataString = params.get('roomPlayer');
@@ -93,12 +89,25 @@ export class AnteroomComponent implements OnInit{
       this.roomInfo.avatar_id = playerData.avatar_id;
 
       this.httpService.getRoom(code).subscribe(res => {
+        //TODO Verificar el tipado de la respuesta  
+       console.log('Web socket', res); 
         this.roomInfo.num_of_question = res.num_of_question;
         this.roomInfo.max_players = res.max_Players;
       });
-
-      const webSocketApi = new WebSocketAPI();
-      webSocketApi._connect(code, this.roomInfo.player_name, this.roomInfo.avatar_id);
+      
+      this.webSocketApi._connect(
+        code,
+        this.roomInfo.player_name,
+        this.roomInfo.avatar_id
+      );
     });
+  }
+
+  changeStatus() {
+      this.route.queryParamMap.subscribe(params => {
+        const code = params.get('room_code');
+        if (code === null ) return  
+      this.webSocketApi.readyPlayer(code,1,this.roomInfo.player_name,this.roomInfo.avatar_id)
+  })
   }
 }

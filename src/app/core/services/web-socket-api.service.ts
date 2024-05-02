@@ -1,13 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
+import { IPlayer } from '../../store/models/IPlayers.state';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class WebSocketAPI {
+export class WebSocketApiService {
+
   webSocketEndPoint: string = 'http://localhost:8080/preguntonic';
   topic: string = '/room/';
   stompClient: any;
@@ -27,15 +27,16 @@ export class WebSocketAPI {
     _this.stompClient.connect(
       {},
       function (frame: any) {
+        console.log(_this.topic + roomId)
         _this.stompClient.subscribe(
           _this.topic + roomId,
           function (wsResponse: any) {
-            _this.onMessageReceived(wsResponse);
+            console.log(wsResponse)
           }
         );
         //_this.stompClient.reconnect_delay = 2000;
         const response = _this.stompClient.send(
-          `/app/rooms.join/${roomId}`,
+          `/app/rooms/${roomId}/lobby/join`,
           {},
           JSON.stringify({ player_name: player_name, avatar_id: avatar_id })
         );
@@ -43,10 +44,11 @@ export class WebSocketAPI {
       },
       this.errorCallBack
     );
-    // if (this.stompClient.status === 'CONNECTED') {
-    //     let response = this.stompClient.send(`/app/rooms.join/${roomId}`, {}, JSON.stringify({'player_name': player_name, 'avatar_id': avatar_id}));
-    //     console.log("response stomp send: ", response);
-    // }
+  }
+
+  readyPlayer(roomId:string, player_id :number, player_name:string, avatar_id:string){
+    const response = this.stompClient.send(`/app/rooms/${roomId}/lobby/players/${player_id}/ready`, {}, JSON.stringify({'player_name': player_name, 'avatar_id': avatar_id}));
+    console.log("response stomp send: ", response);
   }
 
   _disconnect() {

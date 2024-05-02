@@ -6,9 +6,10 @@ export interface IPlayer {
     isReady: boolean;
   }
 
+
   export interface IPlayersState {
     players: IPlayer[];
-    currentPlayer: IPlayer | null;
+    currentPlayer: Pick<IPlayer, 'avatar' | 'name'>;
     isLoading: boolean;
     error: string | null;
  }

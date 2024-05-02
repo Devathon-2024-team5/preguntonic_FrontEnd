@@ -1,14 +1,13 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpRoomService } from '../../shared/services/http.room.service';
+import { HttpService } from '../../core/services/http.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
+import { Store } from '@ngrx/store';
+import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
+import { IPlayer } from '../../store/models/IPlayers.state';
+import { Observable } from 'rxjs';
 
 export interface RoomPlayer {
   max_players: number;
@@ -25,7 +24,11 @@ export interface RoomPlayer {
   templateUrl: './room-configuration.component.html',
   styleUrl: './room-configuration.component.css',
 })
-export class RoomConfigurationComponent implements OnInit {
+export class RoomConfigurationComponent {
+  httpService = inject(HttpService);
+  router = inject(Router);
+  store = inject(Store);
+
   valuesNumberOfPlayers = [2, 3, 4, 5, 6, 7, 8];
   valuesNumberOfQuestions = [5, 10, 15, 20, 25, 30];
   numberOfPlayersInTheRoom: number = this.valuesNumberOfPlayers[0];
@@ -33,39 +36,46 @@ export class RoomConfigurationComponent implements OnInit {
 
   playerName: string = '';
   playerAvatar: string = '';
+  dataPlayer$: Observable<Pick<IPlayer, 'avatar' | 'name'>>;
 
-  httpService = inject(HttpRoomService);
-  router = inject(Router);
-
-  constructor(private route: ActivatedRoute) {}
-  ngOnInit(): void {
-    console.log(this.route.paramMap);
-    // Leer los parámetros de la URL
-    this.route.queryParams.subscribe(params => {
-      this.playerName = params['playerName'];
-      this.playerAvatar = params['avatarId'];
-    });
+  constructor(private route: ActivatedRoute) {
+    this.dataPlayer$ = this.store.select(PLAYERS_SELECTS.selectPlayersCurrent);
   }
 
   createRoom() {
-    // Crear el objeto JSON con la información capturada
-    const RoomPlayer: RoomPlayer = {
-      max_players: this.numberOfPlayersInTheRoom,
-      num_of_question: this.numberOfGameQuestions,
-      player_name: this.playerName,
-      avatar_id: this.playerAvatar,
-    };
-    console.log(RoomPlayer)
+    this.dataPlayer$.subscribe({
+      next: ({ avatar, name }) => {
+        // Recibe el back
+        const RoomPlayer: RoomPlayer = {
+          max_players: this.numberOfPlayersInTheRoom,
+          num_of_question: this.numberOfGameQuestions,
+          player_name: name,
+          avatar_id: avatar,
+        };
 
-    this.httpService.createRoom(RoomPlayer).subscribe(res => {
-      console.log(res);
+       /* this.httpService.createRoom(RoomPlayer).pipe(
+          switchMap(({body, ok}) => {
+            console.log(body);
+            
+            if (!ok) throw new Error('assas')
+            
+            return this.httpService.createPlayer(RoomPlayer, body['room_code'])
+          })
+        ).subscribe(res => console.log(res))*/
 
-      this.router.navigate(['/anteroom'], {
-        queryParams: { 
-          roomPlayer: JSON.stringify(RoomPlayer),
-          room_code: res['room_code']
-         },
-      });
+        this.httpService.createRoom(RoomPlayer).subscribe(res => {
+
+          console.log(res);
+          if (!res.ok) throw new Error('assas')
+
+          this.router.navigate(['/anteroom'], {
+            queryParams: {
+              room_code: res.body['room_code'],
+            },
+          });
+        });
+        
+      },
     });
   }
 
