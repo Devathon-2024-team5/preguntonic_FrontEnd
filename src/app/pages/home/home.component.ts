@@ -1,32 +1,25 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { LogoTitleComponent } from '../../shared/components/logo-title/logo-title.component';
 import { AvatarImageComponent } from '../../shared/components/avatar-img/avatar-image.component';
 import { CustomButtonComponent } from '../../shared/components/custom-btn/custom-button.component';
 import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { IPlayer } from '../../store/models/IPlayers.state';
+import { Store } from '@ngrx/store';
+import { PLAYERS_ACTIONS } from '../../store/players/players.actions';
 
-export interface Player {
-  id?: number;
-  avatar: string;
-  name: string;
-  estado?: boolean;
-}
+// type Player = Pick<IPlayer, 'avatar' | 'name'>;
 
 @Component({
-    selector: 'app-home',
-    standalone: true,
-    templateUrl: './home.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    styleUrl: './home.component.css',
-    imports: [CustomButtonComponent, LogoTitleComponent, AvatarImageComponent]
+  selector: 'app-home',
+  standalone: true,
+  templateUrl: './home.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrl: './home.component.css',
+  imports: [CustomButtonComponent, LogoTitleComponent, AvatarImageComponent],
 })
-export class HomeComponent  {
-  player: Player[] = [];
+export class HomeComponent {
   router = inject(Router);
+  store = inject(Store);
 
   avatarImages: string[] = [
     '../../../assets/avatar-1.webp',
@@ -36,9 +29,7 @@ export class HomeComponent  {
   ];
   selectedAvatar: string = '';
   playerName: string = '';
-  route: ActivatedRoute = inject(ActivatedRoute);
 
-  
   constructor() {}
 
   selectAvatar(avatar: string) {
@@ -50,33 +41,34 @@ export class HomeComponent  {
     const inputElement = event.target as HTMLInputElement;
     this.playerName = inputElement.value;
   }
-  
-  createRoom() {
-    // Verificar si se ha ingresado un nombre
-    if (this.playerName.trim() !== '') {
-      // Crear el objeto JSON con la información capturada
-      const playerData: Player = {
-        avatar: this.selectedAvatar,
-        name: this.playerName,
-      };
-      // Agregar el objeto JSON a la matriz player
-      this.player.push(playerData);
-      // Imprimir el objeto JSON en consola
-      console.log(playerData);
-      this.router.navigate(['/room-configuration'], {
-        queryParams: {
-          playerName: this.playerName,
-          avatarId: this.selectedAvatar
-        }
-      });
 
-    } else {
-      // Mostrar una alerta si no se ha ingresado un nombre
-      alert('Por favor, ingresa un nombre.');
-    }
+  createRoom() {
+    this.saveDataPlayer(this.getDataPlayer());
+
+    this.router.navigate(['/room-configuration']);
   }
 
   joinRoom() {
+    this.saveDataPlayer(this.getDataPlayer());
     
+    this.router.navigate(['/join-room']);
+  }
+  
+  private saveDataPlayer(player: Pick<IPlayer, 'avatar' | 'playerName'>) {
+    
+    if (!this.playerName.trim()) {
+      alert('Por favor, ingresa un nombre.');
+      throw new Error('Input value empty ')
+    }
+
+    // guardar en el store
+    this.store.dispatch(PLAYERS_ACTIONS.savePlayers(player));
+  }
+
+  private getDataPlayer(): Pick<IPlayer, 'avatar' | 'playerName'> {
+    return {
+      avatar: this.selectedAvatar,
+      playerName: this.playerName,
+    };
   }
 }

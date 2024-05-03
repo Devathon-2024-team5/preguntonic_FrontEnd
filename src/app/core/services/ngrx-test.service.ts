@@ -9,9 +9,9 @@ import { IGameState, IQuestion } from '../../store/models/IGame.state';
 export class NgrxTestService {
   public executeNgrxPlayersTest(): Observable<IPlayer[]> {
     const player: IPlayer = {
-      id: 'as45',
+      playerId: 'as45',
       avatar: 'as',
-      name: 'Jhon Doe',
+      playerName: 'Jhon Doe',
       score: 3000,
       isReady: false,
     }

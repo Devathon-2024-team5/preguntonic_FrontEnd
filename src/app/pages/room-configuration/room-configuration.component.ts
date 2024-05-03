@@ -1,21 +1,14 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpRoomService } from '../../shared/services/http.room.service';
+import { HttpService } from '../../core/services/http.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
-
-export interface RoomPlayer {
-  max_players: number;
-  num_of_question: number;
-  player_name: string;
-  avatar_id: string;
-}
+import { Store } from '@ngrx/store';
+import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
+import { IPlayer } from '../../store/models/IPlayers.state';
+import { Observable, switchMap } from 'rxjs';
+import { IGameState } from '../../store/models/IGame.state';
 
 @Component({
   selector: 'app-room-configuration',
@@ -25,7 +18,12 @@ export interface RoomPlayer {
   templateUrl: './room-configuration.component.html',
   styleUrl: './room-configuration.component.css',
 })
-export class RoomConfigurationComponent implements OnInit {
+export class RoomConfigurationComponent {
+  httpService = inject(HttpService);
+  router = inject(Router);
+  store = inject(Store);
+  code = '';
+
   valuesNumberOfPlayers = [2, 3, 4, 5, 6, 7, 8];
   valuesNumberOfQuestions = [5, 10, 15, 20, 25, 30];
   numberOfPlayersInTheRoom: number = this.valuesNumberOfPlayers[0];
@@ -33,41 +31,51 @@ export class RoomConfigurationComponent implements OnInit {
 
   playerName: string = '';
   playerAvatar: string = '';
+  dataPlayer$: Observable<Pick<IPlayer, 'avatar' | 'playerName'>>;
 
-  httpService = inject(HttpRoomService);
-  router = inject(Router);
+  constructor(private route: ActivatedRoute) {
+    this.dataPlayer$ = this.store.select(PLAYERS_SELECTS.selectPlayersCurrent);
 
-  constructor(private route: ActivatedRoute) {}
-  ngOnInit(): void {
-    console.log(this.route.paramMap);
-    // Leer los parámetros de la URL
-    this.route.queryParams.subscribe(params => {
-      this.playerName = params['playerName'];
-      this.playerAvatar = params['avatarId'];
-    });
   }
 
   createRoom() {
-    // Crear el objeto JSON con la información capturada
-    const RoomPlayer: RoomPlayer = {
-      max_players: this.numberOfPlayersInTheRoom,
-      num_of_question: this.numberOfGameQuestions,
-      player_name: this.playerName,
-      avatar_id: this.playerAvatar,
-    };
-    console.log(RoomPlayer)
+    this.dataPlayer$.subscribe({
+      next: ({ avatar, playerName }) => {
+        // Recibe el back
+        const roomConfig: Pick<IGameState, 'maxPlayers' | 'numOfQuestion'> = {
+          maxPlayers: this.numberOfPlayersInTheRoom,
+          numOfQuestion: this.numberOfGameQuestions,
+        };
+        const player: Pick<IPlayer, 'avatar' | 'playerName'> = {
+          avatar,
+          playerName
+        }
 
-    this.httpService.createRoom(RoomPlayer).subscribe(res => {
-      console.log(res);
+        this.httpService
+          .createRoom(roomConfig)
+          .pipe(
+            switchMap(({ body, ok }) => {
+              console.log(body);
 
-      this.router.navigate(['/anteroom'], {
-        queryParams: { 
-          roomPlayer: JSON.stringify(RoomPlayer),
-          room_code: res['room_code']
-         },
-      });
+              if (!ok) throw new Error('assas');
+              
+              this.code = body['room_code'];
+              return this.httpService.createPlayer(
+                player,
+                body['room_code']
+              );
+            })
+          )
+          .subscribe(({ ok, body }) => {
+            if (!ok) throw new Error('assas');
+            console.log(body); //guardar Player_id
+            this.router.navigate(['/anteroom'], {
+              queryParams: {
+                room_code: this.code,
+              },
+            });
+          });
+      },
     });
   }
-
-  joinRoom() {}
 }

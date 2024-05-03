@@ -9,10 +9,10 @@
         <p>Preparados 4/{{maxPlayers}}</p>
       </div>
       <div class="icons d-flex gap-2 mb-2">
-        @for (item of players; track item.id) {
+        @for (item of players; track item.playerId) {
           <div class="players d-flex flex-column justify-content-center align-items-center">
-            <img class="avatar" [src]="item.avatar" [alt]="item.name">
-            {{item.name}}
+            <img class="avatar" [src]="item.avatar" [alt]="item.playerName">
+            {{item.playerName}}
             <div class="offBar"></div>
           </div>
         }

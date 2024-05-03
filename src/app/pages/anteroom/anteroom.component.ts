@@ -1,19 +1,22 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Input,
   OnInit,
-  ElementRef
+  inject,
 } from '@angular/core';
 import { HeaderAnteroomComponent } from './components/header-anteroom/header-anteroom.component';
 import { CodeContainerComponent } from './components/code-container/code-container.component';
 import { SectionPlayerComponent } from './components/section-player/section-player.component';
-import { HomeComponent, Player } from '../home/home.component';
-import { HttpRoomService } from '../../shared/services/http.room.service';
+import { HomeComponent } from '../home/home.component';
+import { HttpService } from '../../core/services/http.service';
 import { CustomButtonComponent } from '../../shared/components/custom-btn/custom-button.component';
+import { WebSocketApiService } from '../../core/services/web-socket-api.service';
+import { IPlayer } from '../../store/models/IPlayers.state';
 import { ActivatedRoute } from '@angular/router';
-import { WebSocketAPI } from '../../shared/services/web.socket.api';
-import { RoomPlayer } from '../room-configuration/room-configuration.component';
-
+import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-anteroom',
@@ -26,79 +29,82 @@ import { RoomPlayer } from '../room-configuration/room-configuration.component';
     CodeContainerComponent,
     SectionPlayerComponent,
     HomeComponent,
-    CustomButtonComponent
+    CustomButtonComponent,
   ],
 })
-export class AnteroomComponent implements OnInit{
-  
-  changeStatus(){ //this is a test
-    const element = this.elementRef.nativeElement.querySelector('.offBar');
-    
-    if (element ) {
-      element.classList.remove('offBar');
-      element.classList.add('onBar');
-    }
-  }
-  roomInfo: RoomPlayer = {
+export class AnteroomComponent implements OnInit {
+  @Input() room_code?: string;
+  store = inject(Store);
+  roomInfo: any = {
     num_of_question: 0,
     max_players: 0,
-    player_name:'' ,
-    avatar_id:''
-  }
+    player_name: '',
+    avatar_id: '',
+  };
 
   maxPlayers: number = 0;
 
-  players: Player[] = [
+  players: IPlayer[] = [
     {
-      id: 1,
+      playerId : '1',
       avatar: '../../../assets/avatar-1.webp',
-      name: 'Jugador 1',
-      estado: true,
+      playerName: 'Jugador 1',
+      score: 0,
+      isReady: true,
     },
     {
-      id: 2,
-      avatar: '../../../assets/avatar-2.webp',
-      name: 'Jugador 2',
-      estado: true,
+      playerId: '2',
+      avatar: '../../../assets/avatar-1.webp',
+      playerName: 'Jugador 1',
+      score: 0,
+      isReady: true,
     },
     {
-      id: 3,
-      avatar: '../../../assets/avatar-3.webp',
-      name: 'Jugador 3',
-      estado: true,
+      playerId: '3',
+      avatar: '../../../assets/avatar-1.webp',
+      playerName: 'Jugador 1',
+      score: 0,
+      isReady: true,
     },
   ];
+  webSocketApi = inject(WebSocketApiService);
 
-  constructor(
-    private httpService: HttpRoomService,
-    private route: ActivatedRoute,
-    private elementRef: ElementRef,
-  ) {}
+  dataPlayer$: Observable<Pick<IPlayer, 'avatar' | 'playerName'>>;
+
+  constructor(private route: ActivatedRoute, private httpService: HttpService) {
+    this.dataPlayer$ = this.store.select(PLAYERS_SELECTS.selectPlayersCurrent);
+  }
+
 
   ngOnInit(): void {
+    this.dataPlayer$.subscribe(res => {
+      this.roomInfo.avatar_id = res.avatar;
+      this.roomInfo.player_name = res.playerName;
+    })
 
-    this.route.queryParamMap.subscribe(params => {
-      const code = params.get('room_code');
-      const playerDataString = params.get('roomPlayer');
-      if (!code || !playerDataString) return;
 
-      const playerData: RoomPlayer = JSON.parse(playerDataString);
-      this.maxPlayers = playerData.max_players;
-      if (!playerData.player_name || !playerData.avatar_id) {
-        console.error('playerData no tiene los campos esperados:', playerData);
-        return;
-      }
+    if (!this.room_code) return;
 
-      this.roomInfo.player_name = playerData.player_name;
-      this.roomInfo.avatar_id = playerData.avatar_id;
-
-      this.httpService.getRoom(code).subscribe(res => {
-        this.roomInfo.num_of_question = res.num_of_question;
-        this.roomInfo.max_players = res.max_Players;
-      });
-
-      const webSocketApi = new WebSocketAPI();
-      webSocketApi._connect(code, this.roomInfo.player_name, this.roomInfo.avatar_id);
+    this.httpService.getRoom(this.room_code).subscribe(res => {
+      this.roomInfo.num_of_question = res.num_of_question;
+      this.roomInfo.max_players = res.max_Players;
     });
+    
+    this.webSocketApi._connect(
+      this.room_code,
+      this.roomInfo.player_name,
+      this.roomInfo.avatar_id
+    );
+  }
+
+  changeStatus() {
+    if (!this.room_code) return;
+
+    this.webSocketApi.readyPlayer(
+      this.room_code,
+      1,
+      this.roomInfo.player_name,
+      this.roomInfo.avatar_id
+    );
   }
 }
