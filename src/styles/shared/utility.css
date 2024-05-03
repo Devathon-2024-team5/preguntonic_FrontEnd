@@ -13,3 +13,7 @@
 .u-green-light {
   color: var(--accent-color);
 }
+
+.without-overflow {
+  overflow: hidden;
+}
