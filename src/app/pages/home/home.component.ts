@@ -55,7 +55,11 @@ export class HomeComponent {
   }
   
   private saveDataPlayer(player: Pick<IPlayer, 'avatar' | 'name'>) {
-    if (this.playerName.trim() === '') alert('Por favor, ingresa un nombre.');
+    
+    if (!this.playerName.trim()) {
+      alert('Por favor, ingresa un nombre.');
+      throw new Error('Input value empty ')
+    }
 
     // guardar en el store
     this.store.dispatch(PLAYERS_ACTIONS.savePlayers(player));

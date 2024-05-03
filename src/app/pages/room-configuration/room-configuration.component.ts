@@ -7,7 +7,7 @@ import { HomeComponent } from '../home/home.component';
 import { Store } from '@ngrx/store';
 import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
 import { IPlayer } from '../../store/models/IPlayers.state';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 
 export interface RoomPlayer {
   max_players: number;
@@ -28,6 +28,7 @@ export class RoomConfigurationComponent {
   httpService = inject(HttpService);
   router = inject(Router);
   store = inject(Store);
+  code = '';
 
   valuesNumberOfPlayers = [2, 3, 4, 5, 6, 7, 8];
   valuesNumberOfQuestions = [5, 10, 15, 20, 25, 30];
@@ -53,31 +54,31 @@ export class RoomConfigurationComponent {
           avatar_id: avatar,
         };
 
-       /* this.httpService.createRoom(RoomPlayer).pipe(
-          switchMap(({body, ok}) => {
-            console.log(body);
-            
-            if (!ok) throw new Error('assas')
-            
-            return this.httpService.createPlayer(RoomPlayer, body['room_code'])
-          })
-        ).subscribe(res => console.log(res))*/
+        this.httpService
+          .createRoom(RoomPlayer)
+          .pipe(
+            switchMap(({ body, ok }) => {
+              console.log(body);
 
-        this.httpService.createRoom(RoomPlayer).subscribe(res => {
-
-          console.log(res);
-          if (!res.ok) throw new Error('assas')
-
-          this.router.navigate(['/anteroom'], {
-            queryParams: {
-              room_code: res.body['room_code'],
-            },
+              if (!ok) throw new Error('assas');
+              
+              this.code = body['room_code'];
+              return this.httpService.createPlayer(
+                RoomPlayer,
+                body['room_code']
+              );
+            })
+          )
+          .subscribe(({ ok, body }) => {
+            if (!ok) throw new Error('assas');
+            console.log(body); //guardar Player_id
+            this.router.navigate(['/anteroom'], {
+              queryParams: {
+                room_code: this.code,
+              },
+            });
           });
-        });
-        
       },
     });
   }
-
-  joinRoom() {}
 }

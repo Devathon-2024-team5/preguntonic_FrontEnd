@@ -19,8 +19,10 @@ export class HttpService {
     })
   }
 
-  public createPlayer (roomPlayer: RoomPlayer, roomId : string): Observable<any>{
-    return this._http.post(this.url+`/${roomId}/players`, roomPlayer)
+  public createPlayer (roomPlayer: RoomPlayer, roomId : string): Observable<HttpResponse<any>>{
+    return this._http.post(this.url+`/${roomId}/players`, roomPlayer, {
+      observe:"response"
+    })
   }
 
   public getRoom (roomId: string): Observable<any> {
@@ -28,8 +30,7 @@ export class HttpService {
   }
   
   public connectRoom (code: string, player: Pick<IPlayer, 'avatar' | 'name' >) {
-
-    return this._http.put(`${this.url}/${code}`, {
+    return this._http.post(`${this.url}/${code}`, {
       headers: 'aplications json',
       body: {
         player
