@@ -8,13 +8,7 @@ import { Store } from '@ngrx/store';
 import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
 import { IPlayer } from '../../store/models/IPlayers.state';
 import { Observable, switchMap } from 'rxjs';
-
-export interface RoomPlayer {
-  max_players: number;
-  num_of_question: number;
-  player_name: string;
-  avatar_id: string;
-}
+import { IGameState } from '../../store/models/IGame.state';
 
 @Component({
   selector: 'app-room-configuration',
@@ -37,25 +31,28 @@ export class RoomConfigurationComponent {
 
   playerName: string = '';
   playerAvatar: string = '';
-  dataPlayer$: Observable<Pick<IPlayer, 'avatar' | 'name'>>;
+  dataPlayer$: Observable<Pick<IPlayer, 'avatar' | 'playerName'>>;
 
   constructor(private route: ActivatedRoute) {
     this.dataPlayer$ = this.store.select(PLAYERS_SELECTS.selectPlayersCurrent);
+
   }
 
   createRoom() {
     this.dataPlayer$.subscribe({
-      next: ({ avatar, name }) => {
+      next: ({ avatar, playerName }) => {
         // Recibe el back
-        const RoomPlayer: RoomPlayer = {
-          max_players: this.numberOfPlayersInTheRoom,
-          num_of_question: this.numberOfGameQuestions,
-          player_name: name,
-          avatar_id: avatar,
+        const roomConfig: Pick<IGameState, 'maxPlayers' | 'numOfQuestion'> = {
+          maxPlayers: this.numberOfPlayersInTheRoom,
+          numOfQuestion: this.numberOfGameQuestions,
         };
+        const player: Pick<IPlayer, 'avatar' | 'playerName'> = {
+          avatar,
+          playerName
+        }
 
         this.httpService
-          .createRoom(RoomPlayer)
+          .createRoom(roomConfig)
           .pipe(
             switchMap(({ body, ok }) => {
               console.log(body);
@@ -64,7 +61,7 @@ export class RoomConfigurationComponent {
               
               this.code = body['room_code'];
               return this.httpService.createPlayer(
-                RoomPlayer,
+                player,
                 body['room_code']
               );
             })

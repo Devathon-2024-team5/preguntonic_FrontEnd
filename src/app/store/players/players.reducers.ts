@@ -6,7 +6,7 @@ const initialState: IPlayersState = {
   players: [],
   currentPlayer: {
     avatar: 'assets/avatar-1.webp',
-    name: 'unknow'
+    playerName: 'unknow'
   },
   isLoading: false,
   error: null,
@@ -38,15 +38,15 @@ export const playersReducers = createReducer(
     PLAYERS_ACTIONS.changeReadyStatus,
     (state, { isReady, playerId }): IPlayersState => {
       const newData = state.players.map(player =>
-        player.id !== playerId ? player : { ...player, isReady }
+        player.playerId !== playerId ? player : { ...player, isReady }
       );
       return { ...state, players: newData };
     }
   ),
   on(
     PLAYERS_ACTIONS.savePlayers,
-    (state, {avatar, name}): IPlayersState  => {
-      return {...state, currentPlayer: {avatar, name}}
+    (state, {avatar, playerName}): IPlayersState  => {
+      return {...state, currentPlayer: {avatar, playerName}}
     }
   )
 );

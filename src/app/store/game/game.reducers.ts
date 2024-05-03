@@ -3,6 +3,8 @@ import { IGameState } from '../models/IGame.state';
 import { GAME_ACTIONS } from './game.actions';
 
 export const initialState: IGameState = {
+  maxPlayers: 0,
+  numOfQuestion: 0,
   questions: [],
   currentQuestion: 0,
   error: null,

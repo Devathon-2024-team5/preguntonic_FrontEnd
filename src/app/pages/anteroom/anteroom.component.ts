@@ -12,7 +12,6 @@ import { HomeComponent } from '../home/home.component';
 import { HttpService } from '../../core/services/http.service';
 import { CustomButtonComponent } from '../../shared/components/custom-btn/custom-button.component';
 import { WebSocketApiService } from '../../core/services/web-socket-api.service';
-import { RoomPlayer } from '../room-configuration/room-configuration.component';
 import { IPlayer } from '../../store/models/IPlayers.state';
 import { ActivatedRoute } from '@angular/router';
 import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
@@ -36,7 +35,7 @@ import { Store } from '@ngrx/store';
 export class AnteroomComponent implements OnInit {
   @Input() room_code?: string;
   store = inject(Store);
-  roomInfo: RoomPlayer = {
+  roomInfo: any = {
     num_of_question: 0,
     max_players: 0,
     player_name: '',
@@ -47,30 +46,30 @@ export class AnteroomComponent implements OnInit {
 
   players: IPlayer[] = [
     {
-      id: '1',
+      playerId : '1',
       avatar: '../../../assets/avatar-1.webp',
-      name: 'Jugador 1',
+      playerName: 'Jugador 1',
       score: 0,
       isReady: true,
     },
     {
-      id: '1',
+      playerId: '2',
       avatar: '../../../assets/avatar-1.webp',
-      name: 'Jugador 1',
+      playerName: 'Jugador 1',
       score: 0,
       isReady: true,
     },
     {
-      id: '1',
+      playerId: '3',
       avatar: '../../../assets/avatar-1.webp',
-      name: 'Jugador 1',
+      playerName: 'Jugador 1',
       score: 0,
       isReady: true,
     },
   ];
   webSocketApi = inject(WebSocketApiService);
 
-  dataPlayer$: Observable<Pick<IPlayer, 'avatar' | 'name'>>;
+  dataPlayer$: Observable<Pick<IPlayer, 'avatar' | 'playerName'>>;
 
   constructor(private route: ActivatedRoute, private httpService: HttpService) {
     this.dataPlayer$ = this.store.select(PLAYERS_SELECTS.selectPlayersCurrent);
@@ -80,7 +79,7 @@ export class AnteroomComponent implements OnInit {
   ngOnInit(): void {
     this.dataPlayer$.subscribe(res => {
       this.roomInfo.avatar_id = res.avatar;
-      this.roomInfo.player_name = res.name;
+      this.roomInfo.player_name = res.playerName;
     })
 
 

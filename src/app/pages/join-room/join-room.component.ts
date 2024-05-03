@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
 import { HttpService } from '../../core/services/http.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-join-room',
@@ -17,6 +18,7 @@ export class JoinRoomComponent {
   code = '';
   store = inject(Store);
   currentPlayer$ = this.store.select(PLAYERS_SELECTS.selectPlayersCurrent);
+  router = inject(Router)
 
   constructor(private http: HttpService) {}
 
@@ -25,7 +27,17 @@ export class JoinRoomComponent {
       next: player => {
         if (player === null) return
 
-        this.http.connectRoom(this.code, player);
+        this.http.createPlayer(player, this.code).subscribe(({ ok, body }) => {
+          console.log(ok , body);
+          
+          if (!ok) throw new Error('assas');
+          console.log(body); //guardar Player_id
+          this.router.navigate(['/anteroom'], {
+            queryParams: {
+              room_code: this.code,
+            },
+          });
+        });
         //necesitamos redireccionar a anteRoom cuando la conexión este habilitada (200 OK)
       },
       error: (err: HttpErrorResponse) => console.log(err.message),

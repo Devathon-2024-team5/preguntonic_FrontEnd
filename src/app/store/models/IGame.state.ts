@@ -5,6 +5,8 @@ export interface IQuestion {
 }
 
 export interface IGameState {
+  maxPlayers:number;
+  numOfQuestion:number;
   questions: IQuestion[];
   currentQuestion: number;
   isLoading: boolean;

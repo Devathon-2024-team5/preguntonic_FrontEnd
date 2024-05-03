@@ -54,7 +54,7 @@ export class HomeComponent {
     this.router.navigate(['/join-room']);
   }
   
-  private saveDataPlayer(player: Pick<IPlayer, 'avatar' | 'name'>) {
+  private saveDataPlayer(player: Pick<IPlayer, 'avatar' | 'playerName'>) {
     
     if (!this.playerName.trim()) {
       alert('Por favor, ingresa un nombre.');
@@ -65,10 +65,10 @@ export class HomeComponent {
     this.store.dispatch(PLAYERS_ACTIONS.savePlayers(player));
   }
 
-  private getDataPlayer(): Pick<IPlayer, 'avatar' | 'name'> {
+  private getDataPlayer(): Pick<IPlayer, 'avatar' | 'playerName'> {
     return {
       avatar: this.selectedAvatar,
-      name: this.playerName,
+      playerName: this.playerName,
     };
   }
 }

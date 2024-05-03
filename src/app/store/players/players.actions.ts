@@ -3,7 +3,7 @@ import { IPlayer } from "../models/IPlayers.state";
 
 const loadPlayers = createAction("[Players] Load Players");
 
-const savePlayers = createAction('[Home Page] Save info Player', props<{name : string, avatar: string}>());
+const savePlayers = createAction('[Home Page] Save info Player', props<{playerName : string, avatar: string}>());
 
 const loadPlayersFailure = createAction("[Players] Load Players Failure", props<{ error: string }>());
 
