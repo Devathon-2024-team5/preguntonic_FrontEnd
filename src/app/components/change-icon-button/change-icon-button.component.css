@@ -1,0 +1,21 @@
+.change-btn {
+  display: flex;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: var(--alert-red-color);
+  color: #000;
+}
+
+.change-btn:hover {
+  background-color: var(--warning-yellow-color);
+}
+
+.change-btn:active {
+  background-color: var(--accent-color);
+}
+
+.change-btn svg {
+  width: 55%;
+}
