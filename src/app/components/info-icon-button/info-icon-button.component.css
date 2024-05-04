@@ -1,0 +1,15 @@
+.info-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: var(--secondary-green-color);
+  color: #000;
+}
+
+.info-btn:hover {
+  background-color: var(--accent-color);
+}
+
+.info-btn:active {
+  background-color: var(--secondary-color-light);
+}
