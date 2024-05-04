@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Frame, IMessage, Stomp} from '@stomp/stompjs';
+import { Frame, IMessage, Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
 @Injectable({
@@ -8,13 +8,13 @@ import SockJS from 'sockjs-client';
 export class WebSocketApiService {
   webSocketEndPoint: string = 'http://localhost:8080/preguntonic';
   topic: string = '/room/';
-  stompClient:any;
+  stompClient: any;
   roomId: string = '';
   player_name: string = '';
   avatar_id: string = '';
 
   _connect(roomId: string, player_name: string, avatar_id: string) {
-    console.log("connect")
+    console.log('connect');
     this.roomId = roomId;
     console.log('Initialize WebSocket Connection');
     const ws = new SockJS(this.webSocketEndPoint);
@@ -24,14 +24,14 @@ export class WebSocketApiService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _this.stompClient.connect(
       {},
-      function (frame: Frame) {
+      (frame: Frame) => {
         console.log(`Info : ${frame}`);
 
         console.log(_this.topic + roomId);
 
         _this.stompClient.subscribe(
           _this.topic + roomId,
-          function (wsResponse:IMessage) {
+          (wsResponse: IMessage) => {
             console.log(wsResponse.body);
             console.log(JSON.parse(wsResponse.body));
           }
@@ -76,8 +76,7 @@ export class WebSocketApiService {
     setTimeout(() => {
       this._connect(this.roomId, this.player_name, this.avatar_id);
     }, 5000);
-  }
-
+  };
 
   onMessageReceived(message: any) {
     console.log('Message Recieved from Server :: ' + message);

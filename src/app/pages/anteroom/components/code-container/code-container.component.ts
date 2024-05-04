@@ -17,7 +17,6 @@ export class CodeContainerComponent implements OnInit {
       const code = params.get('room_code');
       if (!code) return;
       this.coderoom = code;
-      console.log(this.coderoom);
     });
   }
 

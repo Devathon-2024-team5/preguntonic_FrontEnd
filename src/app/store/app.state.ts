@@ -7,8 +7,9 @@ import { PlayersEffects } from './players/players.effects';
 import { GameEffects } from './game/game.effects';
 import { ICurrentPlayerState } from './models/ICurrentPlayer.state';
 import { currentPlayerReducer } from './current-player/current-player.reducers';
+import { CurrentPlayerEffect } from './current-player/current-player.effects';
 
-export const AllEffects = [PlayersEffects, GameEffects];
+export const AllEffects = [PlayersEffects, GameEffects, CurrentPlayerEffect];
 
 export interface AppState {
   playersState: IPlayersState;

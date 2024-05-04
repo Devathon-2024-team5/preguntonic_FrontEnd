@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
-import { catchError, exhaustMap, map, of } from 'rxjs';
+import { catchError, exhaustMap, map, mergeMap, of, switchMap, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpService } from '../../core/services/http.service';
 import { Store } from '@ngrx/store';
@@ -9,7 +9,7 @@ import { GAME_ACTIONS } from '../game/game.actions';
 import { CURRENT_PLAYER_SELECTS } from './current-player.selectors';
 
 @Injectable()
-export class GameEffects {
+export class CurrentPlayerEffect {
   private readonly _actions$ = inject(Actions);
   private readonly _httpService = inject(HttpService);
   private readonly store = inject(Store);
@@ -20,11 +20,11 @@ export class GameEffects {
       concatLatestFrom(() =>
         this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer)
       ),
-      exhaustMap(([{ roomCode }, { avatar, playerName }]) =>
+      switchMap(([{ roomCode }, { avatar, playerName }]) =>
         this._httpService.createPlayer({ avatar, playerName }, roomCode).pipe(
-          map(({ ok, body }) => {
+          tap(() => console.log(roomCode)),
+          map(({ ok }) => {
             if (!ok) throw new Error(`Failure to retrieve data`);
-            console.log(body);
 
             return GAME_ACTIONS.changeView({ route: '/anteroom' });
           }),

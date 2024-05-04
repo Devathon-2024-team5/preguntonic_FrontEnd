@@ -13,16 +13,21 @@ const setConfigGame = createAction(
   props<{ numOfQuestion: number; maxPlayers: number }>()
 );
 
-const setRoomCode = createAction('[Room Configuration] Set Room Code', props<{ roomCode: string }>());
-
 const loadGameFailure = createAction(
   '[Game Room] Load Game Failure',
   props<{ error: string }>()
 );
 
+const setRoomCode = createAction(
+  '[Room Configuration] Set Room Code',
+  props<{ roomCode: string }>()
+);
 const createRoom = createAction('[Room Configuration] Create Room');
 
-const changeView = createAction('[All Page] Change View Page', props<{ route: string }>());
+const changeView = createAction(
+  '[All Page] Change View Page',
+  props<{ route: string }>()
+);
 
 export const GAME_ACTIONS = {
   loadGame,
@@ -31,5 +36,5 @@ export const GAME_ACTIONS = {
   setConfigGame,
   setRoomCode,
   createRoom,
-  changeView
+  changeView,
 };

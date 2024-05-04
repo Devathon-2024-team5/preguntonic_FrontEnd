@@ -31,15 +31,15 @@ export class GameEffects {
     );
   });
 
-  public setConfig$ = createEffect(() => {
+  public setConfigGame$ = createEffect(() => {
     return this._actions$.pipe(
       ofType(GAME_ACTIONS.setConfigGame),
       exhaustMap(({ maxPlayers, numOfQuestion }) =>
         this._httpService.createRoom({ maxPlayers, numOfQuestion }).pipe(
-          map(({ ok, body }) => {
+          map(({ body, ok }) => {
             if (!ok) throw new Error(`Failure to retrieve data`);
 
-            return GAME_ACTIONS.setRoomCode(body['room_code']);
+            return GAME_ACTIONS.setRoomCode({roomCode: body['room_code']});
           }),
           catchError(({ message }: HttpErrorResponse) =>
             of(GAME_ACTIONS.loadGameFailure({ error: message }))
@@ -49,12 +49,11 @@ export class GameEffects {
     );
   });
 
-
   public redirectToRoom$ = createEffect(
     () => {
       return this._actions$.pipe(
         ofType(GAME_ACTIONS.changeView),
-        tap(({route}) => this._router.navigate([route]))
+        tap(({ route }) => this._router.navigate([route]))
       );
     },
     { dispatch: false }
