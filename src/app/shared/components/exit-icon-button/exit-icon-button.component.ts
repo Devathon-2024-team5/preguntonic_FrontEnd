@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ModalComponent } from '../modal/modal.component';
 import { CustomButtonComponent } from '../custom-btn/custom-button.component';
 import { Router } from '@angular/router';
+import { WebSocketAPI } from '../../services/web.socket.api';
 
 @Component({
   selector: 'app-exit-icon-button',
@@ -14,7 +15,7 @@ export class ExitIconButtonComponent {
 
   stateModal = false;
 
-  constructor (private router: Router){}
+  constructor (private router: Router, private webSocketAPI: WebSocketAPI){}
   openModal() {
     this.stateModal = true;
     document.body.classList.add('without-overflow');
@@ -28,5 +29,6 @@ export class ExitIconButtonComponent {
   redirect() {
     this.closeModal();
     this.router.navigate(['/home']);
+    this.webSocketAPI._disconnect();
   }
 }
