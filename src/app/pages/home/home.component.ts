@@ -3,11 +3,9 @@ import { LogoTitleComponent } from '../../shared/components/logo-title/logo-titl
 import { AvatarImageComponent } from '../../shared/components/avatar-img/avatar-image.component';
 import { CustomButtonComponent } from '../../shared/components/custom-btn/custom-button.component';
 import { Router } from '@angular/router';
-import { IPlayer } from '../../store/models/IPlayers.state';
 import { Store } from '@ngrx/store';
-import { PLAYERS_ACTIONS } from '../../store/players/players.actions';
-
-// type Player = Pick<IPlayer, 'avatar' | 'name'>;
+import { CURRENT_PLAYER_ACTIONS } from '../../store/current-player/current-player.action';
+import { GAME_ACTIONS } from '../../store/game/game.actions';
 
 @Component({
   selector: 'app-home',
@@ -18,8 +16,8 @@ import { PLAYERS_ACTIONS } from '../../store/players/players.actions';
   imports: [CustomButtonComponent, LogoTitleComponent, AvatarImageComponent],
 })
 export class HomeComponent {
-  router = inject(Router);
-  store = inject(Store);
+  private readonly router = inject(Router);
+  private store = inject(Store);
 
   avatarImages: string[] = [
     '../../../assets/avatar-1.webp',
@@ -30,45 +28,30 @@ export class HomeComponent {
   selectedAvatar: string = '';
   playerName: string = '';
 
-  constructor() {}
-
   selectAvatar(avatar: string) {
     this.selectedAvatar = avatar;
   }
 
   onNameInputChange(event: Event) {
-    // Utiliza la interfaz HTMLInputElement para asegurar que event.target es un input element
-    const inputElement = event.target as HTMLInputElement;
-    this.playerName = inputElement.value;
+    if (!(event.target instanceof HTMLInputElement)) return;
+
+    this.playerName = event.target.value;
   }
 
-  createRoom() {
-    this.saveDataPlayer(this.getDataPlayer());
+  public navigateView(route: Required<string>): void {
+    if (!this.playerName.trim()) return alert('Por favor, ingresa un nombre');
 
-    this.router.navigate(['/room-configuration']);
+    this.savePlayer();
+    //this.router.navigate([route]);
+    this.store.dispatch(GAME_ACTIONS.changeView({ route }));
   }
 
-  joinRoom() {
-    this.saveDataPlayer(this.getDataPlayer());
-    
-    this.router.navigate(['/join-room']);
-  }
-  
-  private saveDataPlayer(player: Pick<IPlayer, 'avatar' | 'playerName'>) {
-    
-    if (!this.playerName.trim()) {
-      alert('Por favor, ingresa un nombre.');
-      throw new Error('Input value empty ')
-    }
-
-    // guardar en el store
-    this.store.dispatch(PLAYERS_ACTIONS.savePlayers(player));
-  }
-
-  private getDataPlayer(): Pick<IPlayer, 'avatar' | 'playerName'> {
-    return {
-      avatar: this.selectedAvatar,
-      playerName: this.playerName,
-    };
+  private savePlayer(): void {
+    this.store.dispatch(
+      CURRENT_PLAYER_ACTIONS.saveCurrentPlayer({
+        avatar: this.selectedAvatar,
+        playerName: this.playerName,
+      })
+    );
   }
 }

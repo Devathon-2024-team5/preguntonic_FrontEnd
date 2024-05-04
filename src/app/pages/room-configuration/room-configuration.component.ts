@@ -2,13 +2,12 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpService } from '../../core/services/http.service';
 import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
 import { Store } from '@ngrx/store';
 import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
-import { IPlayer } from '../../store/models/IPlayers.state';
 import { Observable, switchMap } from 'rxjs';
-import { IGameState } from '../../store/models/IGame.state';
+import { GameConfigDTO, PlayerDTO } from '../../store/types/store.dto';
+import { GAME_ACTIONS } from '../../store/game/game.actions';
 
 @Component({
   selector: 'app-room-configuration',
@@ -19,9 +18,9 @@ import { IGameState } from '../../store/models/IGame.state';
   styleUrl: './room-configuration.component.css',
 })
 export class RoomConfigurationComponent {
-  httpService = inject(HttpService);
-  router = inject(Router);
-  store = inject(Store);
+  private readonly httpService = inject(HttpService);
+  private readonly router = inject(Router);
+  private readonly store = inject(Store);
   code = '';
 
   valuesNumberOfPlayers = [2, 3, 4, 5, 6, 7, 8];
@@ -31,51 +30,50 @@ export class RoomConfigurationComponent {
 
   playerName: string = '';
   playerAvatar: string = '';
-  dataPlayer$: Observable<Pick<IPlayer, 'avatar' | 'playerName'>>;
+  dataPlayer$: Observable<PlayerDTO>;
 
-  constructor(private route: ActivatedRoute) {
+  constructor() {
     this.dataPlayer$ = this.store.select(PLAYERS_SELECTS.selectPlayersCurrent);
-
   }
 
   createRoom() {
-    this.dataPlayer$.subscribe({
-      next: ({ avatar, playerName }) => {
-        // Recibe el back
-        const roomConfig: Pick<IGameState, 'maxPlayers' | 'numOfQuestion'> = {
-          maxPlayers: this.numberOfPlayersInTheRoom,
-          numOfQuestion: this.numberOfGameQuestions,
-        };
-        const player: Pick<IPlayer, 'avatar' | 'playerName'> = {
-          avatar,
-          playerName
-        }
+    this.store.dispatch(
+      GAME_ACTIONS.setConfigGame({
+        maxPlayers: this.numberOfPlayersInTheRoom,
+        numOfQuestion: this.numberOfGameQuestions,
+      })
+    );
 
-        this.httpService
-          .createRoom(roomConfig)
-          .pipe(
-            switchMap(({ body, ok }) => {
-              console.log(body);
+    // this.dataPlayer$.subscribe({
+    //   next: ({ avatar, playerName }) => {
+    //     // Recibe el back
+    //     const roomConfig: GameConfigDTO = {
+    //       maxPlayers: this.numberOfPlayersInTheRoom,
+    //       numOfQuestion: this.numberOfGameQuestions,
+    //     };
+    //     const player: PlayerDTO = { avatar, playerName };
 
-              if (!ok) throw new Error('assas');
-              
-              this.code = body['room_code'];
-              return this.httpService.createPlayer(
-                player,
-                body['room_code']
-              );
-            })
-          )
-          .subscribe(({ ok, body }) => {
-            if (!ok) throw new Error('assas');
-            console.log(body); //guardar Player_id
-            this.router.navigate(['/anteroom'], {
-              queryParams: {
-                room_code: this.code,
-              },
-            });
-          });
-      },
-    });
+    //     this.httpService
+    //       .createRoom(roomConfig)
+    //       .pipe(
+    //         switchMap(({ ok, statusText, body }) => {
+    //           if (!ok)
+    //             throw new Error(`Failure to retrieve data: ${statusText}`);
+
+    //           this.code = body['room_code'];
+    //           return this.httpService.createPlayer(player, body['room_code']);
+    //         })
+    //       )
+    //       .subscribe(({ ok, statusText }) => {
+    //         if (!ok) throw new Error(`Failure to retrieve data: ${statusText}`);
+
+    //         this.router.navigate(['/anteroom'], {
+    //           queryParams: {
+    //             room_code: this.code,
+    //           },
+    //         });
+    //       });
+    //   },
+    // });
   }
 }

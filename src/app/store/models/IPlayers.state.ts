@@ -1,15 +1,17 @@
+import { PlayerDTO } from "../types/store.dto";
+
 export interface IPlayer {
     playerId: string;
     playerName: string;
-    score: number;
     avatar: string;
+    score: number;
     isReady: boolean;
   }
 
 
   export interface IPlayersState {
     players: IPlayer[];
-    currentPlayer: Pick<IPlayer, 'avatar' | 'playerName'>;
+    currentPlayer: PlayerDTO;
     isLoading: boolean;
     error: string | null;
  }

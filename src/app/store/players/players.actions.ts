@@ -3,7 +3,9 @@ import { IPlayer } from "../models/IPlayers.state";
 
 const loadPlayers = createAction("[Players] Load Players");
 
-const savePlayers = createAction('[Home Page] Save info Player', props<{playerName : string, avatar: string}>());
+const savePlayer = createAction('[Home Page] Save info Player', props<{playerName : string, avatar: string}>());
+
+const saveCurrentPlayer = createAction('[Home Page] Save info Player', props<{playerName : string, avatar: string}>());
 
 const loadPlayersFailure = createAction("[Players] Load Players Failure", props<{ error: string }>());
 
@@ -16,5 +18,6 @@ export const PLAYERS_ACTIONS = {
   updatePlayers,
   loadPlayersFailure,
   changeReadyStatus,
-  savePlayers
+  savePlayer,
+  saveCurrentPlayer
 };

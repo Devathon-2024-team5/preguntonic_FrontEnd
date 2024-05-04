@@ -6,6 +6,7 @@ import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
 import { HttpService } from '../../core/services/http.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { GAME_ACTIONS } from '../../store/game/game.actions';
 
 @Component({
   selector: 'app-join-room',
@@ -23,24 +24,26 @@ export class JoinRoomComponent {
   constructor(private http: HttpService) {}
 
   joinRoom() {
-    this.currentPlayer$.subscribe({
-      next: player => {
-        if (player === null) return
+    this.store.dispatch(GAME_ACTIONS.setRoomCode({roomCode: this.code}))
 
-        this.http.createPlayer(player, this.code).subscribe(({ ok, body }) => {
-          console.log(ok , body);
-          
-          if (!ok) throw new Error('assas');
-          console.log(body); //guardar Player_id
-          this.router.navigate(['/anteroom'], {
-            queryParams: {
-              room_code: this.code,
-            },
-          });
-        });
-        //necesitamos redireccionar a anteRoom cuando la conexión este habilitada (200 OK)
-      },
-      error: (err: HttpErrorResponse) => console.log(err.message),
-    });
+    // this.currentPlayer$.subscribe({
+    //   next: player => {
+    //     if (player === null) return
+
+    //     this.http.createPlayer(player, this.code).subscribe(({ ok, body }) => {
+    //       console.log(ok , body);
+
+    //       if (!ok) throw new Error('assas');
+    //       console.log(body); //guardar Player_id
+    //       this.router.navigate(['/anteroom'], {
+    //         queryParams: {
+    //           room_code: this.code,
+    //         },
+    //       });
+    //     });
+    //     //necesitamos redireccionar a anteRoom cuando la conexión este habilitada (200 OK)
+    //   },
+    //   error: (err: HttpErrorResponse) => console.log(err.message),
+    // });
   }
 }

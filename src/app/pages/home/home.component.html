@@ -17,9 +17,9 @@
       </div>
     </div>
     <div class="d-flex flex-row justify-content-center gap-4">
-      <app-custom-button (click)="createRoom()"
+      <app-custom-button (click)="navigateView('/room-configuration')"
       ariaCurrentWhenActive="page">Crear sala</app-custom-button>
-      <app-custom-button (click)="joinRoom()">Unirse a sala</app-custom-button>
+      <app-custom-button (click)="navigateView('/join-room')">Unirse a sala</app-custom-button>
     </div>
     <div class="d-flex justify-content-end pb-2">
       <app-custom-button>❕</app-custom-button>

@@ -17,6 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { PlayerDTO } from '../../store/types/store.dto';
 
 @Component({
   selector: 'app-anteroom',
@@ -69,7 +70,7 @@ export class AnteroomComponent implements OnInit {
   ];
   webSocketApi = inject(WebSocketApiService);
 
-  dataPlayer$: Observable<Pick<IPlayer, 'avatar' | 'playerName'>>;
+  dataPlayer$: Observable<PlayerDTO>;
 
   constructor(private route: ActivatedRoute, private httpService: HttpService) {
     this.dataPlayer$ = this.store.select(PLAYERS_SELECTS.selectPlayersCurrent);
@@ -89,7 +90,7 @@ export class AnteroomComponent implements OnInit {
       this.roomInfo.num_of_question = res.num_of_question;
       this.roomInfo.max_players = res.max_Players;
     });
-    
+
     this.webSocketApi._connect(
       this.room_code,
       this.roomInfo.player_name,

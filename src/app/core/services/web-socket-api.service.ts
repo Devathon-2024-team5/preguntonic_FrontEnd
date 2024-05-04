@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Frame, IMessage, Stomp} from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import { IPlayer } from '../../store/models/IPlayers.state';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +8,7 @@ import { IPlayer } from '../../store/models/IPlayers.state';
 export class WebSocketApiService {
   webSocketEndPoint: string = 'http://localhost:8080/preguntonic';
   topic: string = '/room/';
-  stompClient:any; 
+  stompClient:any;
   roomId: string = '';
   player_name: string = '';
   avatar_id: string = '';
@@ -27,7 +26,7 @@ export class WebSocketApiService {
       {},
       function (frame: Frame) {
         console.log(`Info : ${frame}`);
-        
+
         console.log(_this.topic + roomId);
 
         _this.stompClient.subscribe(
@@ -35,9 +34,6 @@ export class WebSocketApiService {
           function (wsResponse:IMessage) {
             console.log(wsResponse.body);
             console.log(JSON.parse(wsResponse.body));
-            
-            
-            //data
           }
         );
         //_this.stompClient.reconnect_delay = 2000;

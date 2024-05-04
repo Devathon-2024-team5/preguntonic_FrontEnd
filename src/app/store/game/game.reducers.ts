@@ -7,6 +7,7 @@ export const initialState: IGameState = {
   numOfQuestion: 0,
   questions: [],
   currentQuestion: 0,
+  roomCode: '',
   error: null,
   isLoading: false,
 };
@@ -29,5 +30,17 @@ export const gameReducer = createReducer(
   on(
     GAME_ACTIONS.loadGameFailure,
     (state, { error }): IGameState => ({ ...state, error, isLoading: false })
+  ),
+  on(
+    GAME_ACTIONS.setConfigGame,
+    (state, { maxPlayers, numOfQuestion }): IGameState => ({
+      ...state,
+      numOfQuestion,
+      maxPlayers,
+    })
+  ),
+  on(
+    GAME_ACTIONS.setRoomCode,
+    (state, { roomCode }): IGameState => ({ ...state, roomCode })
   )
 );
