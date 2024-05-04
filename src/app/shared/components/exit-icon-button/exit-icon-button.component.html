@@ -1,4 +1,8 @@
-<button (click)="openModal()" class="icon-btn icon-btn--m" aria-label="Botón salir de sala">
+<button 
+  (click)="openModal()" 
+  class="icon-btn icon-btn--m" 
+  [ngClass]="{'.icon-btn--m': size === 'medium'"}
+  aria-label="Botón salir de sala">
   <svg role="img" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
     <title>Cuadrado incompleto a la mitad simulando una puerta y una flecha saliendo de la mitad del cuadrado hacia al lado izquierdo</title>
     <path d="M19.7741 9.50756C20.0755 9.79825 20.0753 10.2689 19.7735 10.5593L15.5259 14.6459C15.0351 15.118 14.2393 15.1181 13.7485 14.6459C13.2577 14.1736 13.2577 13.4081 13.7485 12.9359L15.5667 11.1865H6.25679C5.56268 11.1865 5 10.6452 5 9.9774C5 9.30961 5.56268 8.76825 6.25679 8.76825H15.4629L13.6904 7.06295C13.1999 6.59102 13.1999 5.82588 13.6904 5.35395C14.1813 4.88163 14.9774 4.88207 15.4678 5.35493L19.7741 9.50756Z"/>
