@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { IAvatar } from '../models/IAvatar.interface';
+
 
 const NAME_AVATARS = ['cat','dog','penguin','raccoon'];
 
