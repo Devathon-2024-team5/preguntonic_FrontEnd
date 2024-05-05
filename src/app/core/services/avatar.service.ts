@@ -48,7 +48,7 @@ export class AvatarService {
   getAvatarUrlById(avatarId:string):IAvatar {
     return this.avatars.find(avatar => avatar.id === avatarId) ?? this.avatarDefault;
   }
-  getAvatarDefaul() {
+  getAvatarDefault() {
     return avatarDefault;
   }
 }
