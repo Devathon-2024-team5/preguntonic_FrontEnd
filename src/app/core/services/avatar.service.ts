@@ -24,6 +24,12 @@ const avatars:IAvatar[] = [
   }
 ]
 
+const avatarDefault = {
+  id: 'unknown',
+  url: 'assets/images/unknown.webp',
+  title: 'Contorno de animal desconocido color gris oscuro, con un signo de interrogacion blanco en la mitad'
+}
+
 @Injectable({
   providedIn: 'root'
 })
