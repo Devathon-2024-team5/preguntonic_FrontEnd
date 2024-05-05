@@ -42,10 +42,10 @@ export class AvatarService {
     this.avatarDefault = avatarDefault;
   }
 
-  getAllAvatars():string[] {
+  getAllAvatars():IAvatar[] {
     return this.avatars;
   }
-  getAvatarUrlById(avatarId:number):string {
-    return this.avatars.at(avatarId) ?? "";
+  getAvatarUrlById(avatarId:string):IAvatar {
+    return this.avatars.find(avatar => avatar.id === avatarId) ?? this.avatarDefault;
   }
 }
