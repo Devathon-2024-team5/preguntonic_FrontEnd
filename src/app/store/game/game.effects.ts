@@ -10,6 +10,7 @@ import { WebSocketApiService } from '../../core/services/web-socket-api.service'
 import { Store } from '@ngrx/store';
 import { concatLatestFrom } from '@ngrx/operators';
 import { CURRENT_PLAYER_SELECTS } from '../current-player/current-player.selectors';
+import { GAME_SELECTORS } from './game.selectors';
 
 @Injectable()
 export class GameEffects {
@@ -62,9 +63,34 @@ export class GameEffects {
         concatLatestFrom(() =>
           this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer)
         ),
-        tap(([{ roomCode }, { playerName, avatar }]) =>
-          this.webSocketApi._connect(roomCode, playerName, avatar)
-        )
+        tap(([{ roomCode }, { playerName, avatar, playerId }]) => {
+          if (playerId === null) throw new Error('');
+          return this.webSocketApi._connect(
+            roomCode,
+            playerName,
+            avatar,
+            playerId
+          );
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  public connectToQuestions$ = createEffect(
+    () => {
+      return this._actions$.pipe(
+        ofType(GAME_ACTIONS.connectToQuestions),
+        concatLatestFrom(() => [
+          this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer),
+          this.store.select(GAME_SELECTORS.selectRoomCode),
+        ]),
+        tap(([_, {playerId},roomCode]) => {
+          console.log(playerId + roomCode)
+          if (playerId === null) throw new Error('')
+
+          this.webSocketApi.joinPlayerGame(roomCode, playerId)
+        })
       );
     },
     { dispatch: false }
@@ -79,6 +105,23 @@ export class GameEffects {
             queryParams,
           })
         )
+      );
+    },
+    { dispatch: false }
+  );
+
+  public changeStatus$ = createEffect(
+    () => {
+      return this._actions$.pipe(
+        ofType(GAME_ACTIONS.changeStatus),
+        concatLatestFrom(() =>
+          this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer)
+        ),
+        tap(([{ roomCode }, { playerId }]) => {
+          if (playerId === null) throw new Error('');
+
+          return this.webSocketApi.readyPlayer(roomCode, playerId);
+        })
       );
     },
     { dispatch: false }

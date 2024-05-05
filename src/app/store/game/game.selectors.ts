@@ -33,10 +33,16 @@ const selectConfigGame = createSelector(
   })
 );
 
+const selectRoomCode = createSelector(
+  selectGameFeature,
+  (state: IGameState): string  => state.roomCode
+)
+
 export const GAME_SELECTORS = {
   selectQuestions,
   selectLoadGame,
   selectGameError,
   selectCurrentQuestion,
-  selectConfigGame
+  selectConfigGame,
+  selectRoomCode
 };

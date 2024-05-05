@@ -1,4 +1,4 @@
-import { StatusGame } from "../types/store.dto"
+import { StatusPlayer } from "../types/store.dto"
 
 export interface IPlayer {
     admin : boolean
@@ -11,7 +11,7 @@ export interface IPlayer {
     responseId :  string
     responseTime :  number
     score : number
-    status : StatusGame
+    status : StatusPlayer
   }
 
   export interface IPlayersState {

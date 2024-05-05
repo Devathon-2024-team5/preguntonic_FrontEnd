@@ -6,8 +6,9 @@ import { AppState } from '../../store/app.state';
 import { IPlayer } from '../../store/models/IPlayers.state';
 import { GAME_ACTIONS } from '../../store/game/game.actions';
 import { PLAYERS_ACTIONS } from '../../store/players/players.actions';
+import { EventGame } from '../../store/types/store.dto';
 
-interface IRes  {
+interface IResWebSocket  {
   event: string;
   room: {
     current_players: IPlayer[];
@@ -28,9 +29,10 @@ export class WebSocketApiService {
   stompClient: any;
   roomId: string = '';
   player_name: string = '';
-  avatar_id: string = '';
+  avatar: string = '';
+  playerId:string = '';
 
-  _connect(roomId: string, player_name: string, avatar_id: string) {
+  _connect(roomId: string, player_name: string, avatar: string, playerId: string) {
     this.roomId = roomId;
     const ws = new SockJS(this.webSocketEndPoint);
     this.stompClient = Stomp.over(ws);
@@ -46,25 +48,33 @@ export class WebSocketApiService {
         _this.stompClient.subscribe(
           _this.topic + roomId,
           (wsResponse: IMessage) => {
-            const data = JSON.parse(wsResponse.body) as IRes
+            const data = JSON.parse(wsResponse.body) as IResWebSocket
 
             console.log(data);
 
-            this.store.dispatch(PLAYERS_ACTIONS.updatePlayers({players: data.room.current_players}))
-
-
-            //  Aquí la lógica a ejecutar
-            // this.store.dispatch(GAME_ACTIONS.)
-
-            // console.log(data);
+            // this.store.dispatch(PLAYERS_ACTIONS.updatePlayers({players: data.room.current_players}))
+            this.executeEvent(data.event, data)
 
           }
         );
+        _this.stompClient.subscribe(
+          _this.topic + roomId + "/game",
+          (wsResponse: IMessage) => {
+            const data = JSON.parse(wsResponse.body) as IResWebSocket
+
+            console.log(data);
+
+            // this.store.dispatch(PLAYERS_ACTIONS.updatePlayers({players: data.room.current_players}))
+            //this.executeEvent(data.event, data)
+
+          }
+        );
+
         //_this.stompClient.reconnect_delay = 2000;
         _this.stompClient.send(
           `/app/rooms/${roomId}/lobby/join`,
           {},
-          JSON.stringify({ player_name: player_name, avatar_id: avatar_id })
+          JSON.stringify({ playerName: player_name, avatar: avatar, playerId: playerId })
         );
       },
       this.errorCallBack
@@ -73,17 +83,25 @@ export class WebSocketApiService {
 
   readyPlayer(
     roomId: string,
-    player_id: number,
-    player_name: string,
-    avatar_id: string
+    player_id: string,
   ) {
     console.log(this.stompClient);
     const response = this.stompClient.send(
       `/app/rooms/${roomId}/lobby/players/${player_id}/ready`,
-      {},
-      JSON.stringify({ player_name: player_name, avatar_id: avatar_id })
+      {}
     );
     console.log('response stomp send: ', response);
+  }
+
+  joinPlayerGame(
+    roomId: string,
+    player_id: string,
+  ) {
+    console.log(this.stompClient);
+    this.stompClient.send(
+      `/app/rooms/${roomId}/game/players/${player_id}/join`,
+      {}
+    );
   }
 
   _disconnect() {
@@ -99,7 +117,7 @@ export class WebSocketApiService {
     console.log('Se corto la conexión');
 
     setTimeout(() => {
-      this._connect(this.roomId, this.player_name, this.avatar_id);
+      this._connect(this.roomId, this.player_name, this.avatar, this.playerId);
     }, 5000);
   };
 
@@ -107,14 +125,27 @@ export class WebSocketApiService {
     console.log('Message Recieved from Server :: ' + message);
   }
 
-  private eventHandlerT<T>(event: string, data?: T) {
-    switch (event) {
-      case "JOIN":
-        break;
+private executeEvent(event: EventGame | string, data: IResWebSocket): void {
 
-      default:
-        break;
-    }
+  switch (event) {
+    case 'JOIN':
+      this.store.dispatch(PLAYERS_ACTIONS.updatePlayers({players: data.room.current_players}))
+      break;
+    case 'READY':
+      this.store.dispatch(PLAYERS_ACTIONS.updatePlayers({players: data.room.current_players}))
+      break;
+    case 'UNREADY':
+      
+      break
+    case 'START_GAME':
+      this.store.dispatch(GAME_ACTIONS.changeView({route: 'game-room'}))
+      break;
+    default:
+      console.log('nothing');
+      break;
   }
+  
+}
+
 }
 

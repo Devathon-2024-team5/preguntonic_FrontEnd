@@ -6,27 +6,39 @@
     @if (currentPlayer$ | async; as currentPlayer) {
       <app-section-player
         [avatar]="currentPlayer.avatar"
-        [playerName]="currentPlayer.playerName"
-      />
+        [playerName]="currentPlayer.playerName" />
 
       @if (players$ | async; as players) {
         <div class="section-players d-flex justify-content-between pt-2">
-          <p>Jugadores {{players.length}}/{{ maxPlayers }}</p>
-          <p>Preparados {{players | numberOfReady}} / {{ maxPlayers }}</p>
+          <p>Jugadores {{ players.length }}/{{ maxPlayers }}</p>
+          <p>Preparados {{ players | numberOfReady }} / {{ maxPlayers }}</p>
         </div>
-        jugador: {{ currentPlayer.playerId}}
         <div class="icons d-flex gap-2 mb-2">
-          @for (player of players | filterPlayers:currentPlayer.playerId; track player.playerId) {
+          @for (
+            player of players | filterPlayers: currentPlayer.playerId;
+            track player.playerId
+          ) {
             <div
               class="players d-flex flex-column justify-content-center align-items-center">
-              <img class="avatar" [src]="player.avatar" [alt]="player.playerName" />
+              <img
+                class="avatar"
+                [src]="player.avatar"
+                [alt]="player.playerName" />
               {{ player.playerName }}
-              <div class="offBar"></div>
+              <div
+                [ngClass]="{
+                  onBar: player.status === 'IN_LOBBY_READY',
+                  offBar: player.status === 'IN_LOBBY_UNREADY'
+                }"></div>
             </div>
           }
         </div>
       }
     }
-    <app-custom-button (click)="changeStatus()">Preparado</app-custom-button>
+    <app-custom-button
+      (click)="changeStatus()"
+      [variant]="btnStatus()"
+      >{{btnStatus() === '' ? 'Listo' : 'Esperando...' }}</app-custom-button
+    >
   </div>
 </section>
