@@ -24,7 +24,7 @@ const avatars:IAvatar[] = [
   }
 ]
 
-const avatarDefault = {
+const avatarDefault:IAvatar = {
   id: 'unknown',
   url: 'assets/images/unknown.webp',
   title: 'Contorno de animal desconocido color gris oscuro, con un signo de interrogacion blanco en la mitad'
@@ -34,10 +34,12 @@ const avatarDefault = {
   providedIn: 'root'
 })
 export class AvatarService {
-  private avatars:string[];
+  private avatars;
+  private avatarDefault;
   
   constructor() {
-    this.avatars = NAME_AVATARS.map((name) => 'assets/images/'+name+'.webp');
+    this.avatars = avatars;
+    this.avatarDefault = avatarDefault;
   }
 
   getAllAvatars():string[] {
