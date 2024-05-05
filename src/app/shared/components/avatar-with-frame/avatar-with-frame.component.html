@@ -11,6 +11,6 @@
     'frame--large': frameMesuare === 'large',
   }" >
   <picture class="container-image">
-    <img [src]="avatarUrl" class="image" alt="Imagen del avatar">
+    <img [src]="currentAvatar.url" class="image" [alt]="currentAvatar.title">
   </picture>
 </div>
