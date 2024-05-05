@@ -1,33 +1,32 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { AvatarService } from '../../services/avatar.service';
+import { AvatarService } from '../../../core/services/avatar.service';
 import { backgroundValues, frameValues, shadowValues } from '../../../core/models/avatarWithFrameComponent.types';
-import { CommonModule } from '@angular/common';
-
-const defaultAvatarUrl = 'assets/images/unknown.webp';
+import { NgClass } from '@angular/common';
+import { IAvatar } from '../../../core/models/IAvatar.interface';
 
 @Component({
   selector: 'app-avatar-with-frame',
   standalone: true,
-  imports: [CommonModule],
+  imports: [NgClass],
   templateUrl: './avatar-with-frame.component.html',
   styleUrl: './avatar-with-frame.component.css'
 })
 export class AvatarWithFrameComponent implements OnChanges, OnInit {
-  @Input() avatarId: number = 10;
+  @Input() avatarId: string = "";
   // Properties of styles component
   @Input() shadow: shadowValues = "";
   @Input() frameMesuare:frameValues = "";
   @Input() background: backgroundValues = "";
 
-  avatarUrl = defaultAvatarUrl; // Url by defect
+  currentAvatar: IAvatar = {} as IAvatar;
 
   constructor(private avatarService:AvatarService) {}
 
   updateAvatarUrl() {
-    if(this.avatarId !== undefined && this.avatarId >= 0){
-      this.avatarUrl = this.avatarService.getAvatarUrlById(this.avatarId);
+    if(this.avatarId !== undefined && typeof(this.avatarId) === 'string' ){
+      this.currentAvatar = this.avatarService.getAvatarUrlById(this.avatarId);
     } else {
-      this.avatarUrl = defaultAvatarUrl;
+      this.currentAvatar = this.avatarService.getAvatarDefault();
     }
   }
 
