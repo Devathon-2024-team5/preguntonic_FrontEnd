@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
-import { catchError, exhaustMap, map, of } from 'rxjs';
+import { catchError, concatMap, exhaustMap, map, of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpService } from '../../core/services/http.service';
 import { Store } from '@ngrx/store';
@@ -22,37 +22,27 @@ export class CurrentPlayerEffect {
         this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer)
       ),
       exhaustMap(([{ roomCode }, { avatar, playerName }]) =>
-        this._httpService
-          .createPlayer({ avatar, playerName }, roomCode)
-          .pipe(
-            map(({ ok, body }) => {
-              if (!ok) throw new Error(`Failure to retrieve data`);
+        this._httpService.createPlayer({ avatar, playerName }, roomCode).pipe(
+          map(({ ok, body }) => {
+            if (!ok) throw new Error(`Failure to retrieve data`);
 
-              console.log(body?.playerId);
-              console.log({
-                avatar: body?.avatar ?? '',
-                playerName: body?.playerName ?? '',
-                playerId: body?.playerId ?? '',
-              });
-
-              return CURRENT_PLAYER_ACTIONS.saveCurrentPlayer({
-                avatar: body?.avatar ?? '',
-                playerName: body?.playerName ?? '',
-                playerId: body?.playerId ?? '',
-              });
-            })
+            return CURRENT_PLAYER_ACTIONS.saveCurrentPlayer({
+              avatar: body?.avatar ?? '',
+              playerName: body?.playerName ?? '',
+              playerId: body?.playerId ?? '',
+            });
+          }),
+          concatMap(action => [
+            action,
+            GAME_ACTIONS.changeView({
+              route: '/anteroom',
+              queryParams: { room_code: roomCode },
+            }),
+          ]),
+          catchError(({ message }: HttpErrorResponse) =>
+            of(GAME_ACTIONS.loadGameFailure({ error: message }))
           )
-          .pipe(
-            map(() =>
-              GAME_ACTIONS.changeView({
-                route: '/anteroom',
-                queryParams: { room_code: roomCode },
-              })
-            ),
-            catchError(({ message }: HttpErrorResponse) =>
-              of(GAME_ACTIONS.loadGameFailure({ error: message }))
-            )
-          )
+        )
       )
     );
   });
