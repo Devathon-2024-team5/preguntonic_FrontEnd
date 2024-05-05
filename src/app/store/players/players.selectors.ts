@@ -19,14 +19,8 @@ const selectPlayersError = createSelector(
   (state: IPlayersState) => state.error
 );
 
-const selectPlayersCurrent = createSelector(
-  selectPlayersFeature,
-  (state: IPlayersState) => state.currentPlayer
-);
-
 export const PLAYERS_SELECTS = {
   selectPlayers,
   selectPlayersIsLoading,
   selectPlayersError,
-  selectPlayersCurrent
 }

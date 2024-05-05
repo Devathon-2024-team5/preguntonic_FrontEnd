@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LogoTitleComponent } from '../../shared/components/logo-title/logo-title.component';
 import { Store } from '@ngrx/store';
-import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
 import { GAME_ACTIONS } from '../../store/game/game.actions';
 
 @Component({
@@ -14,7 +13,6 @@ import { GAME_ACTIONS } from '../../store/game/game.actions';
 })
 export class JoinRoomComponent {
   private readonly store = inject(Store);
-  currentPlayer$ = this.store.select(PLAYERS_SELECTS.selectPlayersCurrent);
   code = '';
 
   joinRoom() {

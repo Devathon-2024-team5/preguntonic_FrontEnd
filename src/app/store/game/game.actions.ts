@@ -26,8 +26,13 @@ const createRoom = createAction('[Room Configuration] Create Room');
 
 const changeView = createAction(
   '[All Page] Change View Page',
-  props<{ route: string }>()
+  props<{ route: string, queryParams?: Record<string, string> }>()
 );
+
+const connectToTheGame = createAction(
+  '[Anteroom Page] Connect To The Game with webSocket',
+  props<{ roomCode: string }>()
+)
 
 export const GAME_ACTIONS = {
   loadGame,
@@ -37,4 +42,5 @@ export const GAME_ACTIONS = {
   setRoomCode,
   createRoom,
   changeView,
+  connectToTheGame,
 };

@@ -6,6 +6,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { GAME_ACTIONS } from './game.actions';
 import { HttpService } from '../../core/services/http.service';
 import { Router } from '@angular/router';
+import { WebSocketApiService } from '../../core/services/web-socket-api.service';
+import { Store } from '@ngrx/store';
+import { concatLatestFrom } from '@ngrx/operators';
+import { CURRENT_PLAYER_SELECTS } from '../current-player/current-player.selectors';
 
 @Injectable()
 export class GameEffects {
@@ -13,6 +17,8 @@ export class GameEffects {
   private readonly _ngrxTestService = inject(NgrxTestService);
   private readonly _httpService = inject(HttpService);
   private readonly _router = inject(Router);
+  private readonly webSocketApi = inject(WebSocketApiService);
+  private readonly store = inject(Store);
 
   //TODO Eliminar NgrxTestService e implementar servicio final
   public loadGame$ = createEffect(() => {
@@ -39,7 +45,7 @@ export class GameEffects {
           map(({ body, ok }) => {
             if (!ok) throw new Error(`Failure to retrieve data`);
 
-            return GAME_ACTIONS.setRoomCode({roomCode: body['room_code']});
+            return GAME_ACTIONS.setRoomCode({ roomCode: body['room_code'] });
           }),
           catchError(({ message }: HttpErrorResponse) =>
             of(GAME_ACTIONS.loadGameFailure({ error: message }))
@@ -49,11 +55,30 @@ export class GameEffects {
     );
   });
 
+  public connectToTheGame$ = createEffect(
+    () => {
+      return this._actions$.pipe(
+        ofType(GAME_ACTIONS.connectToTheGame),
+        concatLatestFrom(() =>
+          this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer)
+        ),
+        tap(([{ roomCode }, { playerName, avatar }]) =>
+          this.webSocketApi._connect(roomCode, playerName, avatar)
+        )
+      );
+    },
+    { dispatch: false }
+  );
+
   public redirectToRoom$ = createEffect(
     () => {
       return this._actions$.pipe(
         ofType(GAME_ACTIONS.changeView),
-        tap(({ route }) => this._router.navigate([route]))
+        tap(({ route, queryParams }) =>
+          this._router.navigate([route], {
+            queryParams,
+          })
+        )
       );
     },
     { dispatch: false }

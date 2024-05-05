@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
 import { GameConfigDTO, PlayerDTO } from '../../store/types/store.dto';
+import { ICurrentPlayerState } from '../../store/models/ICurrentPlayer.state';
 
 @Injectable({
   providedIn: 'root',
@@ -15,8 +16,8 @@ export class HttpService {
     return this._http.post(this.url, room, { observe: 'response' });
   }
 
-  public createPlayer( player: PlayerDTO, roomId: string): Observable<HttpResponse<any>> {
-    return this._http.post(this.url + `/${roomId}/players`, player, {
+  public createPlayer( player: PlayerDTO, roomId: string): Observable<HttpResponse<ICurrentPlayerState>> {
+    return this._http.post<ICurrentPlayerState>(this.url + `/${roomId}/players`, player, {
       observe: 'response',
     });
   }

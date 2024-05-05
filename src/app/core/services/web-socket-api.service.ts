@@ -1,11 +1,28 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Frame, IMessage, Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/app.state';
+import { IPlayer } from '../../store/models/IPlayers.state';
+import { GAME_ACTIONS } from '../../store/game/game.actions';
+import { PLAYERS_ACTIONS } from '../../store/players/players.actions';
+
+interface IRes  {
+  event: string;
+  room: {
+    current_players: IPlayer[];
+    max_players:  number;
+    ready_players: number;
+    room_code: string;
+    room_status: null;
+  }
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class WebSocketApiService {
+  private readonly store:Store<AppState> = inject(Store)
   webSocketEndPoint: string = 'http://localhost:8080/preguntonic';
   topic: string = '/room/';
   stompClient: any;
@@ -14,9 +31,7 @@ export class WebSocketApiService {
   avatar_id: string = '';
 
   _connect(roomId: string, player_name: string, avatar_id: string) {
-    console.log('connect');
     this.roomId = roomId;
-    console.log('Initialize WebSocket Connection');
     const ws = new SockJS(this.webSocketEndPoint);
     this.stompClient = Stomp.over(ws);
     // eslint-disable-next-line @typescript-eslint/no-this-alias
@@ -26,23 +41,31 @@ export class WebSocketApiService {
       {},
       (frame: Frame) => {
         console.log(`Info : ${frame}`);
-
         console.log(_this.topic + roomId);
 
         _this.stompClient.subscribe(
           _this.topic + roomId,
           (wsResponse: IMessage) => {
-            console.log(wsResponse.body);
-            console.log(JSON.parse(wsResponse.body));
+            const data = JSON.parse(wsResponse.body) as IRes
+
+            console.log(data);
+
+            this.store.dispatch(PLAYERS_ACTIONS.updatePlayers({players: data.room.current_players}))
+
+
+            //  Aquí la lógica a ejecutar
+            // this.store.dispatch(GAME_ACTIONS.)
+
+            // console.log(data);
+
           }
         );
         //_this.stompClient.reconnect_delay = 2000;
-        const response = _this.stompClient.send(
+        _this.stompClient.send(
           `/app/rooms/${roomId}/lobby/join`,
           {},
           JSON.stringify({ player_name: player_name, avatar_id: avatar_id })
         );
-        console.log('response stomp send: ', response);
       },
       this.errorCallBack
     );
@@ -73,6 +96,8 @@ export class WebSocketApiService {
   // on error, schedule a reconnection attempt
   errorCallBack = (error: string) => {
     console.log('errorCallBack -> ' + error);
+    console.log('Se corto la conexión');
+
     setTimeout(() => {
       this._connect(this.roomId, this.player_name, this.avatar_id);
     }, 5000);
@@ -81,4 +106,15 @@ export class WebSocketApiService {
   onMessageReceived(message: any) {
     console.log('Message Recieved from Server :: ' + message);
   }
+
+  private eventHandlerT<T>(event: string, data?: T) {
+    switch (event) {
+      case "JOIN":
+        break;
+
+      default:
+        break;
+    }
+  }
 }
+

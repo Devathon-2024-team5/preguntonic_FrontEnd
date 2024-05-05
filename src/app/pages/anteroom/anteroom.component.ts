@@ -12,12 +12,16 @@ import { HomeComponent } from '../home/home.component';
 import { HttpService } from '../../core/services/http.service';
 import { CustomButtonComponent } from '../../shared/components/custom-btn/custom-button.component';
 import { WebSocketApiService } from '../../core/services/web-socket-api.service';
-import { IPlayer } from '../../store/models/IPlayers.state';
-import { ActivatedRoute } from '@angular/router';
 import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { PlayerDTO } from '../../store/types/store.dto';
+import { AsyncPipe } from '@angular/common';
+import { CURRENT_PLAYER_SELECTS } from '../../store/current-player/current-player.selectors';
+import { GAME_ACTIONS } from '../../store/game/game.actions';
+import { NumberOfReadyPipe } from '../../shared/pipes/number-of-ready.pipe';
+import { GAME_SELECTORS } from '../../store/game/game.selectors';
+import { FilterPlayersPipe } from '../../shared/pipes/filter-players.pipe';
+
+
 
 @Component({
   selector: 'app-anteroom',
@@ -31,11 +35,20 @@ import { PlayerDTO } from '../../store/types/store.dto';
     SectionPlayerComponent,
     HomeComponent,
     CustomButtonComponent,
+    AsyncPipe,
+    NumberOfReadyPipe,
+    FilterPlayersPipe
   ],
 })
 export class AnteroomComponent implements OnInit {
+  private readonly store = inject(Store);
+  private readonly _httpService = inject(HttpService);
+  private readonly webSocketApi = inject(WebSocketApiService);
   @Input() room_code?: string;
-  store = inject(Store);
+  currentPlayer$ = this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer)
+  players$ = this.store.select(PLAYERS_SELECTS.selectPlayers)
+  gameConfig$ = this.store.select(GAME_SELECTORS.selectConfigGame)
+
   roomInfo: any = {
     num_of_question: 0,
     max_players: 0,
@@ -45,57 +58,17 @@ export class AnteroomComponent implements OnInit {
 
   maxPlayers: number = 0;
 
-  players: IPlayer[] = [
-    {
-      playerId : '1',
-      avatar: '../../../assets/avatar-1.webp',
-      playerName: 'Jugador 1',
-      score: 0,
-      isReady: true,
-    },
-    {
-      playerId: '2',
-      avatar: '../../../assets/avatar-1.webp',
-      playerName: 'Jugador 1',
-      score: 0,
-      isReady: true,
-    },
-    {
-      playerId: '3',
-      avatar: '../../../assets/avatar-1.webp',
-      playerName: 'Jugador 1',
-      score: 0,
-      isReady: true,
-    },
-  ];
-  webSocketApi = inject(WebSocketApiService);
-
-  dataPlayer$: Observable<PlayerDTO>;
-
-  constructor(private route: ActivatedRoute, private httpService: HttpService) {
-    this.dataPlayer$ = this.store.select(PLAYERS_SELECTS.selectPlayersCurrent);
-  }
-
-
   ngOnInit(): void {
-    this.dataPlayer$.subscribe(res => {
-      this.roomInfo.avatar_id = res.avatar;
-      this.roomInfo.player_name = res.playerName;
-    })
-
-
+    this.currentPlayer$.subscribe(res => console.log(res)
+    )
     if (!this.room_code) return;
 
-    this.httpService.getRoom(this.room_code).subscribe(res => {
+    this._httpService.getRoom(this.room_code).subscribe(res => {
       this.roomInfo.num_of_question = res.num_of_question;
       this.roomInfo.max_players = res.max_Players;
     });
 
-    this.webSocketApi._connect(
-      this.room_code,
-      this.roomInfo.player_name,
-      this.roomInfo.avatar_id
-    );
+    this.store.dispatch(GAME_ACTIONS.connectToTheGame({roomCode: this.room_code}))
   }
 
   changeStatus() {

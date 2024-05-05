@@ -1,12 +1,13 @@
 import { Injectable, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
-import { catchError, exhaustMap, map, mergeMap, of, switchMap, tap } from 'rxjs';
+import { catchError, exhaustMap, map, of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpService } from '../../core/services/http.service';
 import { Store } from '@ngrx/store';
 import { GAME_ACTIONS } from '../game/game.actions';
 import { CURRENT_PLAYER_SELECTS } from './current-player.selectors';
+import { CURRENT_PLAYER_ACTIONS } from './current-player.action';
 
 @Injectable()
 export class CurrentPlayerEffect {
@@ -20,18 +21,38 @@ export class CurrentPlayerEffect {
       concatLatestFrom(() =>
         this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer)
       ),
-      switchMap(([{ roomCode }, { avatar, playerName }]) =>
-        this._httpService.createPlayer({ avatar, playerName }, roomCode).pipe(
-          tap(() => console.log(roomCode)),
-          map(({ ok }) => {
-            if (!ok) throw new Error(`Failure to retrieve data`);
+      exhaustMap(([{ roomCode }, { avatar, playerName }]) =>
+        this._httpService
+          .createPlayer({ avatar, playerName }, roomCode)
+          .pipe(
+            map(({ ok, body }) => {
+              if (!ok) throw new Error(`Failure to retrieve data`);
 
-            return GAME_ACTIONS.changeView({ route: '/anteroom' });
-          }),
-          catchError(({ message }: HttpErrorResponse) =>
-            of(GAME_ACTIONS.loadGameFailure({ error: message }))
+              console.log(body?.playerId);
+              console.log({
+                avatar: body?.avatar ?? '',
+                playerName: body?.playerName ?? '',
+                playerId: body?.playerId ?? '',
+              });
+
+              return CURRENT_PLAYER_ACTIONS.saveCurrentPlayer({
+                avatar: body?.avatar ?? '',
+                playerName: body?.playerName ?? '',
+                playerId: body?.playerId ?? '',
+              });
+            })
           )
-        )
+          .pipe(
+            map(() =>
+              GAME_ACTIONS.changeView({
+                route: '/anteroom',
+                queryParams: { room_code: roomCode },
+              })
+            ),
+            catchError(({ message }: HttpErrorResponse) =>
+              of(GAME_ACTIONS.loadGameFailure({ error: message }))
+            )
+          )
       )
     );
   });

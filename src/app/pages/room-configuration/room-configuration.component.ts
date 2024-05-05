@@ -20,7 +20,7 @@ export class RoomConfigurationComponent {
   valuesNumberOfQuestions = [5, 10, 15, 20, 25, 30];
   numberOfPlayersInTheRoom: number = this.valuesNumberOfPlayers[0];
   numberOfGameQuestions: number = this.valuesNumberOfQuestions[0];
-
+  //  Se usa?
   playerName: string = '';
   playerAvatar: string = '';
 

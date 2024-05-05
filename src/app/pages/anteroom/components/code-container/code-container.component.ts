@@ -1,6 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, input} from '@angular/core';
 import { CustomButtonComponent } from '../../../../shared/components/custom-btn/custom-button.component';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-code-container',
@@ -9,17 +8,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './code-container.component.css',
   imports: [CustomButtonComponent],
 })
-export class CodeContainerComponent implements OnInit {
-  public coderoom: string = '123456';
-  route: ActivatedRoute = inject(ActivatedRoute);
-  ngOnInit(): void {
-    this.route.queryParamMap.subscribe(params => {
-      const code = params.get('room_code');
-      if (!code) return;
-      this.coderoom = code;
-    });
-  }
-
+export class CodeContainerComponent  {
+  room_code = input<string>();
 
   copyToClipboard() {
     const element = document.getElementById('coderoom'); // Get the element containing the room code

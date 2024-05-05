@@ -14,6 +14,7 @@ export class PlayersEffects {
   private readonly _http = inject(HttpService);
   private readonly store = inject(Store);
 
+
   //TODO Eliminar tap
   //TODO Eliminar NgrxTestService e implementar servicio final
   public loadPlayers$ = createEffect(() => {
@@ -29,24 +30,4 @@ export class PlayersEffects {
       )
     );
   });
-
-  // public createPlayer$ = createEffect(() => {
-  //   return this._actions$.pipe(
-  //     ofType(GAME_ACTIONS.setRoomCode),
-  //     exhaustMap(({roomCode}) =>
-  //       this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer).pipe(
-  //         switchMap(player => this._http.createPlayer(player, roomCode)),
-  //         map(({ ok, body }) => {
-  //           if (!ok) throw new Error(`Failure to retrieve data`);
-
-  //           console.log(body);
-  //           return GAME_ACTIONS.changeView({route: ''});
-  //         }),
-  //         catchError(({ message }: HttpErrorResponse) =>
-  //           of(PLAYERS_ACTIONS.loadPlayersFailure({ error: message }))
-  //         )
-  //       )
-  //     )
-  //   )
-  // })
 }

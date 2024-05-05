@@ -5,13 +5,17 @@ import { ICurrentPlayerState } from "../models/ICurrentPlayer.state";
 
 const initialState: ICurrentPlayerState = {
   avatar: '',
-  playerName: ''
+  playerName: '',
+  playerId: ''
 }
 
 export const currentPlayerReducer = createReducer(
   initialState,
   on(
     CURRENT_PLAYER_ACTIONS.saveCurrentPlayer,
-    (state, { avatar, playerName }): ICurrentPlayerState => ({...state, avatar, playerName})
+    (state, { avatar, playerName, playerId }): ICurrentPlayerState => (
+      console.log('grabando el ID:',playerId),
+      {...state, avatar, playerName, playerId: playerId ?? 'nada'}
+    )
   )
 )

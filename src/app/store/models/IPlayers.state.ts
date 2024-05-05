@@ -1,17 +1,23 @@
-import { PlayerDTO } from "../types/store.dto";
+import { StatusGame } from "../types/store.dto"
 
 export interface IPlayer {
-    playerId: string;
-    playerName: string;
-    avatar: string;
-    score: number;
-    isReady: boolean;
+    admin : boolean
+    avatar : string
+    ipAddress : string
+    playerId :  string
+    playerName :  string
+    readyForNextQuestion : boolean
+    responded : boolean
+    responseId :  string
+    responseTime :  number
+    score : number
+    status : StatusGame
   }
-
 
   export interface IPlayersState {
     players: IPlayer[];
-    currentPlayer: PlayerDTO;
     isLoading: boolean;
     error: string | null;
  }
+
+
