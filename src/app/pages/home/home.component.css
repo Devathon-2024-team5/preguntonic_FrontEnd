@@ -83,3 +83,9 @@
   font-size: 1.25rem;
   color: #ffffff7d;
 }
+
+app-info-icon-button {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+}
