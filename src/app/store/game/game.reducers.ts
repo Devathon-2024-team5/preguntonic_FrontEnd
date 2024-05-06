@@ -1,12 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
-import { IGameState, IQuestion } from '../models/IGame.state';
+import { ICurrentQuestion, IGameState, IQuestion } from '../models/IGame.state';
 import { GAME_ACTIONS } from './game.actions';
 
 export const initialState: IGameState = {
   maxPlayers: 0,
-  numOfQuestion: 0,
+  numOfQuestions: 0,
   question: {} as IQuestion,
-  currentQuestion: 0,
+  currentQuestion: {} as ICurrentQuestion,
   roomCode: '',
   error: null,
   isLoading: false,
@@ -20,10 +20,9 @@ export const gameReducer = createReducer(
   ),
   on(
     GAME_ACTIONS.updateQuestion,
-    (state, { currentQuestion, question }): IGameState => ({
+    (state, { question }): IGameState => ({
       ...state,
-      currentQuestion,
-      question: question,
+      currentQuestion: question,
       isLoading: false,
     })
   ),
@@ -33,14 +32,21 @@ export const gameReducer = createReducer(
   ),
   on(
     GAME_ACTIONS.setConfigGame,
-    (state, { maxPlayers, numOfQuestion }): IGameState => ({
+    (state, { maxPlayers, numOfQuestions }): IGameState => ({
       ...state,
-      numOfQuestion,
+      numOfQuestions,
       maxPlayers,
     })
   ),
   on(
     GAME_ACTIONS.setRoomCode,
     (state, { roomCode }): IGameState => ({ ...state, roomCode })
+  ),
+  on(
+    GAME_ACTIONS.saveTimeResponse,
+    (state, { time }): IGameState => ({
+      ...state,
+      currentQuestion: { ...state.currentQuestion, timeResponse: time },
+    })
   )
 );

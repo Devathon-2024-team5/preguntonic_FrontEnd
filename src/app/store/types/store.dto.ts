@@ -1,9 +1,11 @@
 import { IGameState, IQuestion } from '../models/IGame.state';
 import { IPlayer } from '../models/IPlayers.state';
 
-export type GameConfigDTO = Pick<IGameState, 'maxPlayers' | 'numOfQuestion'>;
+export type GameConfigDTO = Pick<IGameState, 'maxPlayers' | 'numOfQuestions'>;
 
 export type PlayerDTO = Pick<IPlayer, 'avatar' | 'playerName'>;
+
+export type TopPlayer = Pick<IPlayer, 'avatar' | 'playerName' | 'score'>;
 
 export type QuestionDTO = Pick<IQuestion, 'question' | 'correctAnswer'>
 

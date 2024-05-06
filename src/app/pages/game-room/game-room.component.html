@@ -1,9 +1,15 @@
 <app-in-game-layout>
-  <div class=" d-flex gap-3 flex-column justify-content-between container">
+  <div class="d-flex gap-3 flex-column justify-content-between container">
     <app-logo-title />
     @if (currentQuestion$ | async; as question) {
-      <app-game-question [question]="{question: question.question, numberQuestion: 1 }"  />
-      <app-response-group [answerData]="question.answers" />
+      <app-game-question
+        [question]="{
+          question: question.question,
+          numberQuestion: question.ordinal
+        }" />
+      <app-response-group
+        [answerData]="question.answers"
+        [idQuestion]="question.id" />
     }
   </div>
 </app-in-game-layout>

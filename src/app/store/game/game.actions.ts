@@ -1,16 +1,16 @@
 import { createAction, props } from '@ngrx/store';
-import { IQuestion } from '../models/IGame.state';
+import { ICurrentQuestion } from '../models/IGame.state';
 
 const loadGame = createAction('[Game Room] Load Game');
 
 const updateQuestion = createAction(
   '[Game Room] Update Question',
-  props<{ question: IQuestion; currentQuestion: number }>()
+  props<{ question: ICurrentQuestion }>()
 );
 
 const setConfigGame = createAction(
   '[Room Configuration] Set Config Game',
-  props<{ numOfQuestion: number; maxPlayers: number }>()
+  props<{ numOfQuestions: number; maxPlayers: number }>()
 );
 
 const loadGameFailure = createAction(
@@ -43,6 +43,16 @@ const changeStatus = createAction(
   props<{ roomCode: string }>()
 )
 
+const sendResponse = createAction(
+  '[Game Room] Send answer question',
+  props<{ answerId: string, idQuestion: string}>()
+)
+
+const saveTimeResponse = createAction(
+  '[Game Room] Save time response',
+  props<{ time: number }>()
+)
+
 export const GAME_ACTIONS = {
   loadGame,
   updateQuestion,
@@ -53,5 +63,7 @@ export const GAME_ACTIONS = {
   changeView,
   connectToTheGame,
   changeStatus,
-  connectToQuestions
+  connectToQuestions,
+  sendResponse,
+  saveTimeResponse
 };
