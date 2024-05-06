@@ -20,10 +20,7 @@
           ) {
             <div
               class="players d-flex flex-column justify-content-center align-items-center">
-              <img
-                class="avatar"
-                [src]="player.avatar"
-                [alt]="player.playerName" />
+              <app-avatar-with-frame frameMesuare="normal" [avatarId]="player.avatar"></app-avatar-with-frame>
               {{ player.playerName }}
               <div
                 [ngClass]="{
