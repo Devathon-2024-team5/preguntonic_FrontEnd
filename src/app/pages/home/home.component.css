@@ -19,3 +19,13 @@
   align-items: center;
   max-width: 20.5rem;
 }
+
+.input-avatar {
+  position: relative; 
+}
+
+.input-avatar app-change-icon-button {
+  position: absolute;
+  bottom: 1.5rem;
+  right: -4px;
+}
