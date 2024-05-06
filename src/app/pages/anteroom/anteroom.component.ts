@@ -15,7 +15,6 @@ import {
   ButtonVariant,
   CustomButtonComponent,
 } from '../../shared/components/custom-btn/custom-button.component';
-import { WebSocketApiService } from '../../core/services/web-socket-api.service';
 import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
 import { Store } from '@ngrx/store';
 import { AsyncPipe, NgClass } from '@angular/common';
