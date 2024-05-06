@@ -72,6 +72,22 @@
   visibility: hidden;
 }
 
+.label {
+  filter: grayscale(.9);
+  transform: scale(1);
+  transition: filter .3s, transform .3s;
+}
+
+.label:hover {
+  filter: grayscale(0);
+  transform: scale(1.1);
+}
+
+.label--checked{
+  filter: grayscale(0);
+  transform: scale(1.1);
+}
+
 .circle-empty {
   display: flex;
   justify-content: center;
