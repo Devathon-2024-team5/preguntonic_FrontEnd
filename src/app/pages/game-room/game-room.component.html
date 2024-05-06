@@ -3,7 +3,7 @@
     <app-logo-title />
     @if (currentQuestion$ | async; as question) {
       <app-game-question [question]="{question: question.question, numberQuestion: 1 }"  />
-      <app-response-group />
+      <app-response-group [answerData]="question.answers" />
     }
   </div>
 </app-in-game-layout>

@@ -9,7 +9,7 @@ import { PLAYERS_ACTIONS } from '../../store/players/players.actions';
 import { EventGame } from '../../store/types/store.dto';
 import { IAnswer } from '../../store/models/IGame.state';
 
-interface IResWebSocket  {
+export interface IResWebSocket  {
   event: string;
   room: {
     current_players: IPlayer[];
@@ -31,17 +31,14 @@ interface IPlayerInGame {
 interface IResWSInGame  {
   current_question: {
     id: string;
-    answer: IAnswer[];
+    answers: IAnswer[];
     ordinal: number;
     question: string;
   };
-  num_questions: string; 
+  num_questions: string;
   status: string;
   players: IPlayerInGame[];
 }
-
-type QuestionType = Pick<IResWSInGame, 'num_questions'>
-
 
 @Injectable({
   providedIn: 'root',
@@ -86,18 +83,14 @@ export class WebSocketApiService {
           (wsResponse: IMessage) => {
             const data = JSON.parse(wsResponse.body) as IResWSInGame
 
-            console.log(data);
-
             this.store.dispatch(GAME_ACTIONS.updateQuestion({
               currentQuestion: data.current_question.ordinal,
               question: {
                 question: data.current_question.question,
-                answers: data.current_question.answer,
+                answers: data.current_question.answers,
                 correctAnswer: null
               }
             }))
-            
-            //this.executeEvent(data.event, data)
           }
         );
 
@@ -166,7 +159,7 @@ private executeEvent(event: EventGame | string, data: IResWebSocket): void {
       this.store.dispatch(PLAYERS_ACTIONS.updatePlayers({players: data.room.current_players}))
       break;
     case 'UNREADY':
-      
+
       break
     case 'START_GAME':
       this.store.dispatch(GAME_ACTIONS.changeView({route: 'game-room'}))
@@ -175,7 +168,7 @@ private executeEvent(event: EventGame | string, data: IResWebSocket): void {
       console.log('nothing');
       break;
   }
-  
+
 }
 
 }
