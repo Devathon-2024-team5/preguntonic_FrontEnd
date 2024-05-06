@@ -42,14 +42,14 @@ export class HomeComponent{
     this.avatars = this.avatarService.getAllAvatars();
   }
 
-  selectAvatar(avatar: string) {
-    this.selectedAvatar = avatar;
-  }
-
-
   openModal(event: MouseEvent) {
     event.preventDefault();
     this.stateModal.update(()=>true);
+  }
+
+  selectAvatar(){
+    this.selectedAvatar = this.currentAvatar;
+    this.stateModal.update(()=>false);
   }
 
   public navigateView(route: Required<string>): void {
