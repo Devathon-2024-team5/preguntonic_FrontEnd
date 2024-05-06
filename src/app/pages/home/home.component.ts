@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { LogoTitleComponent } from '../../shared/components/logo-title/logo-title.component';
 import { CustomButtonComponent } from '../../shared/components/custom-btn/custom-button.component';
 import { Store } from '@ngrx/store';
@@ -36,6 +36,7 @@ export class HomeComponent{
   currentAvatar: string = ''; // Avatar currently selected in modal component
   selectedAvatar: string = ''; // Avatar selected
   playerName: string = '';
+  stateModal = signal(false);
 
   constructor(private avatarService: AvatarService) {
     this.avatars = this.avatarService.getAllAvatars();
@@ -43,6 +44,12 @@ export class HomeComponent{
 
   selectAvatar(avatar: string) {
     this.selectedAvatar = avatar;
+  }
+
+
+  openModal(event: MouseEvent) {
+    event.preventDefault();
+    this.stateModal.update(()=>true);
   }
 
   public navigateView(route: Required<string>): void {
