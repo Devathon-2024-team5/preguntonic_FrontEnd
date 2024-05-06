@@ -6,6 +6,10 @@ import { CURRENT_PLAYER_ACTIONS } from '../../store/current-player/current-playe
 import { GAME_ACTIONS } from '../../store/game/game.actions';
 import { FormsModule } from '@angular/forms';
 import { TimerComponent } from '../../components/timer/timer.component';
+import { AvatarWithFrameComponent } from '../../shared/components/avatar-with-frame/avatar-with-frame.component';
+import { InfoIconButtonComponent } from '../../components/info-icon-button/info-icon-button.component';
+import { ChangeIconButtonComponent } from '../../components/change-icon-button/change-icon-button.component';
+import { ModalComponent } from '../../shared/components/modal/modal.component';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +21,11 @@ import { TimerComponent } from '../../components/timer/timer.component';
     CustomButtonComponent,
     LogoTitleComponent,
     FormsModule,
-    TimerComponent
+    TimerComponent,
+    AvatarWithFrameComponent,
+    InfoIconButtonComponent,
+    ChangeIconButtonComponent,
+    ModalComponent
   ],
 })
 export class HomeComponent {
