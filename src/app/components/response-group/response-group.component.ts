@@ -4,7 +4,6 @@ import {
   inject,
   input,
 } from '@angular/core';
-import { IAnswerInfo } from '../../core/models/IQuestionInfo.interface';
 import {
   FormGroup,
   ReactiveFormsModule,
