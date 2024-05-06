@@ -44,10 +44,9 @@ import { FilterPlayersPipe } from '../../shared/pipes/filter-players.pipe';
   ],
 })
 export class AnteroomComponent implements OnInit {
+  @Input() room_code?: string;
   private readonly store = inject(Store);
   private readonly _httpService = inject(HttpService);
-  private readonly webSocketApi = inject(WebSocketApiService);
-  @Input() room_code?: string;
   btnStatus = signal<ButtonVariant>('');
   currentPlayer$ = this.store.select(
     CURRENT_PLAYER_SELECTS.selectCurrentPlayer

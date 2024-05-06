@@ -30,6 +30,7 @@ export class ResponseGroupComponent {
   private readonly _fb = inject(FormBuilder);
   private readonly store = inject(Store);
 
+
   constructor() {
     this.answersForm = this._fb.nonNullable.group({
       answer: ['', Validators.required],
@@ -37,7 +38,6 @@ export class ResponseGroupComponent {
   }
 
   public checkAnswer(id: string): void {
-    console.log(id);
     this.answersForm.disable();
     this.store.dispatch(
       GAME_ACTIONS.sendResponse({

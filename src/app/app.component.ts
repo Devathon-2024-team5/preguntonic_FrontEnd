@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarDailyComponent } from './components/navbar-daily/navbar-daily.component';
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { ModalComponent } from './shared/components/modal/modal.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarDailyComponent, AsyncPipe, JsonPipe],
+  imports: [RouterOutlet, NavbarDailyComponent, ModalComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

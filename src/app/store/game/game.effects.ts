@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import { catchError, exhaustMap, map, of, switchMap, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { GAME_ACTIONS } from './game.actions';
 import { HttpService } from '../../core/services/http.service';
@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store';
 import { concatLatestFrom } from '@ngrx/operators';
 import { CURRENT_PLAYER_SELECTS } from '../current-player/current-player.selectors';
 import { GAME_SELECTORS } from './game.selectors';
+import { ModalService } from '../../shared/services/modal.service';
 
 @Injectable()
 export class GameEffects {
@@ -18,6 +19,7 @@ export class GameEffects {
   private readonly _router = inject(Router);
   private readonly webSocketApi = inject(WebSocketApiService);
   private readonly store = inject(Store);
+  private readonly modalService: ModalService = inject(ModalService);
 
   //TODO Eliminar NgrxTestService e implementar servicio final
 
@@ -68,11 +70,11 @@ export class GameEffects {
           this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer),
           this.store.select(GAME_SELECTORS.selectRoomCode),
         ]),
-        tap(([_, {playerId},roomCode]) => {
-          console.log(playerId + roomCode)
-          if (playerId === null) throw new Error('')
+        tap(([_, { playerId }, roomCode]) => {
+          console.log(playerId + roomCode);
+          if (playerId === null) throw new Error('');
 
-          this.webSocketApi.joinPlayerGame(roomCode, playerId)
+          this.webSocketApi.joinPlayerGame(roomCode, playerId);
         })
       );
     },
@@ -117,15 +119,44 @@ export class GameEffects {
         concatLatestFrom(() => [
           this.store.select(GAME_SELECTORS.selectRoomCode),
           this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer),
-          this.store.select(GAME_SELECTORS.selectTime)
+          this.store.select(GAME_SELECTORS.selectTime),
         ]),
-        tap(([{answerId, idQuestion}, roomCode, {playerId}, time]) => {
+        tap(([{ answerId, idQuestion }, roomCode, { playerId }, time]) => {
           if (playerId === null || time === undefined) throw new Error('');
-          const isTimeout = time === 0
-          return this.webSocketApi.responseQuestion(answerId,idQuestion, playerId, roomCode, time, isTimeout)
+
+          this.modalService.toggleViewModal();
+          const isTimeout = time === 0;
+          return this.webSocketApi.responseQuestion(
+            answerId,
+            idQuestion,
+            playerId,
+            roomCode,
+            time,
+            isTimeout
+          );
         })
-      )
+      );
     },
-    {dispatch: false}
-  )
+    { dispatch: false }
+  );
+
+  public nextQuestion$ = createEffect(
+    () => {
+      return this._actions$.pipe(
+        ofType(GAME_ACTIONS.nextQuestion),
+        concatLatestFrom(() => [
+          this.store.select(GAME_SELECTORS.selectRoomCode),
+          this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer),
+        ]),
+        tap(([_, roomCode, { playerId }]) => {
+          if (playerId === null) throw new Error('');
+
+          this.webSocketApi.nextQuestion(playerId, roomCode)
+        })
+      ).pipe(
+        map(() => GAME_ACTIONS.changeView({ route: '/game-room' })),
+        catchError((error) => of(GAME_ACTIONS.loadGameFailure({ error })))
+      );
+    }
+  );
 }
