@@ -6,11 +6,12 @@ import { AsyncPipe } from '@angular/common';
 import { CURRENT_PLAYER_SELECTS } from '../../store/current-player/current-player.selectors';
 import { filter, tap } from 'rxjs';
 import { concatLatestFrom } from '@ngrx/operators';
+import { AvatarWithFrameComponent } from '../../shared/components/avatar-with-frame/avatar-with-frame.component';
 
 @Component({
   selector: 'app-player-results',
   standalone: true,
-  imports: [ImageBasicComponent, AsyncPipe],
+  imports: [AvatarWithFrameComponent,ImageBasicComponent, AsyncPipe],
   templateUrl: './player-results.component.html',
   styleUrl: './player-results.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

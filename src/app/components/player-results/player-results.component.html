@@ -1,17 +1,7 @@
 <!-- //TODO data pendiente: ImageParameters  -->
 <div class="d-flex align-items-center gap-2 gap-sm-4">
   @if (player$ | async; as player) {
-
-  <app-image-basic
-    [customStyles]="{
-      borderRadius: '50%'
-    }"
-    [size]="3"
-    [imageParameters]="{
-      src: player?.avatar ?? 'assets/images/unknown.webp',
-      alt: 'avatar player'
-    }" />
-  
+    <app-avatar-with-frame frameMesuare="small" [avatarId]="player.avatar"></app-avatar-with-frame>
     <p class=" player text-capitalize m-0 d-flex gap-4 justify-content-between w-100">
       <strong class="player-name"> {{player.playerName}} </strong>
       <span class="u-green-light player-score"> {{score}} pts </span>
