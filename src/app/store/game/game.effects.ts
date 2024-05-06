@@ -27,8 +27,8 @@ export class GameEffects {
       ofType(GAME_ACTIONS.loadGame),
       exhaustMap(() =>
         this._ngrxTestService.executeNgrxGameTest().pipe(
-          map(({ currentQuestion, questions }) =>
-            GAME_ACTIONS.updateQuestion({ currentQuestion, questions })
+          map(({ currentQuestion, question: question }) =>
+            GAME_ACTIONS.updateQuestion({ currentQuestion, question })
           ),
           catchError(({ message }: HttpErrorResponse) =>
             of(GAME_ACTIONS.loadGameFailure({ error: message }))

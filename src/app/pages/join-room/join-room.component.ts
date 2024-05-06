@@ -16,6 +16,6 @@ export class JoinRoomComponent {
   code = '';
 
   joinRoom() {
-    this.store.dispatch(GAME_ACTIONS.setRoomCode({roomCode: this.code}))
+    this.store.dispatch(GAME_ACTIONS.setRoomCode({roomCode: this.code.trim()}))
   }
 }

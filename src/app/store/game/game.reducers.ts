@@ -1,11 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
-import { IGameState } from '../models/IGame.state';
+import { IGameState, IQuestion } from '../models/IGame.state';
 import { GAME_ACTIONS } from './game.actions';
 
 export const initialState: IGameState = {
   maxPlayers: 0,
   numOfQuestion: 0,
-  questions: [],
+  question: {} as IQuestion,
   currentQuestion: 0,
   roomCode: '',
   error: null,
@@ -20,10 +20,10 @@ export const gameReducer = createReducer(
   ),
   on(
     GAME_ACTIONS.updateQuestion,
-    (state, { currentQuestion, questions }): IGameState => ({
+    (state, { currentQuestion, question }): IGameState => ({
       ...state,
       currentQuestion,
-      questions: [...state.questions, ...questions],
+      question: question,
       isLoading: false,
     })
   ),

@@ -26,13 +26,30 @@ export class NgrxTestService {
   }
 
   public executeNgrxGameTest(): Observable<
-    Pick<IGameState, 'currentQuestion' | 'questions'>
+    Pick<IGameState, 'currentQuestion' | 'question'>
   > {
     const question: IQuestion = {
       question: 'What is the capital of France?',
-      answers: ['Paris', 'London', 'Berlin', 'Madrid'],
-      correctAnswer: 0,
+      answers: [
+        {
+          id: 'a1',
+          answer: 'Paris'
+        },
+        {
+          id: 'a2',
+          answer: 'London'
+        },
+        {
+          id: 'a3',
+          answer: 'Berlin'
+        },
+        {
+          id: 'a4',
+          answer: 'Madrid'
+        }
+      ],
+      correctAnswer: '',
     };
-    return of({ questions: [question], currentQuestion: 0 }).pipe(delay(3000));
+    return of({ question: question, currentQuestion: 0 }).pipe(delay(3000));
   }
 }

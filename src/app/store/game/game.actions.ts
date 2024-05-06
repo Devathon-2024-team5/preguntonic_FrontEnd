@@ -5,7 +5,7 @@ const loadGame = createAction('[Game Room] Load Game');
 
 const updateQuestion = createAction(
   '[Game Room] Update Question',
-  props<{ questions: IQuestion[]; currentQuestion: number }>()
+  props<{ question: IQuestion; currentQuestion: number }>()
 );
 
 const setConfigGame = createAction(

@@ -12,7 +12,7 @@ const selectLoadGame = createSelector(
 
 const selectQuestions = createSelector(
   selectGameFeature,
-  (state: IGameState) => state.questions
+  (state: IGameState) => state.question
 );
 
 const selectGameError = createSelector(
