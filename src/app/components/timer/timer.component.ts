@@ -40,17 +40,19 @@ export class TimerComponent implements OnDestroy {
 
     effect(
       () => {
-        this.timer() === 0 && this.stopTimer()
+        this.timer() === 0 && this.stopTimer();
       }
 
-        // this.timer() === 0 && ''
-        // this.store.dispatch(GAME_ACTIONS.saveTimeResponse({ time: 0 }))
+      // this.timer() === 0 && ''
+      // this.store.dispatch(GAME_ACTIONS.saveTimeResponse({ time: 0 }))
     );
   }
 
   private initLoader(): void {
     this.timer.update(prev => prev - 1);
-    this.store.dispatch(GAME_ACTIONS.saveTimeResponse({ time: this.timer(), isSetTimeout: false }))
+    this.store.dispatch(
+      GAME_ACTIONS.saveTimeResponse({ time: this.timer(), isSetTimeout: false })
+    );
     this._cdRef.detectChanges();
 
     if (this.timer() === 0) this.stopTimer;

@@ -130,7 +130,8 @@ export class WebSocketApiService {
     questionId: string,
     player_id: string,
     roomId: string,
-    timeMs: number
+    timeMs: number,
+    isSetTimeout: boolean
   ) {
     this.stompClient.send(
       `/app/rooms/${roomId}/game/players/${player_id}/response`,
@@ -139,6 +140,7 @@ export class WebSocketApiService {
         question_id: questionId,
         response_id: answerId,
         milliseconds: timeMs,
+        isSetTimeout
       })
     );
   }

@@ -50,7 +50,7 @@ const sendResponse = createAction(
 
 const saveTimeResponse = createAction(
   '[Game Room] Save time response',
-  props<{ time: number }>()
+  props<{ time: number, isSetTimeout: boolean  }>()
 )
 
 export const GAME_ACTIONS = {
