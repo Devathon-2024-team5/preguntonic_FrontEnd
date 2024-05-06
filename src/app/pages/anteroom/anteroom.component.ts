@@ -68,8 +68,9 @@ export class AnteroomComponent implements OnInit {
     if (!this.room_code) return;
 
     this._httpService.getRoom(this.room_code).subscribe(res => {
-      this.roomInfo.num_of_question = res.num_of_question;
-      this.roomInfo.max_players = res.max_Players;
+      this.roomInfo.num_of_question = res.numQuestions;
+      this.roomInfo.max_players = res.maxPlayers;
+      this.maxPlayers = res.maxPlayers | 0;
     });
 
     this.store.dispatch(
