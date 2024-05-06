@@ -11,3 +11,11 @@
   position: absolute;
   top: 1.5rem;
 }
+
+.form-user {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 20.5rem;
+}
