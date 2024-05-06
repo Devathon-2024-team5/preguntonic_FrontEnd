@@ -10,6 +10,7 @@ import { AvatarWithFrameComponent } from '../../shared/components/avatar-with-fr
 import { InfoIconButtonComponent } from '../../components/info-icon-button/info-icon-button.component';
 import { ChangeIconButtonComponent } from '../../components/change-icon-button/change-icon-button.component';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
+import { AvatarService } from '../../core/services/avatar.service';
 
 @Component({
   selector: 'app-home',
@@ -28,24 +29,25 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
     ModalComponent
   ],
 })
-export class HomeComponent {
+export class HomeComponent{
   private store = inject(Store);
-
-  avatarImages: string[] = [
-    'assets/avatar-1.webp',
-    'assets/avatar-2.webp',
-    'assets/avatar-3.webp',
-    'assets/avatar-4.webp',
-  ];
-  selectedAvatar: string = '';
+  
+  avatars;
+  currentAvatar: string = ''; // Avatar currently selected in modal component
+  selectedAvatar: string = ''; // Avatar selected
   playerName: string = '';
+
+  constructor(private avatarService: AvatarService) {
+    this.avatars = this.avatarService.getAllAvatars();
+  }
 
   selectAvatar(avatar: string) {
     this.selectedAvatar = avatar;
   }
 
   public navigateView(route: Required<string>): void {
-    if (!this.playerName.trim()) return alert('Por favor, ingresa un nombre');
+    if (!this.selectedAvatar) return alert('Por favor, selecciona un avatar');
+    else if (!this.playerName.trim()) return alert('Por favor, ingresa un nombre');
 
     this.savePlayer();
     this.store.dispatch(GAME_ACTIONS.changeView({ route }));
