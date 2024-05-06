@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, afterNextRender, inject, input, signal } from '@angular/core';
+
 
 @Component({
   selector: 'app-timer',
@@ -10,7 +11,27 @@ import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimerComponent {
-  initValue = input<number>();
-  timer = signal<number>(this.initValue() ?? 30)
-  timerInterval?: NodeJS.Timeout;
+  // private readonly _cdRef = inject(ChangeDetectorRef);
+  // private readonly _cdRef = inject(ChangeDetectorRef);
+  // initValue = signal<number>(30);
+  // timer = signal<number>(this.initValue() ?? 30)
+  // timerInterval?: NodeJS.Timeout;
+
+  // constructor() {
+  //   afterNextRender(() => {
+  //     this.timerInterval = setInterval(
+  //       () => this.initLoader(),
+  //       1000
+  //     );
+  //   });
+  // }
+
+  // private initLoader(): void {
+  //   this.initValue.update(prev => prev - 1);
+
+  //   if (this.initValue() === 0)  ;
+
+  //   this._cdRef.detectChanges();
+  // }
+
 }
