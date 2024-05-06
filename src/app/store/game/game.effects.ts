@@ -1,7 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
-import { NgrxTestService } from '../../core/services/ngrx-test.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { GAME_ACTIONS } from './game.actions';
 import { HttpService } from '../../core/services/http.service';
@@ -15,28 +14,12 @@ import { GAME_SELECTORS } from './game.selectors';
 @Injectable()
 export class GameEffects {
   private readonly _actions$ = inject(Actions);
-  private readonly _ngrxTestService = inject(NgrxTestService);
   private readonly _httpService = inject(HttpService);
   private readonly _router = inject(Router);
   private readonly webSocketApi = inject(WebSocketApiService);
   private readonly store = inject(Store);
 
   //TODO Eliminar NgrxTestService e implementar servicio final
-  public loadGame$ = createEffect(() => {
-    return this._actions$.pipe(
-      ofType(GAME_ACTIONS.loadGame),
-      exhaustMap(() =>
-        this._ngrxTestService.executeNgrxGameTest().pipe(
-          map(({ currentQuestion, question: question }) =>
-            GAME_ACTIONS.updateQuestion({ currentQuestion, question })
-          ),
-          catchError(({ message }: HttpErrorResponse) =>
-            of(GAME_ACTIONS.loadGameFailure({ error: message }))
-          )
-        )
-      )
-    );
-  });
 
   public setConfigGame$ = createEffect(() => {
     return this._actions$.pipe(
@@ -134,13 +117,12 @@ export class GameEffects {
         concatLatestFrom(() => [
           this.store.select(GAME_SELECTORS.selectRoomCode),
           this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer),
-          this.store.select(GAME_SELECTORS.selectQuestions),
-          this.store.select(GAME_SELECTORS.selectCurrentQuestion),
+          this.store.select(GAME_SELECTORS.selectTime)
         ]),
-        tap(([{answer, idQuestion}, roomCode, {playerId}, {}, ]) => {
-          if (playerId === null) throw new Error('');
-          
-          return this.webSocketApi.responseQuestion(roomCode, playerId, answer, idQuestion, 45)
+        tap(([{answerId, idQuestion}, roomCode, {playerId}, time]) => {
+          if (playerId === null || time === undefined) throw new Error('');
+
+          return this.webSocketApi.responseQuestion(answerId,idQuestion, playerId, roomCode, time)
         })
       )
     },

@@ -28,16 +28,9 @@ export class GameRoomComponent implements OnInit{
   sa = inject(WebSocketApiService)
   store = inject(Store)
   roomCode$ = this.store.select(GAME_SELECTORS.selectRoomCode);
-  currentQuestion$ = this.store.select(GAME_SELECTORS.selectQuestions);
+  currentQuestion$ = this.store.select(GAME_SELECTORS.selectCurrentQuestion);
 
   ngOnInit(): void {
     this.store.dispatch(GAME_ACTIONS.connectToQuestions())
-    this.currentQuestion$.subscribe(res => console.log(res)
-    )
-    //
-    // this.roomCode$.subscribe((res)=>{
-    //   console.log(res)
-    //   this.sa.joinPlayerGame(res,)
-    // })
   }
 }

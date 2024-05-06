@@ -9,15 +9,15 @@ import { PLAYERS_ACTIONS } from '../../store/players/players.actions';
 import { EventGame } from '../../store/types/store.dto';
 import { IAnswer } from '../../store/models/IGame.state';
 
-export interface IResWebSocket  {
+export interface IResWebSocket {
   event: string;
   room: {
     current_players: IPlayer[];
-    max_players:  number;
+    max_players: number;
     ready_players: number;
     room_code: string;
     room_status: null;
-  }
+  };
 }
 
 interface IPlayerInGame {
@@ -28,7 +28,7 @@ interface IPlayerInGame {
   score: number;
 }
 
-interface IResWSInGame  {
+interface IResWSInGame {
   current_question: {
     id: string;
     answers: IAnswer[];
@@ -44,16 +44,21 @@ interface IResWSInGame  {
   providedIn: 'root',
 })
 export class WebSocketApiService {
-  private readonly store:Store<AppState> = inject(Store)
+  private readonly store: Store<AppState> = inject(Store);
   webSocketEndPoint: string = 'http://localhost:8080/preguntonic';
   topic: string = '/room/';
   stompClient: any;
   roomId: string = '';
   player_name: string = '';
   avatar: string = '';
-  playerId:string = '';
+  playerId: string = '';
 
-  _connect(roomId: string, player_name: string, avatar: string, playerId: string) {
+  _connect(
+    roomId: string,
+    player_name: string,
+    avatar: string,
+    playerId: string
+  ) {
     this.roomId = roomId;
     const ws = new SockJS(this.webSocketEndPoint);
     this.stompClient = Stomp.over(ws);
@@ -69,28 +74,22 @@ export class WebSocketApiService {
         _this.stompClient.subscribe(
           _this.topic + roomId,
           (wsResponse: IMessage) => {
-            const data = JSON.parse(wsResponse.body) as IResWebSocket
-
-            console.log(data);
-
-            // this.store.dispatch(PLAYERS_ACTIONS.updatePlayers({players: data.room.current_players}))
-            this.executeEvent(data.event, data)
-
+            const data = JSON.parse(wsResponse.body) as IResWebSocket;
+            this.executeEvent(data.event, data);
           }
         );
-        _this.stompClient.subscribe(
-          _this.topic + roomId + "/game",
-          (wsResponse: IMessage) => {
-            const data = JSON.parse(wsResponse.body) as IResWSInGame
 
-            this.store.dispatch(GAME_ACTIONS.updateQuestion({
-              currentQuestion: data.current_question.ordinal,
-              question: {
-                question: data.current_question.question,
-                answers: data.current_question.answers,
-                correctAnswer: null
-              }
-            }))
+        _this.stompClient.subscribe(
+          _this.topic + roomId + '/game',
+          (wsResponse: IMessage) => {
+            // const data = JSON.parse(wsResponse.body) as IResWSInGame
+            const { current_question } = JSON.parse(
+              wsResponse.body
+            ) as IResWSInGame;
+
+            this.store.dispatch(
+              GAME_ACTIONS.updateQuestion({ question: current_question })
+            );
           }
         );
 
@@ -98,17 +97,18 @@ export class WebSocketApiService {
         _this.stompClient.send(
           `/app/rooms/${roomId}/lobby/join`,
           {},
-          JSON.stringify({ playerName: player_name, avatar: avatar, playerId: playerId })
+          JSON.stringify({
+            playerName: player_name,
+            avatar: avatar,
+            playerId: playerId,
+          })
         );
       },
       this.errorCallBack
     );
   }
 
-  readyPlayer(
-    roomId: string,
-    player_id: string,
-  ) {
+  readyPlayer(roomId: string, player_id: string) {
     console.log(this.stompClient);
     const response = this.stompClient.send(
       `/app/rooms/${roomId}/lobby/players/${player_id}/ready`,
@@ -117,10 +117,7 @@ export class WebSocketApiService {
     console.log('response stomp send: ', response);
   }
 
-  joinPlayerGame(
-    roomId: string,
-    player_id: string,
-  ) {
+  joinPlayerGame(roomId: string, player_id: string) {
     console.log(this.stompClient);
     this.stompClient.send(
       `/app/rooms/${roomId}/game/players/${player_id}/join`,
@@ -129,16 +126,20 @@ export class WebSocketApiService {
   }
 
   responseQuestion(
-    roomId: string,
-    player_id: string,
-    answer: string,
+    answerId: string,
     questionId: string,
+    player_id: string,
+    roomId: string,
     timeMs: number
   ) {
     this.stompClient.send(
       `/app/rooms/${roomId}/game/players/${player_id}/response`,
       {},
-      JSON.stringify({ question_id: questionId, response_id: answer, milliseconds: timeMs})
+      JSON.stringify({
+        question_id: questionId,
+        response_id: answerId,
+        milliseconds: timeMs,
+      })
     );
   }
 
@@ -163,27 +164,26 @@ export class WebSocketApiService {
     console.log('Message Recieved from Server :: ' + message);
   }
 
-private executeEvent(event: EventGame | string, data: IResWebSocket): void {
-
-  switch (event) {
-    case 'JOIN':
-      this.store.dispatch(PLAYERS_ACTIONS.updatePlayers({players: data.room.current_players}))
-      break;
-    case 'READY':
-      this.store.dispatch(PLAYERS_ACTIONS.updatePlayers({players: data.room.current_players}))
-      break;
-    case 'UNREADY':
-
-      break
-    case 'START_GAME':
-      this.store.dispatch(GAME_ACTIONS.changeView({route: 'game-room'}))
-      break;
-    default:
-      console.log('nothing');
-      break;
+  private executeEvent(event: EventGame | string, data: IResWebSocket): void {
+    switch (event) {
+      case 'JOIN':
+        this.store.dispatch(
+          PLAYERS_ACTIONS.updatePlayers({ players: data.room.current_players })
+        );
+        break;
+      case 'READY':
+        this.store.dispatch(
+          PLAYERS_ACTIONS.updatePlayers({ players: data.room.current_players })
+        );
+        break;
+      case 'UNREADY':
+        break;
+      case 'START_GAME':
+        this.store.dispatch(GAME_ACTIONS.changeView({ route: 'game-room' }));
+        break;
+      default:
+        console.log('nothing');
+        break;
+    }
   }
-
 }
-
-}
-

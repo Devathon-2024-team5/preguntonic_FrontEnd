@@ -1,11 +1,11 @@
 import { createAction, props } from '@ngrx/store';
-import { IQuestion } from '../models/IGame.state';
+import { ICurrentQuestion } from '../models/IGame.state';
 
 const loadGame = createAction('[Game Room] Load Game');
 
 const updateQuestion = createAction(
   '[Game Room] Update Question',
-  props<{ question: IQuestion; currentQuestion: number }>()
+  props<{ question: ICurrentQuestion }>()
 );
 
 const setConfigGame = createAction(
@@ -45,7 +45,12 @@ const changeStatus = createAction(
 
 const sendResponse = createAction(
   '[Game Room] Send answer question',
-  props<{ answer: string, idQuestion: string}>()
+  props<{ answerId: string, idQuestion: string}>()
+)
+
+const saveTimeResponse = createAction(
+  '[Game Room] Save time response',
+  props<{ time: number }>()
 )
 
 export const GAME_ACTIONS = {
@@ -59,5 +64,6 @@ export const GAME_ACTIONS = {
   connectToTheGame,
   changeStatus,
   connectToQuestions,
-  sendResponse
+  sendResponse,
+  saveTimeResponse
 };
