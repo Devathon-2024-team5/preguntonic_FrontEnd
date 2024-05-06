@@ -1,6 +1,7 @@
 import { createSelector } from '@ngrx/store';
 import { AppState } from '../app.state';
 import { IGameState } from '../models/IGame.state';
+import { GameConfigDTO } from '../types/store.dto';
 
 export const selectGameFeature = (state: AppState) => state.gameState;
 
@@ -11,7 +12,7 @@ const selectLoadGame = createSelector(
 
 const selectQuestions = createSelector(
   selectGameFeature,
-  (state: IGameState) => state.questions
+  (state: IGameState) => state.question
 );
 
 const selectGameError = createSelector(
@@ -24,9 +25,24 @@ const selectCurrentQuestion = createSelector(
   (state: IGameState) => state.currentQuestion
 );
 
+const selectConfigGame = createSelector(
+  selectGameFeature,
+  (state: IGameState): GameConfigDTO => ({
+    numOfQuestion: state.numOfQuestion,
+    maxPlayers: state.maxPlayers,
+  })
+);
+
+const selectRoomCode = createSelector(
+  selectGameFeature,
+  (state: IGameState): string  => state.roomCode
+)
+
 export const GAME_SELECTORS = {
   selectQuestions,
   selectLoadGame,
   selectGameError,
   selectCurrentQuestion,
+  selectConfigGame,
+  selectRoomCode
 };

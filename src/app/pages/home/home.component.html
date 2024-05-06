@@ -1,25 +1,34 @@
 <section class="layout pt-4 bg-purpel">
-  <div class="container d-flex flex-column gap-3 justify-content-between aling-items-center column">
+  <div
+    class="container d-flex flex-column gap-3 justify-content-between aling-items-center column">
     <app-logo-title />
-    <div class="card bg-purpel-dark p-4 m-auto ">
+    <div class="card bg-purpel-dark p-4 m-auto">
       <div class="card-head p-4">
         <h1 class="text-center title-y">Seleccionar un Avatar</h1>
       </div>
       <div class="card-body p-4 justify-content-center">
-        <app-avatar-image [images]="avatarImages" (avatarSelected)="selectAvatar($event)"></app-avatar-image>
+        <app-avatar-image
+          [images]="avatarImages"
+          (avatarSelected)="selectAvatar($event)"></app-avatar-image>
         <form class="card-footer flex-fill">
           <input
+            name="name"
             type="text"
             class="bg-gray-dark"
             placeholder="Nombre"
-            (input)="onNameInputChange($event)"/>
+            [(ngModel)]="playerName" />
         </form>
       </div>
     </div>
     <div class="d-flex flex-row justify-content-center gap-4">
-      <app-custom-button (click)="createRoom()"
-      ariaCurrentWhenActive="page">Crear sala</app-custom-button>
-      <app-custom-button (click)="joinRoom()">Unirse a sala</app-custom-button>
+      <app-custom-button
+        (click)="navigateView('/room-configuration')"
+        ariaCurrentWhenActive="page"
+        >Crear sala</app-custom-button
+      >
+      <app-custom-button (click)="navigateView('/join-room')"
+        >Unirse a sala</app-custom-button
+      >
     </div>
     <div class="d-flex justify-content-end pb-2">
       <app-custom-button>❕</app-custom-button>

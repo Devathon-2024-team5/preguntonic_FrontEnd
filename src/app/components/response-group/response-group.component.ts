@@ -11,6 +11,7 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
+import { IAnswer } from '../../store/models/IGame.state';
 
 @Component({
   selector: 'app-response-group',
@@ -21,10 +22,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResponseGroupComponent {
-  answerData = input<IAnswerInfo>({
-    answers: ['angular', 'vueJS', 'react', 'nextJS'],
-    correctAnswer: 0,
-  });
+  answerData = input<IAnswer[]>([]);
   answersForm: FormGroup;
   private readonly _fb = inject(FormBuilder);
 

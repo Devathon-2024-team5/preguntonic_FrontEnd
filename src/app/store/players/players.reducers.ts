@@ -4,10 +4,6 @@ import { IPlayersState } from '../models/IPlayers.state';
 
 const initialState: IPlayersState = {
   players: [],
-  currentPlayer: {
-    avatar: 'assets/avatar-1.webp',
-    playerName: 'unknow'
-  },
   isLoading: false,
   error: null,
 };
@@ -43,10 +39,4 @@ export const playersReducers = createReducer(
       return { ...state, players: newData };
     }
   ),
-  on(
-    PLAYERS_ACTIONS.savePlayers,
-    (state, {avatar, playerName}): IPlayersState  => {
-      return {...state, currentPlayer: {avatar, playerName}}
-    }
-  )
 );
