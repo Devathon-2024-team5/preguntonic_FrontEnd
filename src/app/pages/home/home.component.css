@@ -51,3 +51,10 @@
 .container-buttons app-custom-button {
   width: 50%;
 }
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}
