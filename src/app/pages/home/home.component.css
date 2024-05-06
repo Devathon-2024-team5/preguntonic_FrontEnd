@@ -71,3 +71,15 @@
 .radio-button {
   visibility: hidden;
 }
+
+.circle-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6.125rem;
+  height: 6.125rem;
+  border-radius: 50%;
+  border: 2px solid var(--secondary-color-dark);
+  font-size: 1.25rem;
+  color: #ffffff7d;
+}
