@@ -52,6 +52,13 @@ export class HomeComponent{
     this.stateModal.update(()=>false);
   }
 
+  handleKeypress(event:KeyboardEvent) {
+    if(event.key === 'Enter'){
+      const eventClick = new MouseEvent('click', { bubbles: true });
+      event.target?.dispatchEvent(eventClick);
+    }
+  }
+
   public navigateView(route: Required<string>): void {
     if (!this.selectedAvatar) return alert('Por favor, selecciona un avatar');
     else if (!this.playerName.trim()) return alert('Por favor, ingresa un nombre');
