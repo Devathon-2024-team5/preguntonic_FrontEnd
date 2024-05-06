@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { LogoTitleComponent } from '../../shared/components/logo-title/logo-title.component';
-import { AvatarImageComponent } from '../../shared/components/avatar-img/avatar-image.component';
 import { CustomButtonComponent } from '../../shared/components/custom-btn/custom-button.component';
 import { Store } from '@ngrx/store';
 import { CURRENT_PLAYER_ACTIONS } from '../../store/current-player/current-player.action';
@@ -17,7 +16,6 @@ import { TimerComponent } from '../../components/timer/timer.component';
   imports: [
     CustomButtonComponent,
     LogoTitleComponent,
-    AvatarImageComponent,
     FormsModule,
     TimerComponent
   ],
