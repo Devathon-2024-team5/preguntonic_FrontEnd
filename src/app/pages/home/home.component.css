@@ -57,4 +57,13 @@
   flex-direction: column;
   justify-content: center;
   gap: 2rem;
+  background-color: transparent;
+  font-size: 1.25rem;
+  max-width: 350px;
+}
+
+.avatars-container{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1.25rem;
 }
