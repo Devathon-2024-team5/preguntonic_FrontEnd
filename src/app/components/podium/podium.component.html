@@ -2,11 +2,7 @@
   <ng-container *ngFor="let player of topPlayer; let i = index">
     <div class="podium-bar" [style.height]="podiumSteps[i] + '%'">
       <div class="shadow-md podium-imgWrapper" style="border-radius: 50%">
-        <app-image-basic
-          [size]="3"
-          [customStyles]="{ borderRadius: '50%' }"
-          [imageParameters]="{ src: player.avatar, alt: 'avatar player' }"
-        ></app-image-basic>
+        <app-avatar-with-frame frameMesuare="medium" [avatarId]="player.avatar"></app-avatar-with-frame>
       </div>
       <div class="podium-data">
         <div class="d-flex flex-column gap-2">

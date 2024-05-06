@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
 import { IPlayer } from '../../store/models/IPlayers.state';
 import { TopPlayer } from '../../store/types/store.dto';
+import { AvatarWithFrameComponent } from '../../shared/components/avatar-with-frame/avatar-with-frame.component';
 
 //TODO add canvas-confetti library and implements winners' information
 @Component({
@@ -19,7 +20,7 @@ import { TopPlayer } from '../../store/types/store.dto';
   templateUrl: './podium.component.html',
   styleUrl: './podium.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ImageBasicComponent],
+  imports: [CommonModule, ImageBasicComponent,AvatarWithFrameComponent],
 })
 export class PodiumComponent implements OnInit {
   private store = inject(Store);
