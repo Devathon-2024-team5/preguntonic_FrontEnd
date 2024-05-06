@@ -4,7 +4,7 @@ import { GAME_ACTIONS } from './game.actions';
 
 export const initialState: IGameState = {
   maxPlayers: 0,
-  numOfQuestion: 0,
+  numOfQuestions: 0,
   question: {} as IQuestion,
   currentQuestion: 0,
   roomCode: '',
@@ -33,9 +33,9 @@ export const gameReducer = createReducer(
   ),
   on(
     GAME_ACTIONS.setConfigGame,
-    (state, { maxPlayers, numOfQuestion }): IGameState => ({
+    (state, { maxPlayers, numOfQuestions }): IGameState => ({
       ...state,
-      numOfQuestion,
+      numOfQuestions,
       maxPlayers,
     })
   ),

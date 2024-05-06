@@ -41,8 +41,8 @@ export class GameEffects {
   public setConfigGame$ = createEffect(() => {
     return this._actions$.pipe(
       ofType(GAME_ACTIONS.setConfigGame),
-      exhaustMap(({ maxPlayers, numOfQuestion }) =>
-        this._httpService.createRoom({ maxPlayers, numOfQuestion }).pipe(
+      exhaustMap(({ maxPlayers, numOfQuestions }) =>
+        this._httpService.createRoom({ maxPlayers, numOfQuestions }).pipe(
           map(({ body, ok }) => {
             if (!ok) throw new Error(`Failure to retrieve data`);
 
@@ -126,4 +126,24 @@ export class GameEffects {
     },
     { dispatch: false }
   );
+
+  public sendResponse$ = createEffect(
+    () => {
+      return this._actions$.pipe(
+        ofType(GAME_ACTIONS.sendResponse),
+        concatLatestFrom(() => [
+          this.store.select(GAME_SELECTORS.selectRoomCode),
+          this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer),
+          this.store.select(GAME_SELECTORS.selectQuestions),
+          this.store.select(GAME_SELECTORS.selectCurrentQuestion),
+        ]),
+        tap(([{answer, idQuestion}, roomCode, {playerId}, {}, ]) => {
+          if (playerId === null) throw new Error('');
+          
+          return this.webSocketApi.responseQuestion(roomCode, playerId, answer, idQuestion, 45)
+        })
+      )
+    },
+    {dispatch: false}
+  )
 }

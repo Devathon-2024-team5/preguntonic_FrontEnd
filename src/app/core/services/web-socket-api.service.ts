@@ -128,6 +128,20 @@ export class WebSocketApiService {
     );
   }
 
+  responseQuestion(
+    roomId: string,
+    player_id: string,
+    answer: string,
+    questionId: string,
+    timeMs: number
+  ) {
+    this.stompClient.send(
+      `/app/rooms/${roomId}/game/players/${player_id}/response`,
+      {},
+      JSON.stringify({ question_id: questionId, response_id: answer, milliseconds: timeMs})
+    );
+  }
+
   _disconnect() {
     if (this.stompClient !== null) {
       this.stompClient.disconnect();

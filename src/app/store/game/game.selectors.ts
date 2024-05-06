@@ -15,20 +15,20 @@ const selectQuestions = createSelector(
   (state: IGameState) => state.question
 );
 
-const selectGameError = createSelector(
-  selectGameFeature,
-  (state: IGameState) => state.error
-);
-
 const selectCurrentQuestion = createSelector(
   selectGameFeature,
   (state: IGameState) => state.currentQuestion
 );
 
+const selectGameError = createSelector(
+  selectGameFeature,
+  (state: IGameState) => state.error
+);
+
 const selectConfigGame = createSelector(
   selectGameFeature,
   (state: IGameState): GameConfigDTO => ({
-    numOfQuestion: state.numOfQuestion,
+    numOfQuestions: state.numOfQuestions,
     maxPlayers: state.maxPlayers,
   })
 );

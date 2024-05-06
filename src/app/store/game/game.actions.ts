@@ -10,7 +10,7 @@ const updateQuestion = createAction(
 
 const setConfigGame = createAction(
   '[Room Configuration] Set Config Game',
-  props<{ numOfQuestion: number; maxPlayers: number }>()
+  props<{ numOfQuestions: number; maxPlayers: number }>()
 );
 
 const loadGameFailure = createAction(
@@ -43,6 +43,11 @@ const changeStatus = createAction(
   props<{ roomCode: string }>()
 )
 
+const sendResponse = createAction(
+  '[Game Room] Send answer question',
+  props<{ answer: string, idQuestion: string}>()
+)
+
 export const GAME_ACTIONS = {
   loadGame,
   updateQuestion,
@@ -53,5 +58,6 @@ export const GAME_ACTIONS = {
   changeView,
   connectToTheGame,
   changeStatus,
-  connectToQuestions
+  connectToQuestions,
+  sendResponse
 };

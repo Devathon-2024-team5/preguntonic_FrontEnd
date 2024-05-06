@@ -11,7 +11,7 @@ export interface IQuestion {
 
 export interface IGameState {
   maxPlayers:number;
-  numOfQuestion:number;
+  numOfQuestions:number;
   question: IQuestion;
   currentQuestion: number;
   roomCode: string;

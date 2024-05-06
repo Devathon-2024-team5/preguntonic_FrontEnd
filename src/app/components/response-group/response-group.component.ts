@@ -12,6 +12,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { IAnswer } from '../../store/models/IGame.state';
+import { Store } from '@ngrx/store';
+import { GAME_ACTIONS } from '../../store/game/game.actions';
 
 @Component({
   selector: 'app-response-group',
@@ -22,9 +24,12 @@ import { IAnswer } from '../../store/models/IGame.state';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResponseGroupComponent {
+  isDisasbled = false;
   answerData = input<IAnswer[]>([]);
+  idQuestion = input.required<string>();
   answersForm: FormGroup;
   private readonly _fb = inject(FormBuilder);
+  private readonly store = inject(Store);
 
   constructor() {
     this.answersForm = this._fb.nonNullable.group({
@@ -33,6 +38,7 @@ export class ResponseGroupComponent {
   }
 
   public checkAnswer(): void {
-    console.log(this.answersForm.value);
+    this.isDisasbled = true;
+    this.store.dispatch(GAME_ACTIONS.sendResponse({answer: this.answersForm.value, idQuestion: this.idQuestion() }))
   }
 }

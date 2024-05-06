@@ -25,7 +25,7 @@ export class RoomConfigurationComponent {
     this.store.dispatch(
       GAME_ACTIONS.setConfigGame({
         maxPlayers: this.numberOfPlayersInTheRoom,
-        numOfQuestion: this.numberOfGameQuestions,
+        numOfQuestions: this.numberOfGameQuestions,
       })
     );
   }
