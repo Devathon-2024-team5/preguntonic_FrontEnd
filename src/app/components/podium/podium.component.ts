@@ -1,6 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { ImageBasicComponent } from '../../shared/components/image-basic/image-basic.component';
+import { Store } from '@ngrx/store';
+import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
+import { IPlayer } from '../../store/models/IPlayers.state';
+import { TopPlayer } from '../../store/types/store.dto';
 
 //TODO add canvas-confetti library and implements winners' information
 @Component({
@@ -11,6 +21,33 @@ import { ImageBasicComponent } from '../../shared/components/image-basic/image-b
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, ImageBasicComponent],
 })
-export class PodiumComponent {
+export class PodiumComponent implements OnInit {
+  private store = inject(Store);
+  score$ = this.store.select(PLAYERS_SELECTS.selectPlayers);
+  players: IPlayer[] = [];
+  topPlayer: TopPlayer[] = [];
   readonly podiumSteps = ['100', '80', '60'];
+  @Input() playerPositions: { position: number; name: string; avatar: string; score:number}[] = [];
+  tabla:boolean = false;
+
+  ngOnInit() {
+    this.score$.subscribe(res => {
+      this.players = [...res];
+      this.updateTopPlayers();
+      this.updatePlayerPositions();
+    });
+  }
+
+  private updateTopPlayers(): void {
+    this.topPlayer = this.players.slice(0, 3);
+  }
+
+  private updatePlayerPositions(): void {
+    this.playerPositions = this.players.map((player, index) => ({
+      position: index + 1,
+      name: player.playerName,
+      avatar: player.avatar,
+      score: player.score
+    }));
+  }
 }
