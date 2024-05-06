@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { CURRENT_PLAYER_ACTIONS } from '../../store/current-player/current-player.action';
 import { GAME_ACTIONS } from '../../store/game/game.actions';
 import { FormsModule } from '@angular/forms';
+import { TimerComponent } from '../../components/timer/timer.component';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,7 @@ import { FormsModule } from '@angular/forms';
     LogoTitleComponent,
     AvatarImageComponent,
     FormsModule,
+    TimerComponent
   ],
 })
 export class HomeComponent {

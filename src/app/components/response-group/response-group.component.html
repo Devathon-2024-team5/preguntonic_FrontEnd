@@ -5,7 +5,7 @@
       class="answer text-center text-capitalize"
       [for]="'answer' + i">
       <input
-        (change)="checkAnswer()"
+        (change)="checkAnswer(answer.id)"
         type="radio"
         name="answer"
         formControlName="answer"

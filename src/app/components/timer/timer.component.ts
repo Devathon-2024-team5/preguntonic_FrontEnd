@@ -1,6 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, afterNextRender, inject, input, signal } from '@angular/core';
-
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  afterNextRender,
+  effect,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
+import { Store } from '@ngrx/store';
+import { GAME_SELECTORS } from '../../store/game/game.selectors';
+import { GAME_ACTIONS } from '../../store/game/game.actions';
 
 @Component({
   selector: 'app-timer',
@@ -10,28 +22,42 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, afterNextRender,
   styleUrl: './timer.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TimerComponent {
-  // private readonly _cdRef = inject(ChangeDetectorRef);
-  // private readonly _cdRef = inject(ChangeDetectorRef);
-  // initValue = signal<number>(30);
-  // timer = signal<number>(this.initValue() ?? 30)
-  // timerInterval?: NodeJS.Timeout;
+export class TimerComponent implements OnDestroy {
+  initValue = input<number>();
+  timer = signal<number>(30);
+  timerInterval?: NodeJS.Timeout;
+  private _speedLoader = 1000;
+  private readonly _cdRef = inject(ChangeDetectorRef);
+  private readonly store = inject(Store);
 
-  // constructor() {
-  //   afterNextRender(() => {
-  //     this.timerInterval = setInterval(
-  //       () => this.initLoader(),
-  //       1000
-  //     );
-  //   });
-  // }
+  constructor() {
+    afterNextRender(() => {
+      this.timerInterval = setInterval(
+        () => this.initLoader(),
+        this._speedLoader
+      );
+    });
 
-  // private initLoader(): void {
-  //   this.initValue.update(prev => prev - 1);
+    effect(
+      () =>
+        this.timer() === 0 && ''
+        // this.store.dispatch(GAME_ACTIONS.saveTimeResponse({ time: 0 }))
+    );
+  }
 
-  //   if (this.initValue() === 0)  ;
+  private initLoader(): void {
+    this.timer.update(prev => prev - 1);
+    this.store.dispatch(GAME_ACTIONS.saveTimeResponse({ time: this.timer() }))
+    this._cdRef.detectChanges();
 
-  //   this._cdRef.detectChanges();
-  // }
+    if (this.timer() === 0) this.stopTimer;
+  }
 
+  private stopTimer(): void {
+    clearInterval(this?.timerInterval);
+  }
+
+  ngOnDestroy(): void {
+    this.stopTimer();
+  }
 }
