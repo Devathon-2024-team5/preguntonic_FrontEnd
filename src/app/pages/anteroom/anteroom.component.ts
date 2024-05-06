@@ -24,6 +24,7 @@ import { GAME_ACTIONS } from '../../store/game/game.actions';
 import { NumberOfReadyPipe } from '../../shared/pipes/number-of-ready.pipe';
 import { GAME_SELECTORS } from '../../store/game/game.selectors';
 import { FilterPlayersPipe } from '../../shared/pipes/filter-players.pipe';
+import { AvatarWithFrameComponent } from '../../shared/components/avatar-with-frame/avatar-with-frame.component';
 
 @Component({
   selector: 'app-anteroom',
@@ -41,6 +42,7 @@ import { FilterPlayersPipe } from '../../shared/pipes/filter-players.pipe';
     NumberOfReadyPipe,
     FilterPlayersPipe,
     NgClass,
+    AvatarWithFrameComponent
   ],
 })
 export class AnteroomComponent implements OnInit {

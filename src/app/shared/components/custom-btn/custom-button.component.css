@@ -1,11 +1,11 @@
 .custom-button {
+  display: flex;
   flex-direction: row;
-  align-items: end;
+  align-items: center;
   justify-content: center;
   gap: 1rem;
 
   padding: 1.5rem 1rem 1.5rem 1rem;
-  margin-top: 1.5rem;
   width: 100%;
 
   background-color: var(--accent-color);
