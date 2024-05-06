@@ -5,6 +5,8 @@ export type GameConfigDTO = Pick<IGameState, 'maxPlayers' | 'numOfQuestions'>;
 
 export type PlayerDTO = Pick<IPlayer, 'avatar' | 'playerName'>;
 
+export type TopPlayer = Pick<IPlayer, 'avatar' | 'playerName' | 'score'>;
+
 export type QuestionDTO = Pick<IQuestion, 'question' | 'correctAnswer'>
 
 export type StatusPlayer =

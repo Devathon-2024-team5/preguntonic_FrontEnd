@@ -1,25 +1,20 @@
-<!-- //TODO data pendiente: ImageParameters  -->
 <div class="podium">
-  @for (step of podiumSteps; track $index) {
-    <div class="podium-bar" [style]="{ height: step + '%' }">
+  <ng-container *ngFor="let player of topPlayer; let i = index">
+    <div class="podium-bar" [style.height]="podiumSteps[i] + '%'">
       <div class="shadow-md podium-imgWrapper" style="border-radius: 50%">
         <app-image-basic
           [size]="3"
           [customStyles]="{ borderRadius: '50%' }"
-          [imageParameters]="{
-            src: 'assets/avatar-1.webp',
-            alt: 'avatar player'
-          }" />
+          [imageParameters]="{ src: player.avatar, alt: 'avatar player' }"
+        ></app-image-basic>
       </div>
       <div class="podium-data">
         <div class="d-flex flex-column gap-2">
-          <strong> Player 1 </strong>
-          <span class="podium-points"> 900 pts </span>
+          <strong>{{ player.playerName }}</strong>
+          <span class="podium-points">{{ player.score }}</span>
         </div>
       </div>
-      <span class="podium-index fw-bold">
-        {{ $index + 1 }}
-      </span>
+      <span class="podium-index fw-bold">{{ i + 1 }}</span>
     </div>
-  }
+  </ng-container>
 </div>
