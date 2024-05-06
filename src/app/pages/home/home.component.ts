@@ -11,6 +11,7 @@ import { InfoIconButtonComponent } from '../../components/info-icon-button/info-
 import { ChangeIconButtonComponent } from '../../components/change-icon-button/change-icon-button.component';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { AvatarService } from '../../core/services/avatar.service';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +27,8 @@ import { AvatarService } from '../../core/services/avatar.service';
     AvatarWithFrameComponent,
     InfoIconButtonComponent,
     ChangeIconButtonComponent,
-    ModalComponent
+    ModalComponent,
+    NgClass
   ],
 })
 export class HomeComponent{
