@@ -8,7 +8,7 @@ import { IPlayer } from '../../store/models/IPlayers.state';
 export class NumberOfReadyPipe implements PipeTransform {
 
   transform(players: IPlayer[]): unknown {
-    return players.filter(p => p.readyForNextQuestion).length;
+    return players.filter(p => p.status == "IN_LOBBY_READY").length;
   }
 
 }
