@@ -121,8 +121,8 @@ export class GameEffects {
         ]),
         tap(([{answerId, idQuestion}, roomCode, {playerId}, time]) => {
           if (playerId === null || time === undefined) throw new Error('');
-
-          return this.webSocketApi.responseQuestion(answerId,idQuestion, playerId, roomCode, time, false)
+          const isTimeout = time === 0
+          return this.webSocketApi.responseQuestion(answerId,idQuestion, playerId, roomCode, time, isTimeout)
         })
       )
     },

@@ -83,6 +83,7 @@ export class WebSocketApiService {
           _this.topic + roomId + '/game',
           (wsResponse: IMessage) => {
             // const data = JSON.parse(wsResponse.body) as IResWSInGame
+            console.log('wsResponse.body: ', wsResponse.body);
             const { current_question } = JSON.parse(
               wsResponse.body
             ) as IResWSInGame;
@@ -90,6 +91,25 @@ export class WebSocketApiService {
             this.store.dispatch(
               GAME_ACTIONS.updateQuestion({ question: current_question })
             );
+
+            // Redireccionar a la pre-score
+          }
+        );
+
+        _this.stompClient.subscribe(
+          _this.topic + roomId + '/game/questions',
+          (wsResponse: IMessage) => {
+            // const data = JSON.parse(wsResponse.body) as IResWSInGame
+            console.log('wsResponse.body: ', wsResponse.body);
+            // const { current_question } = JSON.parse(
+            //   wsResponse.body
+            // ) as IResWSInGame;
+
+            // this.store.dispatch(
+            //   GAME_ACTIONS.updateQuestion({ question: current_question })
+            // );
+
+            // Redireccionar a la game
           }
         );
 
@@ -142,6 +162,16 @@ export class WebSocketApiService {
         milliseconds: timeMs,
         isSetTimeout
       })
+    );
+  }
+
+  nextQuestion(
+    player_id: string,
+    roomId: string,
+  ) {
+    this.stompClient.send(
+      `/app/rooms/${roomId}/game/players/${player_id}/next`,
+      {}
     );
   }
 
