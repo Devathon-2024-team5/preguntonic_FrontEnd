@@ -11,6 +11,7 @@ import { concatLatestFrom } from '@ngrx/operators';
 import { CURRENT_PLAYER_SELECTS } from '../current-player/current-player.selectors';
 import { GAME_SELECTORS } from './game.selectors';
 import { ModalService } from '../../shared/services/modal.service';
+import { CURRENT_PLAYER_ACTIONS } from '../current-player/current-player.action';
 
 @Injectable()
 export class GameEffects {
@@ -140,24 +141,20 @@ export class GameEffects {
     { dispatch: false }
   );
 
-  // public saveResult$ = createEffect(
-  //   () => {
-  //     return this._actions$.pipe(
-  //       ofType(GAME_ACTIONS.saveResults),
-  //       tap(() =>{ 
-  //         console.log('--------------------------------------');
-          
-  //         this._router.navigateByUrl('/results-room/previous-result')
-  //       })
-  //     );
-  //   },
-  //   { dispatch: false }
-  // );
-
-  // tap(() =>
-  //   GAME_ACTIONS.changeView({ route: '/results-room/previous-result' }),
-  //   catchError(error => of(GAME_ACTIONS.loadGameFailure({ error })))
-  // )
+  public saveResult$ = createEffect(
+    () => {
+      return this._actions$.pipe(
+        ofType(GAME_ACTIONS.saveResults),
+        concatLatestFrom(() =>
+          this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer)
+        ),
+        map(([{ result }, { playerId }]) => {
+          const player = result.previousResult.players.find(p => p.id === playerId)
+          return CURRENT_PLAYER_ACTIONS.updateScore({score: player!.score })
+        })
+      );
+    }
+  );
 
   public nextQuestion$ = createEffect(() => {
     return this._actions$

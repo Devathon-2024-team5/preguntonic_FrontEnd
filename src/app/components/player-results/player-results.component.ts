@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { ImageBasicComponent } from '../../shared/components/image-basic/image-basic.component';
 import { AsyncPipe } from '@angular/common';
 import { AvatarWithFrameComponent } from '../../shared/components/avatar-with-frame/avatar-with-frame.component';
@@ -13,5 +13,5 @@ import { IPlayerInGame } from '../../store/models/IPlayers.state';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlayerResultsComponent {
-  @Input() player?:  IPlayerInGame ;
+  player = input.required<IPlayerInGame>()
 }
