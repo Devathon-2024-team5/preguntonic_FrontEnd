@@ -133,8 +133,7 @@ export class WebSocketApiService {
   joinPlayerGame(roomId: string, player_id: string) {
     console.log(this.stompClient);
     this.stompClient.send(
-      `/app/rooms/${roomId}/game/players/${player_id}/join`,
-      {}
+      `/app/rooms/${roomId}/game/players/${player_id}/join`
     );
   }
 
