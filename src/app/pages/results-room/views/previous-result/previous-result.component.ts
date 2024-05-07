@@ -11,20 +11,26 @@ import { LogoTitleComponent } from '../../../../shared/components/logo-title/log
 import { CorrectAnswerComponent } from '../../../../components/correct-answer/correct-answer.component';
 import { Store } from '@ngrx/store';
 import { GAME_SELECTORS } from '../../../../store/game/game.selectors';
+import { AsyncPipe } from '@angular/common';
+import { ModalComponent } from "../../../../shared/components/modal/modal.component";
+import { SpinerComponent } from "../../../../shared/components/spiner/spiner.component";
 
 @Component({
-  selector: 'app-previous-result',
-  standalone: true,
-  imports: [
-    InGameLayoutComponent,
-    ProgressBarComponent,
-    TablePositionsComponent,
-    LogoTitleComponent,
-    CorrectAnswerComponent,
-  ],
-  templateUrl: './previous-result.component.html',
-  styleUrl: './previous-result.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-previous-result',
+    standalone: true,
+    templateUrl: './previous-result.component.html',
+    styleUrl: './previous-result.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        InGameLayoutComponent,
+        ProgressBarComponent,
+        TablePositionsComponent,
+        LogoTitleComponent,
+        CorrectAnswerComponent,
+        AsyncPipe,
+        ModalComponent,
+        SpinerComponent
+    ]
 })
 export class PreviousResultComponent implements OnInit{
   private readonly store = inject(Store)

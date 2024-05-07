@@ -8,21 +8,25 @@ import { Store } from '@ngrx/store';
 import { GAME_SELECTORS } from '../../store/game/game.selectors';
 import { GAME_ACTIONS } from '../../store/game/game.actions';
 import { AsyncPipe, JsonPipe } from '@angular/common';
+import { SpinerComponent } from "../../shared/components/spiner/spiner.component";
+import { ModalComponent } from "../../shared/components/modal/modal.component";
 
 @Component({
-  selector: 'app-game-room',
-  standalone: true,
-  imports: [
-    InGameLayoutComponent,
-    GameQuestionComponent,
-    ResponseGroupComponent,
-    LogoTitleComponent,
-    AsyncPipe,
-    JsonPipe
-  ],
-  templateUrl: './game-room.component.html',
-  styleUrl: './game-room.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-game-room',
+    standalone: true,
+    templateUrl: './game-room.component.html',
+    styleUrl: './game-room.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        InGameLayoutComponent,
+        GameQuestionComponent,
+        ResponseGroupComponent,
+        LogoTitleComponent,
+        AsyncPipe,
+        JsonPipe,
+        SpinerComponent,
+        ModalComponent
+    ]
 })
 export class GameRoomComponent implements OnInit{
   sa = inject(WebSocketApiService)

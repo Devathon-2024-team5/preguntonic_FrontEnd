@@ -13,5 +13,8 @@
         [id]="'answer' + i" />
       {{ answer.answer }}
     </label>
+    <app-modal [isOpen]="inOpen">
+      <app-spiner message="Esperando a que todos envíen su respuesta..." />
+    </app-modal>
   }
 </form>

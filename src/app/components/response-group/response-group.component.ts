@@ -14,14 +14,16 @@ import { IAnswer } from '../../store/models/IGame.state';
 import { Store } from '@ngrx/store';
 import { GAME_ACTIONS } from '../../store/game/game.actions';
 import { JsonPipe } from '@angular/common';
+import { ModalComponent } from "../../shared/components/modal/modal.component";
+import { SpinerComponent } from '../../shared/components/spiner/spiner.component';
 
 @Component({
-  selector: 'app-response-group',
-  standalone: true,
-  imports: [ReactiveFormsModule, JsonPipe],
-  templateUrl: './response-group.component.html',
-  styleUrl: './response-group.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-response-group',
+    standalone: true,
+    templateUrl: './response-group.component.html',
+    styleUrl: './response-group.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [ReactiveFormsModule, JsonPipe, ModalComponent, SpinerComponent]
 })
 export class ResponseGroupComponent {
   answerData = input<IAnswer[]>([]);
@@ -29,6 +31,7 @@ export class ResponseGroupComponent {
   answersForm: FormGroup;
   private readonly _fb = inject(FormBuilder);
   private readonly store = inject(Store);
+  inOpen = false;
 
 
   constructor() {
@@ -38,6 +41,7 @@ export class ResponseGroupComponent {
   }
 
   public checkAnswer(id: string): void {
+    this.inOpen = true;
     this.answersForm.disable();
     this.store.dispatch(
       GAME_ACTIONS.sendResponse({
