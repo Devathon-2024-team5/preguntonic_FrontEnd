@@ -12,17 +12,6 @@ export class CodeContainerComponent  {
   room_code = input<string>();
 
   copyToClipboard() {
-    const element = document.getElementById('coderoom'); // Get the element containing the room code
-    if (element) {
-      const selection = window.getSelection();
-      const range = document.createRange();
-      range.selectNodeContents(element);
-      if (selection) {
-        selection.removeAllRanges();
-        selection.addRange(range);
-        document.execCommand('copy'); // Copy the selected text to the clipboard
-        selection.removeAllRanges();
-      }
-    }
+    navigator.clipboard.writeText(this.room_code() ?? "");
   }
 }
