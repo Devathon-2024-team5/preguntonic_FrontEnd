@@ -18,7 +18,7 @@ export class RoomConfigurationComponent {
   code = '';
 
   valuesNumberOfPlayers = [2, 3, 4, 5, 6, 7, 8];
-  valuesNumberOfQuestions = [5, 10, 15, 20, 25, 30];
+  valuesNumberOfQuestions = [5, 10, 15, 20, 25];
   numberOfPlayersInTheRoom: number = this.valuesNumberOfPlayers[0];
   numberOfGameQuestions: number = this.valuesNumberOfQuestions[0];
 
