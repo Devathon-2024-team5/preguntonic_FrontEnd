@@ -3,12 +3,13 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from '../home/home.component';
 import { Store } from '@ngrx/store';
 import { GAME_ACTIONS } from '../../store/game/game.actions';
+import { CustomButtonComponent } from '../../shared/components/custom-btn/custom-button.component';
 
 @Component({
   selector: 'app-room-configuration',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, HomeComponent],
+  imports: [FormsModule, HomeComponent, CustomButtonComponent],
   templateUrl: './room-configuration.component.html',
   styleUrl: './room-configuration.component.css',
 })
