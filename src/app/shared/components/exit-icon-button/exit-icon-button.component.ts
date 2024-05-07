@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ModalComponent } from '../modal/modal.component';
 import { CustomButtonComponent } from '../custom-btn/custom-button.component';
 import { Router } from '@angular/router';
-import { WebSocketAPI } from '../../services/web.socket.api';
+import { WebSocketApiService } from '../../../core/services/web-socket-api.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -16,7 +16,7 @@ export class ExitIconButtonComponent {
   @Input() size: "" | "medium" = "";
   stateModal = false;
 
-  constructor (private router: Router, private webSocketAPI: WebSocketAPI){}
+  constructor (private router: Router, private webSocketAPI: WebSocketApiService){}
   openModal() {
     this.stateModal = true;
     document.body.classList.add('without-overflow');
