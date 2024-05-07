@@ -12,6 +12,7 @@ export const initialState: IGameState = {
   isLoading: false,
   previousResult: {
     correct_answer_id: '',
+    correct_answer: '',
     players: [],
     question: {
       answers: [],

@@ -79,11 +79,11 @@ export class WebSocketApiService {
         _this.stompClient.subscribe(
           _this.topic + roomId + '/questions',
           (wsResponse: IMessage) => {
-            const { correct_answer_id, players, question } = JSON.parse(
+            const { correct_answer_id, players, question , correct_answer } = JSON.parse(
               wsResponse.body
             ) as ResponseQuestionDTO;
 
-            console.log(correct_answer_id, players, question);
+            console.log(correct_answer_id, players, question, correct_answer);
 
 
             this.store.dispatch(
@@ -93,6 +93,7 @@ export class WebSocketApiService {
                     correct_answer_id,
                     players,
                     question,
+                    correct_answer
                   },
                 },
               })

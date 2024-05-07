@@ -13,6 +13,7 @@ export type QuestionDTO = Pick<IQuestion, 'question' | 'correctAnswer'>;
 
 export type ResponseQuestionDTO = {
   correct_answer_id: string;
+  correct_answer:string;
   players: IPlayerInGame[];
   question: {
     answers: IAnswer[];
