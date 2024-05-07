@@ -97,7 +97,13 @@ export class WebSocketApiService {
                 },
               })
             );
-            this.router.navigate(['/results-room/previous-result'])
+            console.log(question.ordinal)
+            if(question.ordinal === 5) {
+              this.router.navigate(['/results-room/final-results'])
+            } else {
+              this.router.navigate(['/results-room/previous-result'])
+            }
+
           }
         );
 

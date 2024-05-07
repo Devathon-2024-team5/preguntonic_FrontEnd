@@ -9,9 +9,10 @@ import {
 import { ImageBasicComponent } from '../../shared/components/image-basic/image-basic.component';
 import { Store } from '@ngrx/store';
 import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
-import { IPlayer } from '../../store/models/IPlayers.state';
+import { IPlayer, IPlayerInGame } from '../../store/models/IPlayers.state';
 import { TopPlayer } from '../../store/types/store.dto';
 import { AvatarWithFrameComponent } from '../../shared/components/avatar-with-frame/avatar-with-frame.component';
+import { GAME_SELECTORS } from '../../store/game/game.selectors';
 
 //TODO add canvas-confetti library and implements winners' information
 @Component({
@@ -24,19 +25,20 @@ import { AvatarWithFrameComponent } from '../../shared/components/avatar-with-fr
 })
 export class PodiumComponent implements OnInit {
   private store = inject(Store);
-  score$ = this.store.select(PLAYERS_SELECTS.selectPlayers);
-  players: IPlayer[] = [];
-  topPlayer: TopPlayer[] = [];
+  store$ = this.store.select(GAME_SELECTORS.selectPrevResults);
+  players: IPlayerInGame [] =[];
+  topPlayer: IPlayerInGame[] = [];
   readonly podiumSteps = ['100', '80', '60'];
   @Input() playerPositions: { position: number; name: string; avatar: string; score:number}[] = [];
   tabla:boolean = false;
 
   ngOnInit() {
-    this.score$.subscribe(res => {
-      this.players = [...res];
+    this.store$.subscribe(({ players })=>{
+      console.log("Players: " + players)
+      this.players = players.sort((a, b) => b.score - a.score);
       this.updateTopPlayers();
       this.updatePlayerPositions();
-    });
+    })
   }
 
   private updateTopPlayers(): void {
@@ -46,7 +48,7 @@ export class PodiumComponent implements OnInit {
   private updatePlayerPositions(): void {
     this.playerPositions = this.players.map((player, index) => ({
       position: index + 1,
-      name: player.playerName,
+      name: player.nickname,
       avatar: player.avatar,
       score: player.score
     }));

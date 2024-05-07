@@ -4,6 +4,7 @@ import { IPlayer, IPlayerInGame } from '../models/IPlayers.state';
 export type GameConfigDTO = Pick<IGameState, 'maxPlayers' | 'numOfQuestions'>;
 
 export type PlayerDTO = Pick<IPlayer, 'avatar' | 'playerName'>;
+
 export type PlayerresultDTO = Pick<IPlayer, 'avatar' | 'playerName' | 'score'>;
 
 export type TopPlayer = Pick<IPlayer, 'avatar' | 'playerName' | 'score'>;
