@@ -3,11 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { LogoTitleComponent } from '../../shared/components/logo-title/logo-title.component';
 import { Store } from '@ngrx/store';
 import { GAME_ACTIONS } from '../../store/game/game.actions';
+import { CustomButtonComponent } from '../../shared/components/custom-btn/custom-button.component';
 
 @Component({
   selector: 'app-join-room',
   standalone: true,
-  imports: [FormsModule, LogoTitleComponent],
+  imports: [FormsModule, LogoTitleComponent,CustomButtonComponent],
   templateUrl: './join-room.component.html',
   styleUrl: './join-room.component.css',
 })
