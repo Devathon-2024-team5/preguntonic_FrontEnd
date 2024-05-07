@@ -29,7 +29,7 @@ export interface IResWebSocket {
 })
 export class WebSocketApiService {
   private readonly store: Store<AppState> = inject(Store);
-  webSocketEndPoint: string = 'http://localhost:8080/preguntonic';
+  webSocketEndPoint: string = 'https://preguntonic-backend.onrender.com/preguntonic';
   topic: string = '/room/';
   stompClient: any;
   roomId: string = '';

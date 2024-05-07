@@ -10,7 +10,7 @@ import { ICurrentPlayerState } from '../../store/models/ICurrentPlayer.state';
 })
 export class HttpService {
   private _http = inject(HttpClient);
-  private url: string = 'http://localhost:8080/v1/rooms';
+  private url: string = 'https://preguntonic-backend.onrender.com/v1/rooms';
 
   public createRoom(room: GameConfigDTO): Observable<HttpResponse<any>> {
     return this._http.post(this.url, room, { observe: 'response' });
