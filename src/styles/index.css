@@ -12,4 +12,6 @@ body {
   font-family: var(--font-base);
   background-color: var(--primary-color);
   color: var(--secondary-color-light);
+  background-image: url(../assets/images/background-pattern-30.png);
+  background-size: 150px 150px;
 }
