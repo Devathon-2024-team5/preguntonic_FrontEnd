@@ -2,7 +2,7 @@
   <app-logo-title></app-logo-title>
   <div class="join-room">
     <form class="form-join">
-      <input placeholder="Código" class="input" [(ngModel)]="code" name="code" maxlength="7"/>
+      <input placeholder="Código" [ngClass]="{'border-error': error$ | async}" class="input" [(ngModel)]="code" name="code" maxletngth="7"/>
       <app-custom-button (click)="joinRoom()">
         <span>Ingresar</span>
         <div>
@@ -11,6 +11,11 @@
           </svg>
         </div>
       </app-custom-button>
+      @if(error$ | async){
+        <div class="error-message">
+          El código de la sala no existe o la sala está llena
+        </div>
+      }
     </form>
   </div>
 </section>
