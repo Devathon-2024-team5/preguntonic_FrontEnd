@@ -61,11 +61,11 @@ select{
 }
 
 .error-message {
-  width: 117%;
+  width: 120%;
   border: 4px solid var(--alert-red-color);
   position: absolute;
   bottom: -9rem;
-  left: -1.5rem;
+  left: -1.7rem;
   font-size: 1.5rem;
   padding: 1rem;
   line-height: 1.5rem;
