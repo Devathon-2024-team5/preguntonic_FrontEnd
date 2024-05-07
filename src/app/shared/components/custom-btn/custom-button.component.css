@@ -57,3 +57,9 @@
   background-color: var(--primary-color);
   color: var(--secondary-color-light);  
 }
+
+@media screen and (max-width: 400px){
+  .custom-button {
+    font-size: 1.7rem;
+  }
+}
