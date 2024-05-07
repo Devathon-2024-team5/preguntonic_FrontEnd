@@ -11,6 +11,7 @@ import {
   QuestionsGameDto,
   ResponseQuestionDTO,
 } from '../../store/types/store.dto';
+import { Router } from '@angular/router';
 
 export interface IResWebSocket {
   event: string;
@@ -35,6 +36,7 @@ export class WebSocketApiService {
   player_name: string = '';
   avatar: string = '';
   playerId: string = '';
+  router = inject(Router)
 
   _connect(
     roomId: string,
@@ -95,6 +97,7 @@ export class WebSocketApiService {
                 },
               })
             );
+            this.router.navigate(['/results-room/previous-result'])
           }
         );
 

@@ -83,11 +83,12 @@ export class GameEffects {
     () => {
       return this._actions$.pipe(
         ofType(GAME_ACTIONS.changeView),
-        tap(({ route, queryParams }) =>
-          this._router.navigate([route], {
-            queryParams,
-          })
-        )
+        tap(({ route, queryParams }) => {
+          console.log(route),
+            this._router.navigate([route], {
+              queryParams,
+            });
+        })
       );
     },
     { dispatch: false }
@@ -139,17 +140,24 @@ export class GameEffects {
     { dispatch: false }
   );
 
-  public saveResult$ = createEffect(
-    () => {
-      return this._actions$.pipe(
-        ofType(GAME_ACTIONS.saveResults),
-        tap(() =>
-          GAME_ACTIONS.changeView({ route: '/results-room/previous-result' })
-        )
-      );
-    },
-    { dispatch: false }
-  );
+  // public saveResult$ = createEffect(
+  //   () => {
+  //     return this._actions$.pipe(
+  //       ofType(GAME_ACTIONS.saveResults),
+  //       tap(() =>{ 
+  //         console.log('--------------------------------------');
+          
+  //         this._router.navigateByUrl('/results-room/previous-result')
+  //       })
+  //     );
+  //   },
+  //   { dispatch: false }
+  // );
+
+  // tap(() =>
+  //   GAME_ACTIONS.changeView({ route: '/results-room/previous-result' }),
+  //   catchError(error => of(GAME_ACTIONS.loadGameFailure({ error })))
+  // )
 
   public nextQuestion$ = createEffect(() => {
     return this._actions$

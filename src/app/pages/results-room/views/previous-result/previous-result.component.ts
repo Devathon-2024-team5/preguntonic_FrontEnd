@@ -26,13 +26,8 @@ import { GAME_SELECTORS } from '../../../../store/game/game.selectors';
   styleUrl: './previous-result.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PreviousResultComponent implements OnInit {
+export class PreviousResultComponent {
   players = [1, 2, 3, 4, 5];
   store = inject(Store);
 
-  ngOnInit(): void {
-    // this.store
-    //   .select(GAME_SELECTORS.selectPrevResults)
-    //   .subscribe(res => console.log(res));
-  }
 }
