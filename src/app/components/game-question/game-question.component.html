@@ -1,5 +1,7 @@
 <div class="container-sm d-flex flex-column justify-content-between align-items-center gap-2">
-  <span class="number-question">{{question()?.numberQuestion}}/10</span>
+  @if( maxQ$ | async; as maxQ){
+    <span class="number-question">{{question()?.numberQuestion}}/{{maxQ.numOfQuestions}}</span>
+  }
   <div class="u-max-w d-grid gap-2">
     <p class="question text-center u-text-pretty">
       {{question()?.question}}

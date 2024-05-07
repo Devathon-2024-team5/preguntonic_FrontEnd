@@ -28,12 +28,13 @@ import { GAME_SELECTORS } from '../../../../store/game/game.selectors';
 })
 export class PreviousResultComponent implements OnInit{
   private readonly store = inject(Store)
-  Answers$ = this.store.select(GAME_SELECTORS.selectCurrentQuestion)
+  Answers$ = this.store.select(GAME_SELECTORS.selectPrevResults)
   correctAnswer = ""
 
   ngOnInit(): void {
     this.Answers$.subscribe(res => {
-      console.log( 'PREVIOUS RESULT' + JSON.stringify(res.question))
+      console.log( 'PREVIOUS RESULT' + JSON.stringify(res.correct_answer))
+      this.correctAnswer= res.correct_answer
     })
     
   }
