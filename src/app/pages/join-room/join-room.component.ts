@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { GAME_ACTIONS } from '../../store/game/game.actions';
 import { CustomButtonComponent } from '../../shared/components/custom-btn/custom-button.component';
 import { GAME_SELECTORS } from '../../store/game/game.selectors';
-import { Observable } from 'rxjs';
 import { AsyncPipe, NgClass } from '@angular/common';
 
 @Component({
