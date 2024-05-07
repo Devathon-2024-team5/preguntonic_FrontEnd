@@ -1,27 +1,11 @@
 <div class="container">
   <div class="row">
-    <button aria-label="volver a jugar" class="col-12 btn-redirectTable" type="button">
-      {{ 'volver a jugar' | capitalize }}
-    </button>
+    <app-custom-button variant="secondary">
+      {{ 'Ver tabla completa' | capitalize }}
+    </app-custom-button>
   </div>
-  <div class="row row-cols-2 pt-4 gap-2 flex-nowrap ">
-    <button aria-label="ver tabla de resultados" class="btn-playAgain col-9 " type="button">
-      {{ 'ver tabla completa' | capitalize }}
-    </button>
-    <button aria-label="salir del juego" class="col-3 btn-exit flex-shrink-1 " type="button">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="50"
-        height="50"
-        viewBox="0 0 24 24">
-        <path
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M15 4.001H5v14a2 2 0 0 0 2 2h8m1-5l3-3m0 0l-3-3m3 3H9" />
-      </svg>
-    </button>
+  <div class="d-flex pt-4 gap-4 ">
+    <app-custom-button fontSize="small" class="flex-grow-1">{{ 'Volver a jugar' | capitalize }}</app-custom-button>
+    <app-exit-icon-button size="medium"></app-exit-icon-button>
   </div>
 </div>
