@@ -10,6 +10,15 @@ export const initialState: IGameState = {
   roomCode: '',
   error: null,
   isLoading: false,
+  previousResult: {
+    correct_answer_id: '',
+    players: [],
+    question: {
+      answers: [],
+      ordinal: 0,
+      question: '',
+    },
+  }
 };
 
 export const gameReducer = createReducer(
@@ -47,6 +56,13 @@ export const gameReducer = createReducer(
     (state, { time }): IGameState => ({
       ...state,
       currentQuestion: { ...state.currentQuestion, timeResponse: time },
+    })
+  ),
+  on(
+    GAME_ACTIONS.saveResults,
+    (state, { result }): IGameState => ({
+      ...state,
+      previousResult: structuredClone(result.previousResult),
     })
   )
 );

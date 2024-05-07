@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { ICurrentQuestion } from '../models/IGame.state';
+import { ICurrentQuestion, IGameState } from '../models/IGame.state';
 
 const loadGame = createAction('[Game Room] Load Game');
 
@@ -55,6 +55,10 @@ const saveTimeResponse = createAction(
   props<{ time: number; isSetTimeout: boolean }>()
 );
 
+const saveResults = createAction('[Game Room] Save results',
+  props<{result: Pick<IGameState, 'previousResult'>}>()
+);
+
 export const GAME_ACTIONS = {
   loadGame,
   updateQuestion,
@@ -68,5 +72,6 @@ export const GAME_ACTIONS = {
   connectToQuestions,
   sendResponse,
   saveTimeResponse,
-  nextQuestion
+  nextQuestion,
+  saveResults
 };

@@ -6,8 +6,11 @@ import { AppState } from '../../store/app.state';
 import { IPlayer } from '../../store/models/IPlayers.state';
 import { GAME_ACTIONS } from '../../store/game/game.actions';
 import { PLAYERS_ACTIONS } from '../../store/players/players.actions';
-import { EventGame } from '../../store/types/store.dto';
-import { IAnswer } from '../../store/models/IGame.state';
+import {
+  EventGame,
+  QuestionsGameDto,
+  ResponseQuestionDTO,
+} from '../../store/types/store.dto';
 
 export interface IResWebSocket {
   event: string;
@@ -18,26 +21,6 @@ export interface IResWebSocket {
     room_code: string;
     room_status: null;
   };
-}
-
-interface IPlayerInGame {
-  id: string;
-  avatar: string;
-  is_ready: boolean;
-  nickname: string;
-  score: number;
-}
-
-interface IResWSInGame {
-  current_question: {
-    id: string;
-    answers: IAnswer[];
-    ordinal: number;
-    question: string;
-  };
-  num_questions: string;
-  status: string;
-  players: IPlayerInGame[];
 }
 
 @Injectable({
@@ -83,38 +66,35 @@ export class WebSocketApiService {
           (wsResponse: IMessage) => {
             const { current_question } = JSON.parse(
               wsResponse.body
-            ) as IResWSInGame;
-            console.log('---------------PREGUNTA INICIAL--------------');
-
-            console.log('PREGUNTA INICIAL', JSON.parse(wsResponse.body));
-
-            console.log('---------------------------------------------');
+            ) as QuestionsGameDto;
 
             this.store.dispatch(
               GAME_ACTIONS.updateQuestion({ question: current_question })
             );
-
-            // Redireccionar a la pre-score
           }
         );
 
         _this.stompClient.subscribe(
-          _this.topic + roomId + '/game/questions',
+          _this.topic + roomId + '/questions',
           (wsResponse: IMessage) => {
-            console.log('---------------RESPUESTA CORRECTA--------------');
+            const { correct_answer_id, players, question } = JSON.parse(
+              wsResponse.body
+            ) as ResponseQuestionDTO;
 
-            console.log(JSON.parse(wsResponse.body));
+            console.log(correct_answer_id, players, question);
 
-            console.log('---------------------------------------------');
 
-            // this.store.dispatch(
-            //   GAME_ACTIONS.updateQuestion({ question: current_question })
-            // );
-
-            // Redireccionar a la game
-            // this.store.dispatch(
-            //   GAME_ACTIONS.updateQuestion({ question: current_question })
-            // );
+            this.store.dispatch(
+              GAME_ACTIONS.saveResults({
+                result: {
+                  previousResult: {
+                    correct_answer_id,
+                    players,
+                    question,
+                  },
+                },
+              })
+            );
           }
         );
 
@@ -134,7 +114,7 @@ export class WebSocketApiService {
   }
 
   readyPlayer(roomId: string, player_id: string) {
-    this.stompClient.send(
+    const response = this.stompClient.send(
       `/app/rooms/${roomId}/lobby/players/${player_id}/ready`,
       {}
     );

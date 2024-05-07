@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of, switchMap, tap } from 'rxjs';
+import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { GAME_ACTIONS } from './game.actions';
 import { HttpService } from '../../core/services/http.service';
@@ -20,8 +20,6 @@ export class GameEffects {
   private readonly webSocketApi = inject(WebSocketApiService);
   private readonly store = inject(Store);
   private readonly modalService: ModalService = inject(ModalService);
-
-  //TODO Eliminar NgrxTestService e implementar servicio final
 
   public setConfigGame$ = createEffect(() => {
     return this._actions$.pipe(
@@ -123,10 +121,11 @@ export class GameEffects {
         ]),
         tap(([{ answerId, idQuestion }, roomCode, { playerId }, time]) => {
           if (playerId === null || time === undefined) throw new Error('');
+          console.log(playerId, time);
 
-          this.modalService.toggleViewModal();
+          // this.modalService.toggleViewModal();
           const isTimeout = time === 0;
-          return this.webSocketApi.responseQuestion(
+          this.webSocketApi.responseQuestion(
             answerId,
             idQuestion,
             playerId,
@@ -140,9 +139,21 @@ export class GameEffects {
     { dispatch: false }
   );
 
-  public nextQuestion$ = createEffect(
+  public saveResult$ = createEffect(
     () => {
       return this._actions$.pipe(
+        ofType(GAME_ACTIONS.saveResults),
+        tap(() =>
+          GAME_ACTIONS.changeView({ route: '/results-room/previous-result' })
+        )
+      );
+    },
+    { dispatch: false }
+  );
+
+  public nextQuestion$ = createEffect(() => {
+    return this._actions$
+      .pipe(
         ofType(GAME_ACTIONS.nextQuestion),
         concatLatestFrom(() => [
           this.store.select(GAME_SELECTORS.selectRoomCode),
@@ -151,12 +162,12 @@ export class GameEffects {
         tap(([_, roomCode, { playerId }]) => {
           if (playerId === null) throw new Error('');
 
-          this.webSocketApi.nextQuestion(playerId, roomCode)
+          this.webSocketApi.nextQuestion(playerId, roomCode);
         })
-      ).pipe(
+      )
+      .pipe(
         map(() => GAME_ACTIONS.changeView({ route: '/game-room' })),
-        catchError((error) => of(GAME_ACTIONS.loadGameFailure({ error })))
+        catchError(error => of(GAME_ACTIONS.loadGameFailure({ error })))
       );
-    }
-  );
+  });
 }
