@@ -35,7 +35,8 @@ export class PodiumComponent implements OnInit {
   ngOnInit() {
     this.store$.subscribe(({ players })=>{
       console.log("Players: " + players)
-      this.players = players.sort((a, b) => b.score - a.score);
+      const playersCopy = [...players]
+      this.players = playersCopy.sort((a, b) => b.score - a.score);
       this.updateTopPlayers();
       this.updatePlayerPositions();
     })

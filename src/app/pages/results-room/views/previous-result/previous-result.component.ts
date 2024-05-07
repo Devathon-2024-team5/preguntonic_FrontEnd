@@ -26,8 +26,19 @@ import { GAME_SELECTORS } from '../../../../store/game/game.selectors';
   styleUrl: './previous-result.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PreviousResultComponent {
-  players = [1, 2, 3, 4, 5];
-  store = inject(Store);
+export class PreviousResultComponent implements OnInit{
+  private readonly store = inject(Store)
+  Answers$ = this.store.select(GAME_SELECTORS.selectCurrentQuestion)
+  correctAnswer = ""
+
+  ngOnInit(): void {
+    this.Answers$.subscribe(res => {
+      return console.log( 'PREVIOUS RESULT' + JSON.stringify(res.id + res.answers))
+     // const idCorrectAsw = res.id
+      // const aws = res.answers
+    })
+    
+  }
+  
 
 }
