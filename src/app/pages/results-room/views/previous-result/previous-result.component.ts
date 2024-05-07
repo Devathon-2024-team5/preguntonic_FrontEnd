@@ -33,9 +33,7 @@ export class PreviousResultComponent implements OnInit{
 
   ngOnInit(): void {
     this.Answers$.subscribe(res => {
-      return console.log( 'PREVIOUS RESULT' + JSON.stringify(res.id + res.answers))
-     // const idCorrectAsw = res.id
-      // const aws = res.answers
+      console.log( 'PREVIOUS RESULT' + JSON.stringify(res.question))
     })
     
   }

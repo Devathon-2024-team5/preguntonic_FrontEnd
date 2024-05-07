@@ -7,7 +7,7 @@ import { IPlayerInGame } from '../../store/models/IPlayers.state';
 @Component({
   selector: 'app-player-results',
   standalone: true,
-  imports: [AvatarWithFrameComponent,ImageBasicComponent, AsyncPipe],
+  imports: [AvatarWithFrameComponent, ImageBasicComponent, AsyncPipe],
   templateUrl: './player-results.component.html',
   styleUrl: './player-results.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

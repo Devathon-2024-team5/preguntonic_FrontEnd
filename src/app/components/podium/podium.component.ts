@@ -8,9 +8,7 @@ import {
 } from '@angular/core';
 import { ImageBasicComponent } from '../../shared/components/image-basic/image-basic.component';
 import { Store } from '@ngrx/store';
-import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
-import { IPlayer, IPlayerInGame } from '../../store/models/IPlayers.state';
-import { TopPlayer } from '../../store/types/store.dto';
+import { IPlayerInGame } from '../../store/models/IPlayers.state';
 import { AvatarWithFrameComponent } from '../../shared/components/avatar-with-frame/avatar-with-frame.component';
 import { GAME_SELECTORS } from '../../store/game/game.selectors';
 
