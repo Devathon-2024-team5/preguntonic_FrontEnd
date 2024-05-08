@@ -1,5 +1,10 @@
 <section class="layout container m-auto ">
-  <app-logo-title></app-logo-title>
+  <header class="container p-3">
+    <div class="d-flex justify-content-between align-items-end">
+      <app-logo-title style="max-width: 190px;"/>
+      <app-exit-icon-button></app-exit-icon-button>
+    </div>
+  </header>
   <div class="join-room">
     <form class="form-join">
       <input placeholder="Código" [ngClass]="{'border-error': error$ | async}" class="input" [(ngModel)]="code" name="code" maxletngth="7"/>
