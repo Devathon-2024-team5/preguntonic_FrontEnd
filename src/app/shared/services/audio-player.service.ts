@@ -6,25 +6,30 @@ type PlaybackRate = 1 | 1.3 | 1.5 | 1.7 | 2;
   providedIn: 'root'
 })
 export class AudioPlayerService {
-  private readonly _timerMusic = new Audio('assets/audio/timer-music.wav');
 
-  constructor() {
-    this._timerMusic.loop = true;
-  }
+  private readonly _audio = new Audio('assets/audio/timer-music.wav');
 
   public async playAudioPlayer(): Promise<void> {
-    this._timerMusic.play();
+    this._audio.play();
   }
 
   public stopAudioPlayer(): void {
-    this._timerMusic.pause();
+    this._audio.pause();
   }
 
   public setPlaybackRate(rate: PlaybackRate): void {
-    this._timerMusic.playbackRate = rate;
+    this._audio.playbackRate = rate;
+  }
+
+  public setVolume(volume: number): void {
+    this._audio.volume = volume; // El volumen debe ser un valor entre 0 y 1
   }
 
   public setAudio(newAudio: string): void {
-    this._timerMusic.src = newAudio;
+    this._audio.src = newAudio;
+  }
+
+  public setLoop(inLoop:boolean):void {
+    this._audio.loop = inLoop;
   }
 }

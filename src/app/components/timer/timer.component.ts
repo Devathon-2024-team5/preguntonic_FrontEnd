@@ -33,6 +33,10 @@ export class TimerComponent implements OnDestroy, OnInit {
   private readonly _audioPlayerService = inject(AudioPlayerService);
 
   constructor() {
+    this._audioPlayerService.setAudio('assets/audio/timer-music.wav');
+    this._audioPlayerService.setLoop(true);
+    this._audioPlayerService.setVolume(0.4)
+
     afterNextRender(() => {
       this.timerInterval = setInterval(
         () => this.initLoader(),

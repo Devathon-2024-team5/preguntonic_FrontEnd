@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { IPlayerInGame } from '../../store/models/IPlayers.state';
 import { AvatarWithFrameComponent } from '../../shared/components/avatar-with-frame/avatar-with-frame.component';
 import { GAME_SELECTORS } from '../../store/game/game.selectors';
+import { AudioPlayerService } from '../../shared/services/audio-player.service';
 
 //TODO add canvas-confetti library and implements winners' information
 @Component({
@@ -29,6 +30,7 @@ export class PodiumComponent implements OnInit {
   readonly podiumSteps = ['100', '80', '60'];
   @Input() playerPositions: { position: number; name: string; avatar: string; score:number}[] = [];
   tabla:boolean = false;
+  private readonly _audioPlayerService = inject(AudioPlayerService);
 
   ngOnInit() {
     this.store$.subscribe(({ players })=>{
@@ -38,6 +40,11 @@ export class PodiumComponent implements OnInit {
       this.updateTopPlayers();
       this.updatePlayerPositions();
     })
+
+    this._audioPlayerService.setAudio("assets/audio/pedro.mp3");
+    this._audioPlayerService.setLoop(false);
+    this._audioPlayerService.setVolume(.5);
+    this._audioPlayerService.playAudioPlayer();
   }
 
   private updateTopPlayers(): void {

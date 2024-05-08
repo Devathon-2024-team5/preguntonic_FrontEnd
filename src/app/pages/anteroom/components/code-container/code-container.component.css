@@ -10,7 +10,7 @@
 }
 
 .number {
-  font-size: 4em;
+  font-size: 3em;
 }
 
 .custom-button{
@@ -24,6 +24,6 @@
 }
 
 .custom-button:active, .custom-button:focus  {
-  background-color: var(--game-clr-yellow);
+  border: solid 3px var(--secondary-color-light);
   color: black;
 }
