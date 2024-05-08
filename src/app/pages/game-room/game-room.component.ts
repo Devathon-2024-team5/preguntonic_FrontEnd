@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { GAME_SELECTORS } from '../../store/game/game.selectors';
 import { GAME_ACTIONS } from '../../store/game/game.actions';
 import { AsyncPipe, JsonPipe } from '@angular/common';
+import { ModalComponent } from '../../shared/components/modal/modal.component';
 
 @Component({
   selector: 'app-game-room',
@@ -18,7 +19,8 @@ import { AsyncPipe, JsonPipe } from '@angular/common';
     ResponseGroupComponent,
     LogoTitleComponent,
     AsyncPipe,
-    JsonPipe
+    JsonPipe,
+    ModalComponent
   ],
   templateUrl: './game-room.component.html',
   styleUrl: './game-room.component.css',
