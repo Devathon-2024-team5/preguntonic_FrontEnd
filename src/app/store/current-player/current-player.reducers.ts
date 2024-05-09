@@ -23,5 +23,15 @@ export const currentPlayerReducer = createReducer(
   on(
     CURRENT_PLAYER_ACTIONS.updateScore,
     (state, { score }): ICurrentPlayerState => ({ ...state, score: score })
+  ),
+  on(
+    CURRENT_PLAYER_ACTIONS.resetCurrentPlayer,
+    (state): ICurrentPlayerState => ({
+      ...state,
+      avatar: '',
+      playerName: 'unknown',
+      playerId: '',
+      score: 0,
+    })
   )
 );

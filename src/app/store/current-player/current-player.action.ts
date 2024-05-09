@@ -16,9 +16,12 @@ const updateScore = createAction(
   props<{ score: number }>()
 )
 
+const resetCurrentPlayer = createAction('[Home Page] Reset Current Player');
+
 export const CURRENT_PLAYER_ACTIONS = {
   saveCurrentPlayer,
   getCurrentPlayer,
   setupPlayer,
-  updateScore
+  updateScore,
+  resetCurrentPlayer
 };

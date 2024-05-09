@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
+  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
@@ -22,15 +23,15 @@ import { AudioPlayerService } from '../../shared/services/audio-player.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, ImageBasicComponent,AvatarWithFrameComponent],
 })
-export class PodiumComponent implements OnInit {
-  private store = inject(Store);
+export class PodiumComponent implements OnInit, OnDestroy {
+  private readonly store = inject(Store);
+  private readonly _audioPlayerService = inject(AudioPlayerService);
+  @Input() playerPositions: { position: number; name: string; avatar: string; score:number}[] = [];
   store$ = this.store.select(GAME_SELECTORS.selectPrevResults);
   players: IPlayerInGame [] =[];
   topPlayer: IPlayerInGame[] = [];
   readonly podiumSteps = ['100', '80', '60'];
-  @Input() playerPositions: { position: number; name: string; avatar: string; score:number}[] = [];
   tabla:boolean = false;
-  private readonly _audioPlayerService = inject(AudioPlayerService);
 
   ngOnInit() {
     this.store$.subscribe(({ players })=>{
@@ -58,5 +59,9 @@ export class PodiumComponent implements OnInit {
       avatar: player.avatar,
       score: player.score
     }));
+  }
+
+  ngOnDestroy(): void {
+    this._audioPlayerService.stopAudioPlayer()
   }
 }

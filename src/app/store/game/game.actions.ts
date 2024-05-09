@@ -59,6 +59,8 @@ const saveResults = createAction('[Game Room] Save results',
   props<{result: Pick<IGameState, 'previousResult'>}>()
 );
 
+const restartGamesValues = createAction('[Game Room] Restart games values')
+
 export const GAME_ACTIONS = {
   loadGame,
   updateQuestion,
@@ -73,5 +75,6 @@ export const GAME_ACTIONS = {
   sendResponse,
   saveTimeResponse,
   nextQuestion,
-  saveResults
+  saveResults,
+  restartGamesValues
 };

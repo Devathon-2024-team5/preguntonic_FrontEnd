@@ -8,7 +8,7 @@
         <app-section-player
           [avatar]="currentPlayer.avatar"
           [playerName]="currentPlayer.playerName" />
-  
+
         @if (players$ | async; as players) {
           <div class="section-players d-flex justify-content-between pt-2">
             <p>Jugadores {{ players.length }}/{{ maxPlayers }}</p>
@@ -29,6 +29,10 @@
                     offBar: player.status === 'IN_LOBBY_UNREADY'
                   }"></div>
               </div>
+            }@empty {
+              <p class="empty-message">
+                Esperando jugadores ...
+              </p>
             }
           </div>
         }

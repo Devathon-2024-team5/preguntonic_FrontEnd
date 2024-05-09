@@ -24,6 +24,6 @@ export class ResultsRoomComponent implements OnInit {
     const jsConfetti = new JSConfetti();
 
     jsConfetti.addConfetti()
-    throw new Error('Method not implemented.');
+    // throw new Error('Method not implemented.');
   }
 }

@@ -39,4 +39,13 @@ export const playersReducers = createReducer(
       return { ...state, players: newData };
     }
   ),
+  on(
+    PLAYERS_ACTIONS.resetPlayers,
+    (state): IPlayersState => ({
+      ...state,
+      error: null,
+      isLoading: false,
+      players: [],
+    })
+  )
 );

@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Signal, inject } from '@angular/core';
-import { ModalService } from '../../services/modal.service';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -10,12 +9,5 @@ import { ModalService } from '../../services/modal.service';
   styleUrl: './modal.component.css'
 })
 export class ModalComponent {
-  private readonly modalService = inject(ModalService);
-  isOpenModal:Signal<boolean>;
-
   @Input() isOpen = false;
-  
-  constructor() {
-    this.isOpenModal = this.modalService.modalComputed
-  }
 }

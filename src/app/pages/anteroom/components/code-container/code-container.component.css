@@ -1,3 +1,9 @@
+.form {
+  @media screen and (min-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .code {
   background-color: var(--secondary-color-dark);
   border-radius: 1rem;
@@ -17,6 +23,7 @@
   background-color: var(--primary-color);
   padding: 1rem;
   border-radius: 1rem;
+  border: solid 3px transparent;
 }
 
 .custom-button:hover {
@@ -24,6 +31,6 @@
 }
 
 .custom-button:active, .custom-button:focus  {
-  border: solid 3px var(--secondary-color-light);
+  border-color: var(--secondary-color-light);
   color: black;
 }

@@ -45,3 +45,11 @@
 .name {
   font-size: var(--font-size-2xl);
 }
+
+.empty-message{
+  width: 100%;
+  min-height: 68px;
+  display: grid;
+  place-content: center;
+  font-size: 1.5rem;
+}

@@ -83,9 +83,6 @@ export class WebSocketApiService {
               wsResponse.body
             ) as ResponseQuestionDTO;
 
-            console.log(correct_answer_id, players, question, correct_answer);
-
-
             this.store.dispatch(
               GAME_ACTIONS.saveResults({
                 result: {
@@ -98,7 +95,7 @@ export class WebSocketApiService {
                 },
               })
             );
-            console.log(question.ordinal)
+
             if(question.ordinal === 5) {
               this.router.navigate(['/results-room/final-results'])
             } else {
@@ -108,7 +105,6 @@ export class WebSocketApiService {
           }
         );
 
-        //_this.stompClient.reconnect_delay = 2000;
         _this.stompClient.send(
           `/app/rooms/${roomId}/lobby/join`,
           {},

@@ -19,7 +19,7 @@ export const initialState: IGameState = {
       ordinal: 0,
       question: '',
     },
-  }
+  },
 };
 
 export const gameReducer = createReducer(
@@ -64,6 +64,38 @@ export const gameReducer = createReducer(
     (state, { result }): IGameState => ({
       ...state,
       previousResult: structuredClone(result.previousResult),
+    })
+  ),
+  on(
+    GAME_ACTIONS.restartGamesValues,
+    (): IGameState => ({
+      maxPlayers: 0,
+      numOfQuestions: 0,
+      roomCode: '',
+      error:  null,
+      isLoading: false,
+      currentQuestion: {
+        id: '',
+        answers: [],
+        ordinal: 0,
+        question: '',
+        timeResponse: 0,
+      },
+      question: {
+        question: '',
+        answers: [],
+        correctAnswer:  null,
+      },
+      previousResult: {
+        correct_answer_id: '',
+        correct_answer: '',
+        players: [],
+        question: {
+          answers: [],
+          ordinal: 0,
+          question: '',
+        }
+      }
     })
   )
 );
