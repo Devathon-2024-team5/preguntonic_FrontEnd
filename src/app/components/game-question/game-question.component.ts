@@ -18,11 +18,12 @@ import { AsyncPipe } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameQuestionComponent {
+  private readonly store = inject(Store);
   question = input<{
     question: string;
     numberQuestion: number;
+    questionId: string;
   }>();
-  private readonly store = inject(Store);
-  maxQ$= this.store.select(GAME_SELECTORS.selectConfigGame)
-  
+  configGame$ = this.store.select(GAME_SELECTORS.selectConfigGame)
+
 }

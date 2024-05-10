@@ -26,11 +26,11 @@ import { SpinerComponent } from '../../shared/components/spiner/spiner.component
     imports: [ReactiveFormsModule, JsonPipe, ModalComponent, SpinerComponent]
 })
 export class ResponseGroupComponent {
+  private readonly _fb = inject(FormBuilder);
+  private readonly store = inject(Store);
   answerData = input<IAnswer[]>([]);
   idQuestion = input.required<string>();
   answersForm: FormGroup;
-  private readonly _fb = inject(FormBuilder);
-  private readonly store = inject(Store);
   inOpen = false;
 
 

@@ -47,7 +47,7 @@ const changeStatus = createAction(
 
 const sendResponse = createAction(
   '[Game Room] Send answer question',
-  props<{ answerId: string; idQuestion: string }>()
+  props<{ answerId: string | null ; idQuestion: string }>()
 );
 
 const saveTimeResponse = createAction(

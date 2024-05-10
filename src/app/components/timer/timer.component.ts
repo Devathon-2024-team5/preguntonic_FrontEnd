@@ -3,17 +3,18 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Input,
   OnDestroy,
   OnInit,
   afterNextRender,
   effect,
   inject,
-  input,
   signal,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { GAME_ACTIONS } from '../../store/game/game.actions';
 import { AudioPlayerService } from '../../shared/services/audio-player.service';
+import { asapScheduler } from 'rxjs/internal/scheduler/asap';
 
 @Component({
   selector: 'app-timer',
@@ -24,7 +25,7 @@ import { AudioPlayerService } from '../../shared/services/audio-player.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimerComponent implements OnDestroy, OnInit {
-  initValue = input<number>();
+  @Input({ required: true }) idQuestion?: string;
   timer = signal<number>(30);
   timerInterval?: NodeJS.Timeout;
   private readonly _speedLoader = 1000;
@@ -35,7 +36,7 @@ export class TimerComponent implements OnDestroy, OnInit {
   constructor() {
     this._audioPlayerService.setAudio('assets/audio/timer-music.wav');
     this._audioPlayerService.setLoop(true);
-    this._audioPlayerService.setVolume(0.4)
+    this._audioPlayerService.setVolume(0.4);
 
     afterNextRender(() => {
       this.timerInterval = setInterval(
@@ -47,7 +48,7 @@ export class TimerComponent implements OnDestroy, OnInit {
     effect(() => {
       switch (this.timer()) {
         case 0:
-          this.clearEvents();
+          asapScheduler.schedule(() => this.clearEvents());
           break;
         case 15:
           this._audioPlayerService.setPlaybackRate(1.7);
@@ -55,8 +56,6 @@ export class TimerComponent implements OnDestroy, OnInit {
       }
     });
   }
-  // this.timer() === 0 && ''
-  // this.store.dispatch(GAME_ACTIONS.saveTimeResponse({ time: 0 }))
 
   ngOnInit() {
     this._audioPlayerService.playAudioPlayer();
@@ -71,8 +70,16 @@ export class TimerComponent implements OnDestroy, OnInit {
   }
 
   private clearEvents(): void {
+    if (!this.idQuestion) return;
+
     clearInterval(this?.timerInterval);
     this._audioPlayerService.stopAudioPlayer();
+    this.store.dispatch(
+      GAME_ACTIONS.sendResponse({
+        answerId: null,
+        idQuestion: this.idQuestion,
+      })
+    );
   }
 
   ngOnDestroy(): void {

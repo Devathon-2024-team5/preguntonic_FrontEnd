@@ -120,27 +120,28 @@ export class WebSocketApiService {
   }
 
   readyPlayer(roomId: string, player_id: string) {
-    const response = this.stompClient.send(
+    this.stompClient.send(
       `/app/rooms/${roomId}/lobby/players/${player_id}/ready`,
       {}
     );
   }
 
   joinPlayerGame(roomId: string, player_id: string) {
-    console.log(this.stompClient);
     this.stompClient.send(
       `/app/rooms/${roomId}/game/players/${player_id}/join`
     );
   }
 
   responseQuestion(
-    answerId: string,
+    answerId: string | null,
     questionId: string,
     player_id: string,
     roomId: string,
     timeMs: number,
     isSetTimeout: boolean
   ) {
+    // const isNull = answerId.trim() === '' ? null : answerId
+
     this.stompClient.send(
       `/app/rooms/${roomId}/game/players/${player_id}/response`,
       {},
