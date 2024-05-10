@@ -6,8 +6,12 @@ import { AppState } from '../../store/app.state';
 import { IPlayer } from '../../store/models/IPlayers.state';
 import { GAME_ACTIONS } from '../../store/game/game.actions';
 import { PLAYERS_ACTIONS } from '../../store/players/players.actions';
-import { EventGame } from '../../store/types/store.dto';
-import { IAnswer } from '../../store/models/IGame.state';
+import {
+  EventGame,
+  QuestionsGameDto,
+  ResponseQuestionDTO,
+} from '../../store/types/store.dto';
+import { Router } from '@angular/router';
 
 export interface IResWebSocket {
   event: string;
@@ -20,38 +24,19 @@ export interface IResWebSocket {
   };
 }
 
-interface IPlayerInGame {
-  id: string;
-  avatar: string;
-  is_ready: boolean;
-  nickname: string;
-  score: number;
-}
-
-interface IResWSInGame {
-  current_question: {
-    id: string;
-    answers: IAnswer[];
-    ordinal: number;
-    question: string;
-  };
-  num_questions: string;
-  status: string;
-  players: IPlayerInGame[];
-}
-
 @Injectable({
   providedIn: 'root',
 })
 export class WebSocketApiService {
   private readonly store: Store<AppState> = inject(Store);
-  webSocketEndPoint: string = 'http://localhost:8080/preguntonic';
+  webSocketEndPoint: string = 'https://preguntonic-backend.onrender.com/preguntonic';
   topic: string = '/room/';
   stompClient: any;
   roomId: string = '';
   player_name: string = '';
   avatar: string = '';
   playerId: string = '';
+  router = inject(Router)
 
   _connect(
     roomId: string,
@@ -69,7 +54,6 @@ export class WebSocketApiService {
       {},
       (frame: Frame) => {
         console.log(`Info : ${frame}`);
-        console.log(_this.topic + roomId);
 
         _this.stompClient.subscribe(
           _this.topic + roomId,
@@ -82,10 +66,9 @@ export class WebSocketApiService {
         _this.stompClient.subscribe(
           _this.topic + roomId + '/game',
           (wsResponse: IMessage) => {
-            // const data = JSON.parse(wsResponse.body) as IResWSInGame
             const { current_question } = JSON.parse(
               wsResponse.body
-            ) as IResWSInGame;
+            ) as QuestionsGameDto;
 
             this.store.dispatch(
               GAME_ACTIONS.updateQuestion({ question: current_question })
@@ -93,7 +76,35 @@ export class WebSocketApiService {
           }
         );
 
-        //_this.stompClient.reconnect_delay = 2000;
+        _this.stompClient.subscribe(
+          _this.topic + roomId + '/questions',
+          (wsResponse: IMessage) => {
+            const { correct_answer_id, players, question , correct_answer } = JSON.parse(
+              wsResponse.body
+            ) as ResponseQuestionDTO;
+
+            this.store.dispatch(
+              GAME_ACTIONS.saveResults({
+                result: {
+                  previousResult: {
+                    correct_answer_id,
+                    players,
+                    question,
+                    correct_answer
+                  },
+                },
+              })
+            );
+
+            if(question.ordinal === 5) {
+              this.router.navigate(['/results-room/final-results'])
+            } else {
+              this.router.navigate(['/results-room/previous-result'])
+            }
+
+          }
+        );
+
         _this.stompClient.send(
           `/app/rooms/${roomId}/lobby/join`,
           {},
@@ -109,29 +120,28 @@ export class WebSocketApiService {
   }
 
   readyPlayer(roomId: string, player_id: string) {
-    console.log(this.stompClient);
-    const response = this.stompClient.send(
+    this.stompClient.send(
       `/app/rooms/${roomId}/lobby/players/${player_id}/ready`,
       {}
     );
-    console.log('response stomp send: ', response);
   }
 
   joinPlayerGame(roomId: string, player_id: string) {
-    console.log(this.stompClient);
     this.stompClient.send(
-      `/app/rooms/${roomId}/game/players/${player_id}/join`,
-      {}
+      `/app/rooms/${roomId}/game/players/${player_id}/join`
     );
   }
 
   responseQuestion(
-    answerId: string,
+    answerId: string | null,
     questionId: string,
     player_id: string,
     roomId: string,
-    timeMs: number
+    timeMs: number,
+    isSetTimeout: boolean
   ) {
+    // const isNull = answerId.trim() === '' ? null : answerId
+
     this.stompClient.send(
       `/app/rooms/${roomId}/game/players/${player_id}/response`,
       {},
@@ -139,7 +149,15 @@ export class WebSocketApiService {
         question_id: questionId,
         response_id: answerId,
         milliseconds: timeMs,
+        isSetTimeout,
       })
+    );
+  }
+
+  nextQuestion(player_id: string, roomId: string) {
+    this.stompClient.send(
+      `/app/rooms/${roomId}/game/players/${player_id}/next`,
+      {}
     );
   }
 

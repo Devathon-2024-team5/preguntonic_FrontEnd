@@ -2,14 +2,21 @@
   <div class="d-flex gap-3 flex-column justify-content-between container">
     <app-logo-title />
     @if (currentQuestion$ | async; as question) {
-      <app-game-question
-        [question]="{
-          question: question.question,
-          numberQuestion: question.ordinal
-        }" />
-      <app-response-group
-        [answerData]="question.answers"
-        [idQuestion]="question.id" />
+      @defer (when question.question) {
+        <app-game-question
+          [question]="{
+            question: question.question,
+            numberQuestion: question.ordinal,
+            questionId: question.id
+          }" />
+        <app-response-group
+          [answerData]="question.answers"
+          [idQuestion]="question.id" />
+      } @placeholder {
+        <app-modal [isOpen]="true">
+          <app-spiner message="Cargando preguntas..." />
+        </app-modal>
+      }
     }
   </div>
 </app-in-game-layout>

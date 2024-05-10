@@ -1,41 +1,47 @@
-<section class="layout container">
-  <div class="column">
-    <app-header-anteroom class="header" />
-    <app-code-container [room_code]="room_code"></app-code-container>
-    <p class="text-center">Código de la sala</p>
-    @if (currentPlayer$ | async; as currentPlayer) {
-      <app-section-player
-        [avatar]="currentPlayer.avatar"
-        [playerName]="currentPlayer.playerName" />
+<div class="container">
+  <section class="layout container">
+    <div class="column">
+      <app-header-anteroom class="header" />
+      <app-code-container [room_code]="room_code"></app-code-container>
+      <p class="text-center">Código de la sala</p>
+      @if (currentPlayer$ | async; as currentPlayer) {
+        <app-section-player
+          [avatar]="currentPlayer.avatar"
+          [playerName]="currentPlayer.playerName" />
 
-      @if (players$ | async; as players) {
-        <div class="section-players d-flex justify-content-between pt-2">
-          <p>Jugadores {{ players.length }}/{{ maxPlayers }}</p>
-          <p>Preparados {{ players | numberOfReady }} / {{ maxPlayers }}</p>
-        </div>
-        <div class="icons d-flex gap-2 mb-2">
-          @for (
-            player of players | filterPlayers: currentPlayer.playerId;
-            track player.playerId
-          ) {
-            <div
-              class="players d-flex flex-column justify-content-center align-items-center">
-              <app-avatar-with-frame frameMesuare="normal" [avatarId]="player.avatar"></app-avatar-with-frame>
-              {{ player.playerName }}
+        @if (players$ | async; as players) {
+          <div class="section-players d-flex justify-content-between pt-2">
+            <p>Jugadores {{ players.length }}/{{ maxPlayers }}</p>
+            <p>Preparados {{ players | numberOfReady }} / {{ maxPlayers }}</p>
+          </div>
+          <div class="icons d-flex gap-2 mb-2">
+            @for (
+              player of players | filterPlayers: currentPlayer.playerId;
+              track player.playerId
+            ) {
               <div
-                [ngClass]="{
-                  onBar: player.status === 'IN_LOBBY_READY',
-                  offBar: player.status === 'IN_LOBBY_UNREADY'
-                }"></div>
-            </div>
-          }
-        </div>
+                class="players d-flex flex-column justify-content-center align-items-center">
+                <app-avatar-with-frame frameMesuare="normal" [avatarId]="player.avatar"></app-avatar-with-frame>
+                {{ player.playerName }}
+                <div
+                  [ngClass]="{
+                    onBar: player.status === 'IN_LOBBY_READY',
+                    offBar: player.status === 'IN_LOBBY_UNREADY'
+                  }"></div>
+              </div>
+            }@empty {
+              <p class="empty-message">
+                Esperando jugadores ...
+              </p>
+            }
+          </div>
+        }
       }
-    }
-    <app-custom-button
-      (click)="changeStatus()"
-      [variant]="btnStatus()"
-      >{{btnStatus() === '' ? 'Listo' : 'Esperando...' }}</app-custom-button
-    >
-  </div>
-</section>
+      <app-custom-button
+        (click)="changeStatus()"
+        [variant]="btnStatus()"
+        >{{btnStatus() === '' ? 'Listo' : 'Esperando...' }}</app-custom-button
+      >
+    </div>
+  </section>
+</div>

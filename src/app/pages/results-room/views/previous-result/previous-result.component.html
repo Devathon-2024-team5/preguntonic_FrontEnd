@@ -1,12 +1,20 @@
 <div
   class="container-md d-flex flex-column gap-3 justify-content-between h-100">
   <app-logo-title />
-  <app-table-positions />
-  <app-progress-bar
-    [configBar]="{
-      redirectTo: '/game-room',
-      delay: 900,
-      label: 'tiempo para la siguiente pregunta'
-    }" />
-  <app-correct-answer correctAnswer="react" />
+  @if (Answers$ | async; as answers) {
+    @defer (when answers.players.length > 0) {
+      <app-table-positions />
+      <app-progress-bar
+        [configBar]="{
+          redirectTo: '/game-room',
+          delay: 900,
+          label: 'tiempo para la siguiente pregunta'
+        }" />
+      <app-correct-answer correctAnswer="{{ correctAnswer }}" />
+    } @placeholder {
+      <app-modal [isOpen]="true">
+        <app-spiner message="Calculando puntaje..." />
+      </app-modal>
+    }
+  }
 </div>

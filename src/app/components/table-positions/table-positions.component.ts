@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { PlayerResultsComponent } from '../player-results/player-results.component';
+import { Store } from '@ngrx/store';
+import { GAME_SELECTORS } from '../../store/game/game.selectors';
+import { IPlayerInGame } from '../../store/models/IPlayers.state';
 
 // TODO consume and implements table information
 @Component({
@@ -14,6 +17,17 @@ import { PlayerResultsComponent } from '../player-results/player-results.compone
   styleUrl: './table-positions.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TablePositionsComponent {
-  players = [1, 2, 3, 4, 5];
+export class TablePositionsComponent implements OnInit {
+  
+  store = inject(Store);
+  store$ = this.store.select(GAME_SELECTORS.selectPrevResults);
+  players: IPlayerInGame [] =[];
+  
+  ngOnInit(): void {
+    this.store$.subscribe(({ players })=>{
+      this.players = players
+      
+    })
+  }
+ 
 }

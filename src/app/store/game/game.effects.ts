@@ -1,6 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import {
+  catchError,
+  exhaustMap,
+  map,
+  mergeMap,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { GAME_ACTIONS } from './game.actions';
 import { HttpService } from '../../core/services/http.service';
@@ -10,6 +18,8 @@ import { Store } from '@ngrx/store';
 import { concatLatestFrom } from '@ngrx/operators';
 import { CURRENT_PLAYER_SELECTS } from '../current-player/current-player.selectors';
 import { GAME_SELECTORS } from './game.selectors';
+import { CURRENT_PLAYER_ACTIONS } from '../current-player/current-player.action';
+import { PLAYERS_ACTIONS } from '../players/players.actions';
 
 @Injectable()
 export class GameEffects {
@@ -18,8 +28,6 @@ export class GameEffects {
   private readonly _router = inject(Router);
   private readonly webSocketApi = inject(WebSocketApiService);
   private readonly store = inject(Store);
-
-  //TODO Eliminar NgrxTestService e implementar servicio final
 
   public setConfigGame$ = createEffect(() => {
     return this._actions$.pipe(
@@ -68,11 +76,10 @@ export class GameEffects {
           this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer),
           this.store.select(GAME_SELECTORS.selectRoomCode),
         ]),
-        tap(([_, {playerId},roomCode]) => {
-          console.log(playerId + roomCode)
-          if (playerId === null) throw new Error('')
+        tap(([_, { playerId }, roomCode]) => {
+          if (playerId === null) throw new Error('');
 
-          this.webSocketApi.joinPlayerGame(roomCode, playerId)
+          this.webSocketApi.joinPlayerGame(roomCode, playerId);
         })
       );
     },
@@ -83,11 +90,11 @@ export class GameEffects {
     () => {
       return this._actions$.pipe(
         ofType(GAME_ACTIONS.changeView),
-        tap(({ route, queryParams }) =>
+        tap(({ route, queryParams }) => {
           this._router.navigate([route], {
             queryParams,
-          })
-        )
+          });
+        })
       );
     },
     { dispatch: false }
@@ -117,15 +124,75 @@ export class GameEffects {
         concatLatestFrom(() => [
           this.store.select(GAME_SELECTORS.selectRoomCode),
           this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer),
-          this.store.select(GAME_SELECTORS.selectTime)
+          this.store.select(GAME_SELECTORS.selectTime),
         ]),
-        tap(([{answerId, idQuestion}, roomCode, {playerId}, time]) => {
-          if (playerId === null || time === undefined) throw new Error('');
+        tap(([{ answerId, idQuestion }, roomCode, { playerId }, time]) => {
+          if (playerId === null || time === undefined) throw new Error('Error al enviar la respuesta');
+          console.log(playerId, time);
 
-          return this.webSocketApi.responseQuestion(answerId,idQuestion, playerId, roomCode, time)
+          const isTimeout = time === 0;
+          this.webSocketApi.responseQuestion(
+            answerId,
+            idQuestion,
+            playerId,
+            roomCode,
+            time,
+            isTimeout
+          );
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  public saveResult$ = createEffect(() => {
+    return this._actions$.pipe(
+      ofType(GAME_ACTIONS.saveResults),
+      concatLatestFrom(() =>
+        this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer)
+      ),
+      map(([{ result }, { playerId }]) => {
+        const player = result.previousResult.players.find(
+          p => p.id === playerId
+        );
+        return CURRENT_PLAYER_ACTIONS.updateScore({ score: player!.score });
+      })
+    );
+  });
+
+  public nextQuestion$ = createEffect(() => {
+    return this._actions$
+      .pipe(
+        ofType(GAME_ACTIONS.nextQuestion),
+        concatLatestFrom(() => [
+          this.store.select(GAME_SELECTORS.selectRoomCode),
+          this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer),
+        ]),
+        tap(([_, roomCode, { playerId }]) => {
+          if (playerId === null) throw new Error('');
+
+          this.webSocketApi.nextQuestion(playerId, roomCode);
         })
       )
-    },
-    {dispatch: false}
-  )
+      .pipe(
+        map(() => GAME_ACTIONS.changeView({ route: '/game-room' })),
+        catchError(error => of(GAME_ACTIONS.loadGameFailure({ error })))
+      );
+  });
+
+  public restartGamesValues = createEffect(() => {
+    return this._actions$.pipe(
+      ofType(GAME_ACTIONS.restartGamesValues),
+      tap(() => this.webSocketApi._disconnect()),
+      mergeMap(() => [
+        CURRENT_PLAYER_ACTIONS.resetCurrentPlayer(),
+        PLAYERS_ACTIONS.resetPlayers(),
+        GAME_ACTIONS.changeView({ route: '/home' })
+      ])
+    );
+  });
 }
+// mergeMap(() => [
+//   CURRENT_PLAYER_ACTIONS.resetCurrentPlayer(),
+//   GAME_ACTIONS.changeView({ route: '/home' }),
+// ])

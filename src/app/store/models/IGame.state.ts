@@ -1,3 +1,5 @@
+import { ResponseQuestionDTO } from "../types/store.dto";
+
 export interface IAnswer {
   id: string;
   answer: string;
@@ -25,4 +27,5 @@ export interface IGameState {
   roomCode: string;
   isLoading: boolean;
   error: string | null;
+  previousResult: ResponseQuestionDTO
 }

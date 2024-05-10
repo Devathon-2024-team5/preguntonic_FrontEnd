@@ -1,6 +1,11 @@
 :host {
   display: block;
 }
+.form {
+  @media screen and (min-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
 .answer {
   font-size: 1.75rem;
@@ -13,6 +18,13 @@
   cursor: pointer;
   display: grid;
   place-content: center;
+  line-height: 1;
+
+  @media screen and (min-width: 1200px) {
+    height: 7.56rem;
+    font-size: 3rem;
+    font-weight: unset;
+  }
 
   &:hover {
     border-color: var(--accent-color);
