@@ -1,0 +1,38 @@
+:host {
+  display: block;
+}
+.form {
+  @media screen and (min-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.answer {
+  font-size: 1.75rem;
+  background-color: var(--secondary-color-dark);
+  border-radius: var(--radius-btn);
+  border: solid 4px currentColor;
+  font-weight: bold;
+  height: 5rem;
+  min-width: 20.4375 rem;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  line-height: 1;
+
+  @media screen and (min-width: 1200px) {
+    height: 7.56rem;
+    font-size: 3rem;
+    font-weight: unset;
+  }
+
+  &:hover {
+    border-color: var(--accent-color);
+  }
+
+  &:has(input:checked) {
+    border-color: var(--accent-color);
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+  }
+}

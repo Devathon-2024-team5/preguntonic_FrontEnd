@@ -1,0 +1,19 @@
+.avatar {
+  width: fit-content;
+  aspect-ratio: 1/1;
+}
+
+.btn-avatar-change {
+  background-color: var(--game-clr-green);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 29%;
+  bottom: 27%;
+  border: 2px solid;
+}
+
+.btn-avatar-change:hover {
+  background-color: var(--game-clr-yellow);
+}

@@ -1,0 +1,107 @@
+.layout{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1.5rem;
+}
+
+.logo {
+  position: absolute;
+  top: 1.5rem;
+}
+
+.form-user {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 20.5rem;
+}
+
+.input-avatar {
+  position: relative; 
+}
+
+.input-avatar app-change-icon-button {
+  position: absolute;
+  bottom: 1.5rem;
+  right: -4px;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--primary-color);
+  border: 4px solid var(--secondary-color-dark);
+  border-radius: .5rem;
+  color: var(--secondary-color-light);
+  font-size: 2.5rem;
+  text-align: center;
+  margin-block: 3rem 4rem;
+}
+
+.container-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.container-buttons app-custom-button {
+  width: 50%;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  background-color: transparent;
+  font-size: 1.25rem;
+  max-width: 350px;
+}
+
+.avatars-container{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1.25rem;
+}
+
+.radio-button {
+  visibility: hidden;
+}
+
+.label {
+  filter: grayscale(.9);
+  transform: scale(1);
+  transition: filter .3s, transform .3s;
+}
+
+.label:hover {
+  filter: grayscale(0);
+  transform: scale(1.1);
+}
+
+.label--checked{
+  filter: grayscale(0);
+  transform: scale(1.1);
+}
+
+.circle-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6.125rem;
+  height: 6.125rem;
+  border-radius: 50%;
+  border: 2px solid var(--secondary-color-dark);
+  font-size: 1.25rem;
+  color: #ffffff7d;
+}
+
+app-info-icon-button {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+}

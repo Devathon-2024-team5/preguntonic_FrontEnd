@@ -1,0 +1,27 @@
+:host {
+  display: block;
+}
+
+.layout {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 100dvh;
+  gap: 3rem;
+}
+
+.layout-footer {
+  grid-row: 2/3;
+  background-color: var(--secondary-color-dark);
+
+  @media screen and (min-width: 1200px) {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    border: solid 4px var(--accent-color);
+    border-bottom: none;
+  }
+}

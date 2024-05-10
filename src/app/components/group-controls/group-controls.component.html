@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <app-custom-button variant="secondary" (click)="openModal($event)">
+      {{ 'Ver tabla completa' | capitalize }} 
+    </app-custom-button>
+  </div>
+  <div class="d-flex pt-4 gap-4 ">
+    <app-custom-button fontSize="small" class="flex-grow-1" style="display: none;">{{ 'Volver a jugar' | capitalize }}</app-custom-button>
+    <app-exit-icon-button size="medium" (click)="openModal($event)"></app-exit-icon-button>
+  </div>
+</div>
+<app-modal [isOpen]="stateModal()">
+  <div class="modal-content">
+    <app-custom-button [variant]="'red'" (click)="closeModal()">X</app-custom-button>
+   <app-table-positions style="background-color: var(--secondary-color-dark);"/>
+  </div>
+</app-modal>

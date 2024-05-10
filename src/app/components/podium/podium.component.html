@@ -1,0 +1,16 @@
+<div class="podium">
+  <ng-container *ngFor="let player of topPlayer; let i = index">
+    <div class="podium-bar" [style.height]="podiumSteps[i] + '%'">
+      <div class="shadow-md podium-imgWrapper" style="border-radius: 50%">
+        <app-avatar-with-frame frameMesuare="medium" [avatarId]="player.avatar"></app-avatar-with-frame>
+      </div>
+      <div class="podium-data">
+        <div class="d-flex flex-column gap-2">
+          <strong>{{ player.nickname }}</strong>
+          <span class="podium-points">{{ player.score }}</span>
+        </div>
+      </div>
+      <span class="podium-index fw-bold">{{ i + 1 }}</span>
+    </div>
+  </ng-container>
+</div>

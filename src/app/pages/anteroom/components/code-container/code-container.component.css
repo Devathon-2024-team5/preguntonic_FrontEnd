@@ -1,0 +1,36 @@
+.form {
+  @media screen and (min-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.code {
+  background-color: var(--secondary-color-dark);
+  border-radius: 1rem;
+  max-height: min-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.number {
+  font-size: 3em;
+}
+
+.custom-button{
+  background-color: var(--primary-color);
+  padding: 1rem;
+  border-radius: 1rem;
+  border: solid 3px transparent;
+}
+
+.custom-button:hover {
+  background-color: var(--secondary-color-dark);
+}
+
+.custom-button:active, .custom-button:focus  {
+  border-color: var(--secondary-color-light);
+  color: black;
+}

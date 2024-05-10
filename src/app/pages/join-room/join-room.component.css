@@ -1,0 +1,76 @@
+input,
+select{
+	appearance: none;
+  outline: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100vh;
+  padding: 1.5rem;
+  
+  text-align: center;
+  color: var(--secondary-color-light);
+}
+
+.join-room {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem 1.5rem;
+  
+  max-width: 328px;
+  padding: 1.5rem;
+  margin-block: 2rem;
+  border-radius: 1rem;
+  
+  background-color: var(--secondary-color-dark);
+}
+
+.form-join {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background-color: var(--primary-color);
+  color: var(--secondary-color-light);
+  border-radius: .5rem;
+  font-size: 2.5rem;
+  padding: 1rem;
+  border: 4px solid transparent;
+  /* text-transform: uppercase; */
+}
+
+.input:focus {
+  border-color: var(--accent-color);
+}
+
+.border-error {
+  border-color: var(--alert-red-color);
+}
+
+.error-message {
+  width: 120%;
+  border: 4px solid var(--alert-red-color);
+  position: absolute;
+  bottom: -9rem;
+  left: -1.7rem;
+  font-size: 1.5rem;
+  padding: 1rem;
+  line-height: 1.5rem;
+  color: #000;
+  background-color: var(--alert-red-color);
+  border: 4px dashed var(--alert-red-color);
+  border-radius: 1rem;
+}

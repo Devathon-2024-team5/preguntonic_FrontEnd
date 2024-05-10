@@ -1,0 +1,16 @@
+<div 
+  class="frame"
+  [ngClass]="{
+    'bg--secondary-color-dark': background === 'blue',
+    'l-shadow': shadow === 'l-blue',
+    's-shadow-white': shadow === 's-white',
+    's-shadow-green': shadow === 's-green',
+    'frame--small': frameMesuare === 'small',
+    'frame--normal': frameMesuare === 'normal',
+    'frame--medium': frameMesuare === 'medium',
+    'frame--large': frameMesuare === 'large',
+  }" >
+  <picture class="container-image">
+    <img [src]="currentAvatar.url" class="image" [alt]="currentAvatar.title">
+  </picture>
+</div>

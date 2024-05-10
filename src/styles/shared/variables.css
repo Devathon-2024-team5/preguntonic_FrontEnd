@@ -2,9 +2,10 @@
   /* typography */
   --font-headings :"Unbounded", sans-serif;
   --font-base: "Itim", cursive;
+  --font-main: "Kalam", cursive;
 
   /* font-size */
-  --font-size-xs: clamp(0.3rem, 0.10vw + 0.3rem, 0.4rem);
+  --font-size-xs: clamp(0.3rem, 0.1vw + 0.3rem, 0.4rem);
   --font-size-sm: clamp(0.8rem, 0.17vw + 0.76rem, 0.89rem);
   --font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
   --font-size-md: clamp(1.25rem, 0.61vw + 1.1rem, 1.58rem);
@@ -14,11 +15,23 @@
   --font-size-3xl: clamp(3.05rem, 3.54vw + 2.17rem, 5rem);
 
   /* colors */
-  --game-clr-purple: #9514ED;
-  --game-clr-dark-purple: #360E4A;
-  --game-clr-pink: #FF7AFF;
-  --game-clr-green: #00E670;
-  --game-clr-yellow: rgb(255,255,0);
-  --game-clr-orange: #FFB200;
-  --game-clr-red: #FF5746;
+  --game-clr-purple: #9514ed;
+  --game-clr-dark-purple: #360e4a;
+  --game-clr-pink: #ff7aff;
+  --game-clr-green: #00e670;
+  --game-clr-yellow: rgb(255, 255, 0);
+  --game-clr-orange: #ffb200;
+  --game-clr-red: #ff5746;
+
+  --primary-color: #252c3c;
+  --primary-color-alpha: #252c3ce5;
+  --secondary-color-dark: #3d4863;
+  --accent-color: #00e670;
+  --secondary-green-color: #a7f6ce;
+  --alert-red-color: #FF5E5E;
+  --secondary-color-light: #ffffff;
+  --warning-yellow-color: #E1E600;
+
+  /* radius */
+  --radius-btn: 1rem;
 }

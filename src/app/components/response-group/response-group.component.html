@@ -1,0 +1,21 @@
+<form [formGroup]="answersForm" class="d-flex flex-column gap-4 pt-2 d-xxl-grid col-xxl-12 form">
+  @for (answer of answerData(); track answer; let i = $index) {
+    <label
+      tabindex="1"
+      class="answer text-center text-capitalize"
+      [for]="'answer' + i">
+      <input
+        (change)="checkAnswer(answer.id)"
+        type="radio"
+        name="answer"
+        formControlName="answer"
+        [value]="answer.answer"
+        [id]="'answer' + i" />
+      {{ answer.answer }}
+    </label>
+  }
+</form>
+
+<app-modal [isOpen]="inOpen">
+  <app-spiner message="Esperando a que todos envíen su respuesta..." />
+</app-modal>
