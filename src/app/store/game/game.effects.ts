@@ -127,7 +127,8 @@ export class GameEffects {
           this.store.select(GAME_SELECTORS.selectTime),
         ]),
         tap(([{ answerId, idQuestion }, roomCode, { playerId }, time]) => {
-          if (playerId === null || time === undefined) throw new Error('Error al enviar la respuesta');
+          if (playerId === null || time === undefined)
+            throw new Error('Error al enviar la respuesta');
           console.log(playerId, time);
 
           const isTimeout = time === 0;
@@ -185,14 +186,10 @@ export class GameEffects {
       ofType(GAME_ACTIONS.restartGamesValues),
       tap(() => this.webSocketApi._disconnect()),
       mergeMap(() => [
+        GAME_ACTIONS.changeView({ route: '/home' }),
         CURRENT_PLAYER_ACTIONS.resetCurrentPlayer(),
         PLAYERS_ACTIONS.resetPlayers(),
-        GAME_ACTIONS.changeView({ route: '/home' })
       ])
     );
   });
 }
-// mergeMap(() => [
-//   CURRENT_PLAYER_ACTIONS.resetCurrentPlayer(),
-//   GAME_ACTIONS.changeView({ route: '/home' }),
-// ])
