@@ -1,0 +1,10 @@
+name: preguntonic-front
+
+services:
+  preguntonic-front:
+    container_name: preguntonic-front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 4200:4200
