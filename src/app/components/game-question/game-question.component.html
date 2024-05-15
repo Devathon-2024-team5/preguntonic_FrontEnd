@@ -1,17 +1,23 @@
-<div class="container-sm d-flex flex-column justify-content-between align-items-center gap-2">
-  <span class="number-question">{{question()?.numberQuestion}}/10</span>
-  <div class="u-max-w d-grid gap-2">
-    <p class="question text-center u-text-pretty">
-      {{question()?.question}}
-    </p>
-    <div class=" timer d-flex justify-content-between align-items-center ">
-      <app-timer />
-      <div class="d-flex  align-items-center gap-2">
-        <img src="assets/group.svg" alt="group icon">
-        <span class="pt-2">
-          3/5
-        </span>
-      </div>
+<div
+  class="question">
+  @if (configGame$ | async; as configGame) {
+    <span class="question-number"
+      >{{ question()?.numberQuestion }}/{{ configGame.numOfQuestions }}</span
+    >
+  }
+  <p class="question-text u-text-pretty">
+    {{ question()?.question }}
+  </p>
+  <div class="extra">
+    <div class="extra-timer">
+      <app-timer [idQuestion]="question()?.questionId" />
+    </div>
+    <div class="extra-logo">
+      <app-logo-title />
+    </div>
+    <div class="extra-players">
+      <span class="extra-readyNumbers"> 3/5 </span>
+      <img class="extra-img" src="assets/group.svg" alt="group icon" />
     </div>
   </div>
 </div>

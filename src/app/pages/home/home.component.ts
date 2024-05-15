@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { LogoTitleComponent } from '../../shared/components/logo-title/logo-title.component';
 import { CustomButtonComponent } from '../../shared/components/custom-btn/custom-button.component';
 import { Store } from '@ngrx/store';
@@ -12,6 +17,7 @@ import { ChangeIconButtonComponent } from '../../components/change-icon-button/c
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { AvatarService } from '../../core/services/avatar.service';
 import { NgClass } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -28,42 +34,46 @@ import { NgClass } from '@angular/common';
     InfoIconButtonComponent,
     ChangeIconButtonComponent,
     ModalComponent,
-    NgClass
+    NgClass,
   ],
 })
-export class HomeComponent{
+export class HomeComponent {
   private store = inject(Store);
-  
-  avatars;
+  private readonly _toastService = inject(ToastrService);
+  private readonly avatarService = inject(AvatarService);
+
+  avatars = this.avatarService.getAllAvatars();
   currentAvatar: string = ''; // Avatar currently selected in modal component
   selectedAvatar: string = ''; // Avatar selected
   playerName: string = '';
   stateModal = signal(false);
 
-  constructor(private avatarService: AvatarService) {
-    this.avatars = this.avatarService.getAllAvatars();
-  }
-
   openModal(event: MouseEvent) {
     event.preventDefault();
-    this.stateModal.update(()=>true);
+    this.stateModal.update(() => true);
   }
 
-  selectAvatar(){
+  selectAvatar() {
     this.selectedAvatar = this.currentAvatar;
-    this.stateModal.update(()=>false);
+    this.stateModal.update(() => false);
   }
 
-  handleKeypress(event:KeyboardEvent) {
-    if(event.key === 'Enter'){
+  handleKeypress(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
       const eventClick = new MouseEvent('click', { bubbles: true });
       event.target?.dispatchEvent(eventClick);
     }
   }
 
   public navigateView(route: Required<string>): void {
-    if (!this.selectedAvatar) return alert('Por favor, selecciona un avatar');
-    else if (!this.playerName.trim()) return alert('Por favor, ingresa un nombre');
+    if (!this.playerName.trim() || !this.selectedAvatar) {
+      this._toastService.error(
+        'Por favor, ingresa un nombre y seleccione un avatar',
+        'Preguntonic | Home'
+      );
+
+      return;
+    }
 
     this.savePlayer();
     this.store.dispatch(GAME_ACTIONS.changeView({ route }));

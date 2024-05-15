@@ -2,7 +2,19 @@
   display: block;
 }
 
-.answer {
+.form {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+  gap: 1rem;
+  @media screen and (min-width: 1200px) {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.form-answer {
   font-size: 1.75rem;
   background-color: var(--secondary-color-dark);
   border-radius: var(--radius-btn);
@@ -13,6 +25,14 @@
   cursor: pointer;
   display: grid;
   place-content: center;
+  line-height: 1;
+  text-align: center;
+
+  @media screen and (min-width: 1200px) {
+    height: 7.56rem;
+    font-size: 3rem;
+    font-weight: unset;
+  }
 
   &:hover {
     border-color: var(--accent-color);

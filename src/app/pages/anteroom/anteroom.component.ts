@@ -15,7 +15,6 @@ import {
   ButtonVariant,
   CustomButtonComponent,
 } from '../../shared/components/custom-btn/custom-button.component';
-import { WebSocketApiService } from '../../core/services/web-socket-api.service';
 import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
 import { Store } from '@ngrx/store';
 import { AsyncPipe, NgClass } from '@angular/common';
@@ -46,10 +45,9 @@ import { AvatarWithFrameComponent } from '../../shared/components/avatar-with-fr
   ],
 })
 export class AnteroomComponent implements OnInit {
+  @Input() room_code?: string;
   private readonly store = inject(Store);
   private readonly _httpService = inject(HttpService);
-  private readonly webSocketApi = inject(WebSocketApiService);
-  @Input() room_code?: string;
   btnStatus = signal<ButtonVariant>('');
   currentPlayer$ = this.store.select(
     CURRENT_PLAYER_SELECTS.selectCurrentPlayer

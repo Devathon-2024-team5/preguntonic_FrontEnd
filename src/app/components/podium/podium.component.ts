@@ -3,15 +3,16 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
+  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
 import { ImageBasicComponent } from '../../shared/components/image-basic/image-basic.component';
 import { Store } from '@ngrx/store';
-import { PLAYERS_SELECTS } from '../../store/players/players.selectors';
-import { IPlayer } from '../../store/models/IPlayers.state';
-import { TopPlayer } from '../../store/types/store.dto';
+import { IPlayerInGame } from '../../store/models/IPlayers.state';
 import { AvatarWithFrameComponent } from '../../shared/components/avatar-with-frame/avatar-with-frame.component';
+import { GAME_SELECTORS } from '../../store/game/game.selectors';
+import { AudioPlayerService } from '../../shared/services/audio-player.service';
 
 //TODO add canvas-confetti library and implements winners' information
 @Component({
@@ -22,21 +23,29 @@ import { AvatarWithFrameComponent } from '../../shared/components/avatar-with-fr
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, ImageBasicComponent,AvatarWithFrameComponent],
 })
-export class PodiumComponent implements OnInit {
-  private store = inject(Store);
-  score$ = this.store.select(PLAYERS_SELECTS.selectPlayers);
-  players: IPlayer[] = [];
-  topPlayer: TopPlayer[] = [];
-  readonly podiumSteps = ['100', '80', '60'];
+export class PodiumComponent implements OnInit, OnDestroy {
+  private readonly store = inject(Store);
+  private readonly _audioPlayerService = inject(AudioPlayerService);
   @Input() playerPositions: { position: number; name: string; avatar: string; score:number}[] = [];
+  store$ = this.store.select(GAME_SELECTORS.selectPrevResults);
+  players: IPlayerInGame [] =[];
+  topPlayer: IPlayerInGame[] = [];
+  readonly podiumSteps = ['100', '80', '60'];
   tabla:boolean = false;
 
   ngOnInit() {
-    this.score$.subscribe(res => {
-      this.players = [...res];
+    this.store$.subscribe(({ players })=>{
+      console.log("Players: " + players)
+      const playersCopy = [...players]
+      this.players = playersCopy.sort((a, b) => b.score - a.score);
       this.updateTopPlayers();
       this.updatePlayerPositions();
-    });
+    })
+
+    this._audioPlayerService.setAudio("assets/audio/pedro.mp3");
+    this._audioPlayerService.setLoop(false);
+    this._audioPlayerService.setVolume(.5);
+    this._audioPlayerService.playAudioPlayer();
   }
 
   private updateTopPlayers(): void {
@@ -46,9 +55,13 @@ export class PodiumComponent implements OnInit {
   private updatePlayerPositions(): void {
     this.playerPositions = this.players.map((player, index) => ({
       position: index + 1,
-      name: player.playerName,
+      name: player.nickname,
       avatar: player.avatar,
       score: player.score
     }));
+  }
+
+  ngOnDestroy(): void {
+    this._audioPlayerService.stopAudioPlayer()
   }
 }

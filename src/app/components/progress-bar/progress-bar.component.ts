@@ -10,8 +10,10 @@ import {
   signal,
 } from '@angular/core';
 import { CapitalizePipe } from '../../shared/pipes/capitalize.pipe';
-import { Router } from '@angular/router';
 import { IProgressBarConfig } from '../../core/models/IConfigProgressBar.interface';
+import { Store } from '@ngrx/store';
+import { GAME_ACTIONS } from '../../store/game/game.actions';
+import { asapScheduler } from 'rxjs/internal/scheduler/asap';
 
 @Component({
   selector: 'app-progress-bar',
@@ -26,8 +28,8 @@ export class ProgressBarComponent implements OnDestroy {
   configBar = input.required<IProgressBarConfig>();
   private _loaderTimer?: NodeJS.Timeout;
   private _speedLoader = 5000 / 100;
-  private readonly _router = inject(Router);
   private readonly _cdRef = inject(ChangeDetectorRef);
+  private readonly store = inject(Store);
 
   constructor() {
     afterNextRender(() => {
@@ -37,31 +39,24 @@ export class ProgressBarComponent implements OnDestroy {
       );
     });
 
-    effect(() => this.progress() === 100 && this.navigateTo());
+    effect(() => {
+      if (this.progress() === 100) {
+        asapScheduler.schedule(() =>
+          this.store.dispatch(GAME_ACTIONS.nextQuestion())
+        );
+        this.stopLoader();
+      }
+    });
   }
 
   private initLoader(): void {
     this.progress.set(this.progress() + 1);
-
-    if (this.progress() === 80) this.stopLoader();
 
     this._cdRef.detectChanges();
   }
 
   private stopLoader(): void {
     clearInterval(this?._loaderTimer);
-    // this.progress.set(100);
-  }
-
-  private navigateTo(): void {
-    setTimeout(() => {
-      try {
-        this._router.navigate([this.configBar().redirectTo]);
-      } catch (error) {
-        //TODO implement Error or Modal Component to Show the Error
-        console.log(error);
-      }
-    }, this.configBar().delay);
   }
 
   ngOnDestroy(): void {

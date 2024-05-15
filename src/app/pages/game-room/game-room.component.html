@@ -1,6 +1,8 @@
 <app-in-game-layout>
-  <div class="d-flex gap-3 flex-column justify-content-between container">
-    <app-logo-title />
+  <div class="gameRoom u-container">
+    <div class="gameRoom-title">
+      <app-logo-title />
+    </div>
     @if (currentQuestion$ | async; as question) {
       @defer (when question.question.length > 0) {
         <app-game-question
@@ -13,7 +15,7 @@
           [idQuestion]="question.id" />
       }@placeholder {
         <app-modal>
-          
+
         </app-modal>
       }
     }

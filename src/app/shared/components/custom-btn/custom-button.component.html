@@ -1,8 +1,9 @@
-<button 
-  class="custom-button" 
-  [ngClass]="{ 
+<button
+  class="custom-button"
+  [ngClass]="{
     'custom-button--secondary': variant === 'secondary',
-    'custom-button--red': variant === 'red'
+    'custom-button--red': variant === 'red',
+    'custom-button--animation' : isActiveAnimation()
   }"
 >
   <ng-content/>

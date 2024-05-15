@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { ModalComponent } from '../modal/modal.component';
 import { CustomButtonComponent } from '../custom-btn/custom-button.component';
-import { Router } from '@angular/router';
-import { WebSocketApiService } from '../../../core/services/web-socket-api.service';
 import { CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { GAME_ACTIONS } from '../../../store/game/game.actions';
 
 @Component({
   selector: 'app-exit-icon-button',
@@ -13,10 +13,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './exit-icon-button.component.css'
 })
 export class ExitIconButtonComponent {
+  private readonly store: Store = inject(Store);
   @Input() size: "" | "medium" = "";
   stateModal = false;
 
-  constructor (private router: Router, private webSocketAPI: WebSocketApiService){}
   openModal() {
     this.stateModal = true;
     document.body.classList.add('without-overflow');
@@ -28,8 +28,7 @@ export class ExitIconButtonComponent {
   }
 
   redirect() {
+    this.store.dispatch(GAME_ACTIONS.restartGamesValues())
     this.closeModal();
-    this.router.navigate(['/home']);
-    this.webSocketAPI._disconnect();
   }
 }

@@ -9,9 +9,12 @@ const updatePlayers = createAction("[Players] Update Players", props<{ players: 
 
 const changeReadyStatus = createAction("[Players] Change Ready Status", props<{ playerId: string, isReady: boolean }>());
 
+const resetPlayers = createAction("[Players] Clean list players")
+
 export const PLAYERS_ACTIONS = {
   loadPlayers,
   updatePlayers,
   loadPlayersFailure,
   changeReadyStatus,
+  resetPlayers,
 };

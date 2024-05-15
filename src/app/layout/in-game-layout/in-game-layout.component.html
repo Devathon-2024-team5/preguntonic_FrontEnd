@@ -1,6 +1,15 @@
 <section class="layout pt-4">
   <ng-content></ng-content>
-  <footer class="layout-footer py-2 px-4 position-relative z-1">
-    <app-player-results />
+  <footer class="layout-footer">
+    @if (player$ | async; as player) {
+      <app-player-results
+        [player]="{
+          id: player.playerId ?? '',
+          avatar: player.avatar,
+          is_ready: true,
+          nickname: player.playerName,
+          score: player.score
+        }" />
+    }
   </footer>
 </section>

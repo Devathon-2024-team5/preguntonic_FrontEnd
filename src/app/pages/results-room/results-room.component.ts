@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { InGameLayoutComponent } from '../../layout/in-game-layout/in-game-layout.component';
 import { RouterOutlet } from '@angular/router';
+import JSConfetti  from 'js-confetti';
 
 @Component({
   selector: 'app-results-room',
@@ -18,4 +19,11 @@ import { RouterOutlet } from '@angular/router';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ResultsRoomComponent {}
+export class ResultsRoomComponent implements OnInit {
+  ngOnInit(): void {
+    const jsConfetti = new JSConfetti();
+
+    jsConfetti.addConfetti()
+    // throw new Error('Method not implemented.');
+  }
+}

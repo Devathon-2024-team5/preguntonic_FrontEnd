@@ -35,13 +35,18 @@ const selectConfigGame = createSelector(
 
 const selectRoomCode = createSelector(
   selectGameFeature,
-  (state: IGameState): string  => state.roomCode
-)
+  (state: IGameState): string => state.roomCode
+);
 
 const selectTime = createSelector(
   selectGameFeature,
   (state: IGameState) => state.currentQuestion.timeResponse
-)
+);
+
+const selectPrevResults = createSelector(
+  selectGameFeature,
+  (state: IGameState) => state.previousResult
+);
 
 export const GAME_SELECTORS = {
   selectQuestions,
@@ -50,5 +55,6 @@ export const GAME_SELECTORS = {
   selectCurrentQuestion,
   selectConfigGame,
   selectRoomCode,
-  selectTime
+  selectTime,
+  selectPrevResults,
 };
