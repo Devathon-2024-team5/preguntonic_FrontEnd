@@ -21,7 +21,7 @@
 
 .custom-button:hover {
   background-color: var(--primary-color);
-  color: var(--secondary-color-light);  
+  color: var(--secondary-color-light);
 }
 
 .custom-button:active {
@@ -38,24 +38,30 @@
 
 .custom-button--secondary:hover {
   background-color: var(--accent-color);
-  color: var(--primary-color);  
+  color: var(--primary-color);
 }
 
 .custom-button--secondary:active {
   background-color: var(--primary-color);
   border-color: var(--secondary-color-light);
-  color: var(--secondary-color-light);    
+  color: var(--secondary-color-light);
 }
 
 .custom-button--red {
   background-color: var(--alert-red-color);
   border: 4px solid var(--alert-red-color);
-  color: #000;  
+  color: #000;
 }
 
 .custom-button--red:hover {
   background-color: var(--primary-color);
-  color: var(--secondary-color-light);  
+  color: var(--secondary-color-light);
+}
+
+.custom-button--animation {
+  animation: fadeIn .7s ease-in-out forwards;
+  transform: translateY(1rem);
+  opacity: 0;
 }
 
 @media screen and (max-width: 400px){
