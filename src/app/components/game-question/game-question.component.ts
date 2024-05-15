@@ -8,11 +8,12 @@ import { TimerComponent } from '../timer/timer.component';
 import { GAME_SELECTORS } from '../../store/game/game.selectors';
 import { Store } from '@ngrx/store';
 import { AsyncPipe } from '@angular/common';
+import { LogoTitleComponent } from '../../shared/components/logo-title/logo-title.component';
 
 @Component({
   selector: 'app-game-question',
   standalone: true,
-  imports: [TimerComponent, AsyncPipe],
+  imports: [TimerComponent, AsyncPipe, LogoTitleComponent],
   templateUrl: './game-question.component.html',
   styleUrl: './game-question.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

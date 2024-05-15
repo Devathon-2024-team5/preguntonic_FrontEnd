@@ -11,6 +11,7 @@
 .message {
   transform: scale(0.7);
   font-size: var(--font-size-base);
+  text-align: center;
 
   @media screen and (min-width: 50rem) {
     font-size: var(--font-size-lg);
