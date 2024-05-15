@@ -1,8 +1,6 @@
 import { Component, Input, inject } from '@angular/core';
 import { ModalComponent } from '../modal/modal.component';
 import { CustomButtonComponent } from '../custom-btn/custom-button.component';
-import { Router } from '@angular/router';
-import { WebSocketApiService } from '../../../core/services/web-socket-api.service';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { GAME_ACTIONS } from '../../../store/game/game.actions';
@@ -19,7 +17,6 @@ export class ExitIconButtonComponent {
   @Input() size: "" | "medium" = "";
   stateModal = false;
 
-  constructor (private router: Router, private webSocketAPI: WebSocketApiService){}
   openModal() {
     this.stateModal = true;
     document.body.classList.add('without-overflow');

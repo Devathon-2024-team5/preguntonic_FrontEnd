@@ -24,6 +24,12 @@ export const appConfig: ApplicationConfig = {
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideHttpClient(withFetch()),
     provideAnimations(),
-    provideToastr(),
+    provideToastr({
+      preventDuplicates: true,
+      progressBar: true,
+      positionClass: 'toast-top-right',
+      progressAnimation: 'decreasing',
+      countDuplicates: true,
+    }),
   ],
 };

@@ -16,6 +16,7 @@ import { GAME_ACTIONS } from '../../store/game/game.actions';
 import { JsonPipe } from '@angular/common';
 import { ModalComponent } from "../../shared/components/modal/modal.component";
 import { SpinerComponent } from '../../shared/components/spiner/spiner.component';
+import { CapitalizePipe } from '../../shared/pipes/capitalize.pipe';
 
 @Component({
     selector: 'app-response-group',
@@ -23,7 +24,7 @@ import { SpinerComponent } from '../../shared/components/spiner/spiner.component
     templateUrl: './response-group.component.html',
     styleUrl: './response-group.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [ReactiveFormsModule, JsonPipe, ModalComponent, SpinerComponent]
+    imports: [ReactiveFormsModule, JsonPipe, ModalComponent, SpinerComponent, CapitalizePipe]
 })
 export class ResponseGroupComponent {
   private readonly _fb = inject(FormBuilder);

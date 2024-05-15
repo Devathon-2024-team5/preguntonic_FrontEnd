@@ -12,16 +12,20 @@
 .layout-footer {
   grid-row: 2/3;
   background-color: var(--secondary-color-dark);
+  position: relative;
+  z-index: 1;
+  padding:.5rem 1.5rem;
 
   @media screen and (min-width: 1200px) {
+    max-width: 1200px;
+    width: 100%;
+    margin-inline: auto;
     display: flex;
     justify-content: center;
-    width: 100%;
-    max-width: 1200px;
-    margin: auto;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     border: solid 4px var(--accent-color);
     border-bottom: none;
+    padding-inline: 1.5rem;
   }
 }

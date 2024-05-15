@@ -40,16 +40,13 @@ import { ToastrService } from 'ngx-toastr';
 export class HomeComponent {
   private store = inject(Store);
   private readonly _toastService = inject(ToastrService);
+  private readonly avatarService = inject(AvatarService);
 
-  avatars;
+  avatars = this.avatarService.getAllAvatars();
   currentAvatar: string = ''; // Avatar currently selected in modal component
   selectedAvatar: string = ''; // Avatar selected
   playerName: string = '';
   stateModal = signal(false);
-
-  constructor(private avatarService: AvatarService) {
-    this.avatars = this.avatarService.getAllAvatars();
-  }
 
   openModal(event: MouseEvent) {
     event.preventDefault();
@@ -69,14 +66,13 @@ export class HomeComponent {
   }
 
   public navigateView(route: Required<string>): void {
-    if (!this.selectAvatar || !this.playerName.trim()) {
-      this._toastService.error('Por favor, ingresa un nombre y seleccione un avatar', '',{
-        closeButton: true,
-        progressBar: true,
-        positionClass: 'toast-top-center',
-        progressAnimation: 'increasing'
-      });
-      return
+    if (!this.playerName.trim() || !this.selectedAvatar) {
+      this._toastService.error(
+        'Por favor, ingresa un nombre y seleccione un avatar',
+        'Preguntonic | Home'
+      );
+
+      return;
     }
 
     this.savePlayer();

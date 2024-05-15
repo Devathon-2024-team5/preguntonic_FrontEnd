@@ -21,7 +21,9 @@
             ) {
               <div
                 class="players d-flex flex-column justify-content-center align-items-center">
-                <app-avatar-with-frame frameMesuare="normal" [avatarId]="player.avatar"></app-avatar-with-frame>
+                <app-avatar-with-frame
+                  frameMesuare="normal"
+                  [avatarId]="player.avatar"></app-avatar-with-frame>
                 {{ player.playerName }}
                 <div
                   [ngClass]="{
@@ -29,19 +31,22 @@
                     offBar: player.status === 'IN_LOBBY_UNREADY'
                   }"></div>
               </div>
-            }@empty {
-              <p class="empty-message">
-                Esperando jugadores ...
-              </p>
+            } @empty {
+              <p class="empty-message">Esperando jugadores ...</p>
             }
           </div>
         }
       }
-      <app-custom-button
-        (click)="changeStatus()"
-        [variant]="btnStatus()"
-        >{{btnStatus() === '' ? 'Listo' : 'Esperando...' }}</app-custom-button
-      >
+      @if ((players$ | async)?.length || 0 > 0) {
+        <app-custom-button
+          [isActiveAnimation]="true"
+          (click)="changeStatus()"
+          [variant]="btnStatus()"
+          >{{
+            btnStatus() === '' ? 'Listo' : 'Esperando...'
+          }}</app-custom-button
+        >
+      }
     </div>
   </section>
 </div>
