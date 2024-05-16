@@ -5,5 +5,5 @@ export interface IInputConfig {
   name: string;
   type?: InputType;
   maxletngth?: number;
-  class?: string[]
+  classList?: Record<string, boolean>;
 }
