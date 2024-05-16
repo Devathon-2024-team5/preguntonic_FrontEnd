@@ -4,20 +4,26 @@
       <app-logo-title />
     </div>
     @if (currentQuestion$ | async; as question) {
-      @defer (when question.question.length > 0) {
-        <app-game-question
-          [question]="{
-            question: question.question,
-            numberQuestion: question.ordinal
-          }" />
-        <app-response-group
-          [answerData]="question.answers"
-          [idQuestion]="question.id" />
-      }@placeholder {
-        <app-modal>
-
-        </app-modal>
+      @if (question !== null && question.answers.length > 0) {
+        @defer() {
+          <app-game-question
+            [question]="{
+              question: question.question,
+              numberQuestion: question.ordinal,
+              questionId: question.id
+            }" />
+          <app-response-group
+            [answerData]="question.answers"
+            [idQuestion]="question.id" />
+        } @placeholder {
+          <app-modal>
+            <app-spiner message="Cargando preguntas ..."></app-spiner>
+          </app-modal>
+        } @error {
+          error
+        }
       }
     }
+
   </div>
 </app-in-game-layout>

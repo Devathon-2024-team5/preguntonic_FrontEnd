@@ -9,6 +9,7 @@
 }
 
 .message {
+  color: #fff;
   transform: scale(0.7);
   font-size: var(--font-size-base);
   text-align: center;

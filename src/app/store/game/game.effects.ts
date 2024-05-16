@@ -6,6 +6,7 @@ import {
   map,
   mergeMap,
   of,
+  retry,
   switchMap,
   tap,
 } from 'rxjs';
@@ -140,7 +141,8 @@ export class GameEffects {
             time,
             isTimeout
           );
-        })
+        }),
+        retry(3)
       );
     },
     { dispatch: false }
