@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { IInputConfig } from '../../interfaces/InputConfig.interface';
+
 
 @Component({
   selector: 'app-custom-input',
@@ -8,5 +10,5 @@ import { Component } from '@angular/core';
   styleUrl: './custom-input.component.css'
 })
 export class CustomInputComponent {
-
+  @Input() inputConfig: IInputConfig = {} as IInputConfig;
 }
