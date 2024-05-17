@@ -67,12 +67,24 @@ export const gameReducer = createReducer(
     })
   ),
   on(
+    GAME_ACTIONS.cleanPreviousQuestion,
+    (state): IGameState => ({
+      ...state,
+      currentQuestion: {
+        id: '',
+        answers: [],
+        ordinal: 0,
+        question: '',
+      },
+    })
+  ),
+  on(
     GAME_ACTIONS.restartGamesValues,
     (): IGameState => ({
       maxPlayers: 0,
       numOfQuestions: 0,
       roomCode: '',
-      error:  null,
+      error: null,
       isLoading: false,
       currentQuestion: {
         id: '',
@@ -84,7 +96,7 @@ export const gameReducer = createReducer(
       question: {
         question: '',
         answers: [],
-        correctAnswer:  null,
+        correctAnswer: null,
       },
       previousResult: {
         correct_answer_id: '',
@@ -94,8 +106,8 @@ export const gameReducer = createReducer(
           answers: [],
           ordinal: 0,
           question: '',
-        }
-      }
+        },
+      },
     })
   )
 );

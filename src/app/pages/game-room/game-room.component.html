@@ -4,8 +4,11 @@
       <app-logo-title />
     </div>
 
-    @if ((currentQuestion$ | async) !== null && (currentQuestion$ | async); as question) {
-      @defer (when question.answers) {
+    @if (
+      (currentQuestion$ | async) !== null && (currentQuestion$ | async);
+      as question
+    ) {
+      @defer (when question.answers && question.answers.length > 0) {
         <app-game-question
           [question]="{
             question: question.question,

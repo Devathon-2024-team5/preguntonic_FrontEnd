@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import statusCodeMessages from '../../config/statusCodeMessages';
+import statusCodeMessages from '../../const/statusCodeMessages';
 
 @Injectable({
   providedIn: 'root',

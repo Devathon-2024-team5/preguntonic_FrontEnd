@@ -11,6 +11,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError(e => {
       if (!(e instanceof HttpErrorResponse)) return EMPTY;
+      console.log(e);
 
       const errorMessage = statusHandlerService.getStatusCodeMessage(e.status);
       toastService.error(

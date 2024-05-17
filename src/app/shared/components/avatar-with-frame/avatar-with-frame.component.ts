@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { AvatarService } from '../../../core/services/avatar.service';
+import { AvatarService } from '../../services/avatar.service';
 import { backgroundValues, frameValues, shadowValues } from '../../../core/models/avatarWithFrameComponent.types';
 import { NgClass } from '@angular/common';
 import { IAvatar } from '../../../core/models/IAvatar.interface';

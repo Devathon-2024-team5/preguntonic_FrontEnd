@@ -15,7 +15,7 @@ import { AvatarWithFrameComponent } from '../../shared/components/avatar-with-fr
 import { InfoIconButtonComponent } from '../../components/info-icon-button/info-icon-button.component';
 import { ChangeIconButtonComponent } from '../../components/change-icon-button/change-icon-button.component';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
-import { AvatarService } from '../../core/services/avatar.service';
+import { AvatarService } from '../../shared/services/avatar.service';
 import { NgClass } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 
@@ -68,10 +68,6 @@ export class HomeComponent {
   public navigateView(route: Required<string>): void {
     if (!this.playerName.trim() || !this.selectedAvatar)
       throw new Error('Por favor, ingresa un nombre y seleccione un avatar');
-    // this._toastService.error(
-    //   'Por favor, ingresa un nombre y seleccione un avatar',
-    //   'Preguntonic | Home'
-    // );
 
     this.savePlayer();
     this.store.dispatch(GAME_ACTIONS.changeView({ route }));

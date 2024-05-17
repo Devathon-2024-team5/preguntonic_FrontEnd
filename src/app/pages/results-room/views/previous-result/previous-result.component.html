@@ -10,10 +10,10 @@
           delay: 900,
           label: 'tiempo para la siguiente pregunta'
         }" />
-      <app-correct-answer correctAnswer="{{ correctAnswer }}" />
+      <app-correct-answer correctAnswer="{{ answers.correct_answer }}" />
     } @placeholder {
       <app-modal [isOpen]="true">
-        <app-spiner message="Calculando puntaje..." />
+        <app-spiner message="Calculando puntaje ..." />
       </app-modal>
     }
   }

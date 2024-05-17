@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IAvatar } from '../models/IAvatar.interface';
+import { IAvatar } from '../../core/models/IAvatar.interface';
 
 const avatars:IAvatar[] = [
   {
@@ -36,7 +36,7 @@ const avatarDefault:IAvatar = {
 export class AvatarService {
   private avatars;
   private avatarDefault;
-  
+
   constructor() {
     this.avatars = avatars;
     this.avatarDefault = avatarDefault;
