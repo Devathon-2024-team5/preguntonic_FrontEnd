@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IInputConfig } from '../../interfaces/InputConfig.interface';
 
 
@@ -11,4 +11,10 @@ import { IInputConfig } from '../../interfaces/InputConfig.interface';
 })
 export class CustomInputComponent {
   @Input() inputConfig: IInputConfig = {} as IInputConfig;
+  @Output() valueChange: EventEmitter<string> = new EventEmitter<string>;
+
+  onValueChange(event:any){
+    this.inputConfig.value = event;
+    this.valueChange.emit(this.inputConfig.value);
+  }
 }
