@@ -66,14 +66,12 @@ export class HomeComponent {
   }
 
   public navigateView(route: Required<string>): void {
-    if (!this.playerName.trim() || !this.selectedAvatar) {
-      this._toastService.error(
-        'Por favor, ingresa un nombre y seleccione un avatar',
-        'Preguntonic | Home'
-      );
-
-      return;
-    }
+    if (!this.playerName.trim() || !this.selectedAvatar)
+      throw new Error('Por favor, ingresa un nombre y seleccione un avatar');
+    // this._toastService.error(
+    //   'Por favor, ingresa un nombre y seleccione un avatar',
+    //   'Preguntonic | Home'
+    // );
 
     this.savePlayer();
     this.store.dispatch(GAME_ACTIONS.changeView({ route }));

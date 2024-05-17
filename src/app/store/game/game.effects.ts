@@ -1,16 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import {
-  catchError,
-  exhaustMap,
-  map,
-  mergeMap,
-  of,
-  retry,
-  switchMap,
-  tap,
-} from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { exhaustMap, map, mergeMap, retry, tap } from 'rxjs';
 import { GAME_ACTIONS } from './game.actions';
 import { HttpService } from '../../core/services/http.service';
 import { Router } from '@angular/router';
@@ -39,10 +29,7 @@ export class GameEffects {
             if (!ok) throw new Error(`Failure to retrieve data`);
 
             return GAME_ACTIONS.setRoomCode({ roomCode: body['room_code'] });
-          }),
-          catchError(({ message }: HttpErrorResponse) =>
-            of(GAME_ACTIONS.loadGameFailure({ error: message }))
-          )
+          })
         )
       )
     );
@@ -130,7 +117,6 @@ export class GameEffects {
         tap(([{ answerId, idQuestion }, roomCode, { playerId }, time]) => {
           if (playerId === null || time === undefined)
             throw new Error('Error al enviar la respuesta');
-          console.log(playerId, time);
 
           const isTimeout = time === 0;
           this.webSocketApi.responseQuestion(
@@ -164,23 +150,19 @@ export class GameEffects {
   });
 
   public nextQuestion$ = createEffect(() => {
-    return this._actions$
-      .pipe(
-        ofType(GAME_ACTIONS.nextQuestion),
-        concatLatestFrom(() => [
-          this.store.select(GAME_SELECTORS.selectRoomCode),
-          this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer),
-        ]),
-        tap(([_, roomCode, { playerId }]) => {
-          if (playerId === null) throw new Error('');
+    return this._actions$.pipe(
+      ofType(GAME_ACTIONS.nextQuestion),
+      concatLatestFrom(() => [
+        this.store.select(GAME_SELECTORS.selectRoomCode),
+        this.store.select(CURRENT_PLAYER_SELECTS.selectCurrentPlayer),
+      ]),
+      map(([_, roomCode, { playerId }]) => {
+        if (playerId === null) throw new Error('aqui');
 
-          this.webSocketApi.nextQuestion(playerId, roomCode);
-        })
-      )
-      .pipe(
-        map(() => GAME_ACTIONS.changeView({ route: '/game-room' })),
-        catchError(error => of(GAME_ACTIONS.loadGameFailure({ error })))
-      );
+        this.webSocketApi.nextQuestion(playerId, roomCode);
+        return GAME_ACTIONS.changeView({ route: '/game-room' });
+      })
+    );
   });
 
   public restartGamesValues = createEffect(() => {

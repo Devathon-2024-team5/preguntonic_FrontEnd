@@ -6,7 +6,7 @@ import { LogoTitleComponent } from '../../shared/components/logo-title/logo-titl
 import { Store } from '@ngrx/store';
 import { GAME_SELECTORS } from '../../store/game/game.selectors';
 import { GAME_ACTIONS } from '../../store/game/game.actions';
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
 import { SpinerComponent } from "../../shared/components/spiner/spiner.component";
 import { ModalComponent } from "../../shared/components/modal/modal.component";
 
@@ -24,7 +24,8 @@ import { ModalComponent } from "../../shared/components/modal/modal.component";
         AsyncPipe,
         JsonPipe,
         SpinerComponent,
-        ModalComponent
+        ModalComponent,
+        NgIf
     ]
 })
 export class GameRoomComponent implements OnInit{

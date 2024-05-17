@@ -3,27 +3,23 @@
     <div class="gameRoom-title">
       <app-logo-title />
     </div>
-    @if (currentQuestion$ | async; as question) {
-      @if (question !== null && question.answers.length > 0) {
-        @defer() {
-          <app-game-question
-            [question]="{
-              question: question.question,
-              numberQuestion: question.ordinal,
-              questionId: question.id
-            }" />
-          <app-response-group
-            [answerData]="question.answers"
-            [idQuestion]="question.id" />
-        } @placeholder {
-          <app-modal>
-            <app-spiner message="Cargando preguntas ..."></app-spiner>
-          </app-modal>
-        } @error {
-          error
-        }
+
+    @if ((currentQuestion$ | async) !== null && (currentQuestion$ | async); as question) {
+      @defer (when question.answers) {
+        <app-game-question
+          [question]="{
+            question: question.question,
+            numberQuestion: question.ordinal,
+            questionId: question.id
+          }" />
+        <app-response-group
+          [answerData]="question.answers"
+          [idQuestion]="question.id" />
+      } @placeholder {
+        <app-modal [isOpen]="true">
+          <app-spiner message="Cargando preguntas ..."></app-spiner>
+        </app-modal>
       }
     }
-
   </div>
 </app-in-game-layout>

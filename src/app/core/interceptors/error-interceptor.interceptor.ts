@@ -1,20 +1,24 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
+import { EMPTY, catchError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { inject } from '@angular/core';
+import { HttpStatusHandlerService } from '../services/http-status-handler.service';
 
-export const errorInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
+export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const toastService = inject(ToastrService);
-  console.log(req);
+  const statusHandlerService = inject(HttpStatusHandlerService);
 
   return next(req).pipe(
-    catchError((e: HttpErrorResponse) =>
-      throwError(() =>
-        toastService.error(
-          `An unexpected error occurred: ${e.message}`,
-          'Error'
-        )
-      )
-    )
+    catchError(e => {
+      if (!(e instanceof HttpErrorResponse)) return EMPTY;
+
+      const errorMessage = statusHandlerService.getStatusCodeMessage(e.status);
+      toastService.error(
+        `An unexpected error occurred: ${errorMessage}`,
+        'Error'
+      );
+
+      return EMPTY;
+    })
   );
 };

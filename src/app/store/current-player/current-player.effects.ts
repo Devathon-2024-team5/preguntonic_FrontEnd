@@ -1,22 +1,18 @@
 import { Injectable, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
-import { catchError, concatMap, exhaustMap, map, of, retry, throttleTime, throwError } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { concatMap, exhaustMap, map } from 'rxjs';
 import { HttpService } from '../../core/services/http.service';
 import { Store } from '@ngrx/store';
 import { GAME_ACTIONS } from '../game/game.actions';
 import { CURRENT_PLAYER_SELECTS } from './current-player.selectors';
 import { CURRENT_PLAYER_ACTIONS } from './current-player.action';
-import { ToastrService } from 'ngx-toastr';
-import { retryWithToast } from '../../shared/utils/retryWithToastr';
 
 @Injectable()
 export class CurrentPlayerEffect {
   private readonly _actions$ = inject(Actions);
   private readonly _httpService = inject(HttpService);
   private readonly store = inject(Store);
-  private readonly toastrService = inject(ToastrService);
 
   createPlayer$ = createEffect(() => {
     return this._actions$.pipe(
@@ -41,7 +37,7 @@ export class CurrentPlayerEffect {
               route: '/anteroom',
               queryParams: { room_code: roomCode },
             }),
-          ]),
+          ])
         )
       )
     );
