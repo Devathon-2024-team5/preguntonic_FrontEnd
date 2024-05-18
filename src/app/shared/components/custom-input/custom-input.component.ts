@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IInputConfig } from '../../interfaces/InputConfig.interface';
-
+import { NgClass } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-custom-input',
   standalone: true,
-  imports: [],
+  imports: [NgClass,FormsModule],
   templateUrl: './custom-input.component.html',
   styleUrl: './custom-input.component.css'
 })
