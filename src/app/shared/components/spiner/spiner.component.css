@@ -9,7 +9,7 @@
 }
 
 .message {
-  color: #fff;
+  color: var(--secondary-color-light);
   transform: scale(0.7);
   font-size: var(--font-size-base);
   text-align: center;
