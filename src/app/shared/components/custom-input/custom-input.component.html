@@ -1,1 +1,20 @@
-<p>custom-input works!</p>
+<input 
+  [type]="inputConfig.type"
+  [name]="inputConfig.name"
+  [placeholder]="inputConfig.placeholder"
+  [maxLength]="inputConfig.maxletngth ?? 15"
+  [ngClass]="{'c-input--invalid': errorValidation()}"
+  class="c-input"
+  [(ngModel)]="inputConfig.value"
+  (ngModelChange)="onValueChange($event)"
+  [id]="inputConfig.id ?? inputConfig.name"
+  (blur)="onBlur()"
+  autocomplete="off"
+  required
+>
+<span 
+  [ngClass]="{
+    'c-message-error': true,
+    'u-hidden': !errorValidation(),
+  }"
+>Este campo es obligatorio</span>
