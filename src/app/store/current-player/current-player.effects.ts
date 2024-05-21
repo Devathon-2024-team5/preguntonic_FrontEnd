@@ -1,8 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
-import { catchError, concatMap, exhaustMap, map, of } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { concatMap, exhaustMap, map } from 'rxjs';
 import { HttpService } from '../../core/services/http.service';
 import { Store } from '@ngrx/store';
 import { GAME_ACTIONS } from '../game/game.actions';
@@ -38,10 +37,7 @@ export class CurrentPlayerEffect {
               route: '/anteroom',
               queryParams: { room_code: roomCode },
             }),
-          ]),
-          catchError(({ message }: HttpErrorResponse) =>
-            of(GAME_ACTIONS.loadGameFailure({ error: message }))
-          )
+          ])
         )
       )
     );

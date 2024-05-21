@@ -12,38 +12,32 @@ import { CorrectAnswerComponent } from '../../../../components/correct-answer/co
 import { Store } from '@ngrx/store';
 import { GAME_SELECTORS } from '../../../../store/game/game.selectors';
 import { AsyncPipe } from '@angular/common';
-import { ModalComponent } from "../../../../shared/components/modal/modal.component";
-import { SpinerComponent } from "../../../../shared/components/spiner/spiner.component";
+import { ModalComponent } from '../../../../shared/components/modal/modal.component';
+import { SpinerComponent } from '../../../../shared/components/spiner/spiner.component';
+import { GAME_ACTIONS } from '../../../../store/game/game.actions';
 
 @Component({
-    selector: 'app-previous-result',
-    standalone: true,
-    templateUrl: './previous-result.component.html',
-    styleUrl: './previous-result.component.css',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        InGameLayoutComponent,
-        ProgressBarComponent,
-        TablePositionsComponent,
-        LogoTitleComponent,
-        CorrectAnswerComponent,
-        AsyncPipe,
-        ModalComponent,
-        SpinerComponent
-    ]
+  selector: 'app-previous-result',
+  standalone: true,
+  templateUrl: './previous-result.component.html',
+  styleUrl: './previous-result.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    InGameLayoutComponent,
+    ProgressBarComponent,
+    TablePositionsComponent,
+    LogoTitleComponent,
+    CorrectAnswerComponent,
+    AsyncPipe,
+    ModalComponent,
+    SpinerComponent,
+  ],
 })
-export class PreviousResultComponent implements OnInit{
-  private readonly store = inject(Store)
-  Answers$ = this.store.select(GAME_SELECTORS.selectPrevResults)
-  correctAnswer = ""
+export class PreviousResultComponent implements OnInit {
+  private readonly store = inject(Store);
+  Answers$ = this.store.select(GAME_SELECTORS.selectPrevResults);
 
   ngOnInit(): void {
-    this.Answers$.subscribe(res => {
-      console.log( 'PREVIOUS RESULT' + JSON.stringify(res.correct_answer))
-      this.correctAnswer= res.correct_answer
-    })
-    
+    this.store.dispatch(GAME_ACTIONS.cleanPreviousQuestion());
   }
-  
-
 }

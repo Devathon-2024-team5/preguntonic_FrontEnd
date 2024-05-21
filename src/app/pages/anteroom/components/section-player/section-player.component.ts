@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AnteroomComponent } from '../../anteroom.component';
 import { AvatarWithFrameComponent } from '../../../../shared/components/avatar-with-frame/avatar-with-frame.component';
 
@@ -9,12 +9,7 @@ import { AvatarWithFrameComponent } from '../../../../shared/components/avatar-w
   templateUrl: './section-player.component.html',
   styleUrl: './section-player.component.css'
 })
-export class SectionPlayerComponent implements OnInit {
+export class SectionPlayerComponent {
   @Input() avatar: string = "";
   @Input() playerName: string = "";
-
-  ngOnInit(): void {
-    console.log(this.avatar);
-
-  }
 }

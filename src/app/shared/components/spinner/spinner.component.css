@@ -3,16 +3,14 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(2);
-  display: grid;
+  display: grid ;
   place-content: center;
   gap: 1rem;
 }
 
 .message {
-  color: var(--secondary-color-light);
-  transform: scale(0.7);
+  transform: scale(.7);
   font-size: var(--font-size-base);
-  text-align: center;
 
   @media screen and (min-width: 50rem) {
     font-size: var(--font-size-lg);
@@ -25,7 +23,7 @@
   height: 48px;
   border-radius: 50%;
   display: inline-block;
-  border-top: 4px solid #fff;
+  border-top: 4px solid #FFF;
   border-right: 4px solid transparent;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
@@ -39,7 +37,7 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border-left: 4px solid #00e670;
+  border-left: 4px solid #00E670;
   border-bottom: 4px solid transparent;
   animation: rotation 0.5s linear infinite reverse;
 }

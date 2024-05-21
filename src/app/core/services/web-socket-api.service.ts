@@ -29,14 +29,15 @@ export interface IResWebSocket {
 })
 export class WebSocketApiService {
   private readonly store: Store<AppState> = inject(Store);
-  webSocketEndPoint: string = 'https://preguntonic-backend.onrender.com/preguntonic';
+  webSocketEndPoint: string =
+    'https://preguntonic-backend.onrender.com/preguntonic';
   topic: string = '/room/';
   stompClient: any;
   roomId: string = '';
   player_name: string = '';
   avatar: string = '';
   playerId: string = '';
-  router = inject(Router)
+  router = inject(Router);
 
   _connect(
     roomId: string,
@@ -79,9 +80,8 @@ export class WebSocketApiService {
         _this.stompClient.subscribe(
           _this.topic + roomId + '/questions',
           (wsResponse: IMessage) => {
-            const { correct_answer_id, players, question , correct_answer } = JSON.parse(
-              wsResponse.body
-            ) as ResponseQuestionDTO;
+            const { correct_answer_id, players, question, correct_answer } =
+              JSON.parse(wsResponse.body) as ResponseQuestionDTO;
 
             this.store.dispatch(
               GAME_ACTIONS.saveResults({
@@ -90,18 +90,17 @@ export class WebSocketApiService {
                     correct_answer_id,
                     players,
                     question,
-                    correct_answer
+                    correct_answer,
                   },
                 },
               })
             );
 
-            if(question.ordinal === 5) {
-              this.router.navigate(['/results-room/final-results'])
+            if (question.ordinal === 5) {
+              this.router.navigate(['/results-room/final-results']);
             } else {
-              this.router.navigate(['/results-room/previous-result'])
+              this.router.navigate(['/results-room/previous-result']);
             }
-
           }
         );
 
@@ -140,8 +139,6 @@ export class WebSocketApiService {
     timeMs: number,
     isSetTimeout: boolean
   ) {
-    // const isNull = answerId.trim() === '' ? null : answerId
-
     this.stompClient.send(
       `/app/rooms/${roomId}/game/players/${player_id}/response`,
       {},

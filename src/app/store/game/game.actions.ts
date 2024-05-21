@@ -47,7 +47,7 @@ const changeStatus = createAction(
 
 const sendResponse = createAction(
   '[Game Room] Send answer question',
-  props<{ answerId: string | null ; idQuestion: string }>()
+  props<{ answerId: string | null; idQuestion: string }>()
 );
 
 const saveTimeResponse = createAction(
@@ -55,11 +55,16 @@ const saveTimeResponse = createAction(
   props<{ time: number; isSetTimeout: boolean }>()
 );
 
-const saveResults = createAction('[Game Room] Save results',
-  props<{result: Pick<IGameState, 'previousResult'>}>()
+const saveResults = createAction(
+  '[Game Room] Save results',
+  props<{ result: Pick<IGameState, 'previousResult'> }>()
 );
 
-const restartGamesValues = createAction('[Game Room] Restart games values')
+const cleanPreviousQuestion = createAction(
+  '[Previous Result Room] Clean previous question'
+);
+
+const restartGamesValues = createAction('[Game Room] Restart games values');
 
 export const GAME_ACTIONS = {
   loadGame,
@@ -76,5 +81,6 @@ export const GAME_ACTIONS = {
   saveTimeResponse,
   nextQuestion,
   saveResults,
-  restartGamesValues
+  restartGamesValues,
+  cleanPreviousQuestion
 };
