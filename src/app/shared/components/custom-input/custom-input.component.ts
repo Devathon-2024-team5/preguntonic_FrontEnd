@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, signal } from '@angular/core';
 import { IInputConfig } from '../../interfaces/InputConfig.interface';
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,24 +13,23 @@ import { FormsModule } from '@angular/forms';
 export class CustomInputComponent implements OnChanges{
   @Input() inputConfig: IInputConfig = {} as IInputConfig;
   @Output() valueChange: EventEmitter<string> = new EventEmitter<string>;
-  classes: string[] = [];
+  
+  errorValidation = signal(false);
 
-  onValueChange(event:any){
+  onValueChange(event:string){
     this.inputConfig.value = event;
     this.valueChange.emit(this.inputConfig.value);
   }
 
-  updateClassesToApply() {
-    this.classes = ['c-input'];
-    if(this.inputConfig.hasValidationError) {
-      this.classes.push('c-input--invalid')
-    }
+  onBlur() {
+    this.inputConfig.value.trim() === ''
+      ? this.errorValidation.set(true)
+      : this.errorValidation.set(false);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const hasValidationErrorChange = changes["inputConfig"].currentValue?.hasValidationError !== changes["inputConfig"].previousValue?.hasValidationError;
-    if(hasValidationErrorChange) {
-      this.updateClassesToApply();
+    if(changes["inputConfig"].currentValue.hasValidationError && this.inputConfig.value.trim() === '') {
+      this.errorValidation.set(true);
     }
   }
 }
