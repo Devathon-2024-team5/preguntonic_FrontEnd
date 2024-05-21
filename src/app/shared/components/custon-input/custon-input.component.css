@@ -32,4 +32,8 @@
   color: var(--alert-red-color);
   font-size: 1.25rem;
   text-align: center;
+
+  @media screen and (min-width: 1200px) {
+    font-size: 1.5rem;
+  }
 }

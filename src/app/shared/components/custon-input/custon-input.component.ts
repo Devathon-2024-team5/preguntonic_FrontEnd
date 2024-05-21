@@ -4,11 +4,11 @@ import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-custom-input',
+  selector: 'app-custon-input',
   standalone: true,
   imports: [NgClass,FormsModule],
-  templateUrl: './custom-input.component.html',
-  styleUrl: './custom-input.component.css'
+  templateUrl: './custon-input.component.html',
+  styleUrl: './custon-input.component.css'
 })
 export class CustomInputComponent implements OnChanges{
   @Input() inputConfig: IInputConfig = {} as IInputConfig;
