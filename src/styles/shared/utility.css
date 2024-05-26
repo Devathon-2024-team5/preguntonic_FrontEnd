@@ -42,4 +42,6 @@
   }
 }
 
-
+.u-hidden {
+  visibility: hidden;
+}
